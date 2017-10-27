@@ -14,23 +14,36 @@
 #ifndef GESTACC_H
 #define GESTACC_H
 
-#include "Parser.h"
+#include "textParser.h"
 
-class GestorAcciones
+// struct para chequear existencia
+typedef struct {
+	bool correct;
+	int order;
+	int element;
+	int prepos;
+	int element2;
+} words;
+
+class actionManager
 {
 private:
 	// parser propio para parsear el texto analizado
-	Parser				parser;
+	textParser				parser;
 
-	char				textoInput[100];
+	char				inputText[100];
+
+	words wordsExistant;
+
 public:
-	GestorAcciones();
-	~GestorAcciones();
+	actionManager();
+	~actionManager();
 
-	void analizarInput(void);
-	void parsear(void);
-	void generarRespuesta(void);
-	void actuar(void);
+	void inputAnalysis(void);
+	bool parsing(void);
+	int checkExistance(void);
+	void generateAnswer(void);
+	void act(void);
 };
 
 #endif

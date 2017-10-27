@@ -13,31 +13,25 @@
 #ifndef OBJETOACT_H
 #define OBJETOACT_H
 
-// includes
-#include <stdio.h>
-#include <stdlib.h>
 
-// defines
-
-class objetoActivo
+class activeObject
 {
-private: 
+private:
 	int					id;
-	char*				nombre;
-	char*				descripcion;
+	char*				name;
+	char*				description;
 	// el estado determina si el objeto ya ha sido cogido (true) o no (false)
-	bool				estado;
-
+	bool				state;
 public:
-	objetoActivo();
-	objetoActivo(int id, char* nombre, char* descripcion);
-	~objetoActivo();
+	activeObject();
+	activeObject(int id, char* name, char* description);
+	~activeObject();
 
 	int getID(void);
-	char* getNombre(void);
-	char* getDescripcion(void);
-	bool getEstado(void);
-	void interactuar(void);
+	char* getName(void);
+	char* getDescription(void);
+	bool getState(void);
+	void interact(void);
 };
 
 #endif

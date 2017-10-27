@@ -13,10 +13,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //#include "descripciones.h"
-#include "GestorArranque.h"
-#include "funcionesAuxiliares.h"
+#include "startManager.h"
+#include "auxiliaryFunctions.h"
 //#include "lugar.h"
 //#include "objetoActivo.h"
 
@@ -26,16 +27,19 @@ int main(int argc, char **argv)
 {
 	printf("Bienvenido al juego.\n\n");
 
+	// Reservar todo el espacio necesariop para memoria dinámica
+	allocateSpace();
+
 	// Cargar juego
-	GestorArranque GA;
-	GA.cargaObjetos();
-	GA.cargaLugares();
+	startManager SM;
+	SM.objectLoader();
+	SM.placeLoader();
 
 	// Iniciar juego
-	GA.iniciaPartida();
+	SM.gameStart();
 
 	// Bucle del juego
-	jugar();
+	play();
 
 	// tests
 	printf("Fin del juego.\n\n");

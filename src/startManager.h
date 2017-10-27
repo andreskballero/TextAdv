@@ -14,11 +14,11 @@
 #define GESTARR_H
 
 //includes
-#include "descripciones.h"
-#include "lugar.h"
-#include "objetoActivo.h"
+#include "descriptions.h"
+#include "place.h"
+#include "activeObject.h"
 
-class GestorArranque
+class startManager
 {
 private:
 	// porque como máximo se cargarán 100 objetos en el juego
@@ -27,16 +27,15 @@ private:
 	// contenidos reservados de forma dinámica
 
 	//objetoActivo*				colaObjetos[100]; 
-	objetoActivo*				colaObjetos = new objetoActivo[100];
-
+	//activeObject*				objectStack = new activeObject[100]; // mejor global
 public:
-	GestorArranque();
-	~GestorArranque();
+	startManager();
+	~startManager();
 
-	void cargaObjetos(void);
-	void cargaLugares(void);
+	void objectLoader(void);
+	void placeLoader(void);
 
-	void iniciaPartida(void);
+	void gameStart(void);
 };
 
 #endif

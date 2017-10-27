@@ -13,22 +13,13 @@
 #ifndef OBJETOPAS_H
 #define OBJETOPAS_H
 
-// includes
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-
-#include "objeto.h"
-
-class objetoPasivo : public objeto 
+class passiveObject
 {
-private:
-
 public:
-	objetoPasivo();
-	~objetoPasivo();
+	passiveObject();
+	~passiveObject();
 
-	void interactuar(void);
+	void interact(void);
 };
 
 #endif

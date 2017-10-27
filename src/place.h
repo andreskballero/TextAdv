@@ -18,36 +18,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "objetoActivo.h"
-#include "objetoPasivo.h"
+#include "activeObject.h"
+#include "passiveObject.h"
 
-// defines
-
-class lugar
+class place
 {
 private:
 	int					id;
 
 	// hay dos descripciones: [0] es la de entrada, [1] la normal
-	char*				descripcion[2];
+	char*				description[2];
 
 	// como mucho, 4 objetos activos y pasivos por lugar
-	objetoActivo*		objetosA[4];
-	objetoPasivo*		objetosP[4];
-
+	activeObject*		objectsA[4];
+	passiveObject*		objectsP[4];
 public:
-	lugar(int id,  char* descripcion[]);
-	~lugar();
+	place();
+	place(int id, char* description[]);
+	~place();
 
-	uint8_t getId(void);
-	char** getDescripcion(void);
+	int getId(void);
+	char** getDescription(void);
 
-	void setObjetosActivo(objetoActivo* obj0, objetoActivo* obj1, objetoActivo* obj2, objetoActivo* obj3);
-	objetoActivo** getObjetosActivo(void);
+	void setActiveObjects(activeObject* obj0, activeObject* obj1, activeObject* obj2, activeObject* obj3);
+	activeObject** getActiveObjects(void);
 
-	void setObjetosPasivo(objetoPasivo* obj0, objetoPasivo* obj1, objetoPasivo* obj2, objetoPasivo* obj3);
-	objetoPasivo** getObjetosPasivo(void);
-
+	void setPassiveObjects(passiveObject* obj0, passiveObject* obj1, passiveObject* obj2, passiveObject* obj3);
+	passiveObject** getPassiveObjects(void);
 };
 
 #endif

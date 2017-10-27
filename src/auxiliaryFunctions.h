@@ -1,6 +1,8 @@
 #ifndef FUNCAUX_H
 #define FUNCAUX_H
 
-void jugar(void);
+void allocateSpace(void);
+
+void play(void);
 
 #endif
