@@ -31,18 +31,21 @@ char*				stairsupText = "Son las escaleras para subir a la primera planta.";
 char*				stairsupName = "unas escaleras hacia arriba";
 
 
-place*				placeStack = new place[TOTAL_PLACES];
+activeObject*		lobbyActiveObjects[MAX_ACTIVE_ITEMS_PLACE];
+
+// lugares del juego
 
 // hecho con array dinámico para poder eliminar con el delete los objetos
 // contenidos reservados de forma dinámica
 // está bien hacer esto aquí?
-activeObject*		objectStack = new activeObject[TOTAL_OBJECTS];
+activeObject*		objectStack[TOTAL_OBJECTS];
 // acuérdate de delete[] objectStack;
 
 char*				textWords[MAX_WORDS_INPUT];
 
-char*				possibleOrders[] = { "mirar", "coger" };
+char*				possibleOrders[] = {"mirar", "coger"};
 
+char*				possibleDirections[] = {"atras", "izquierda", "derecha", "adelante"};
 
 //-----------------------------------------------------------------------------
 //

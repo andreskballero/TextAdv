@@ -1,0 +1,216 @@
+//-----------------------------------------------------------------------------
+//
+// $Id:$
+//
+// Copyright (C) 2017 by Andrés K.
+//
+// DESCRIPCIÓN:
+// Definiciones del gestor de acciones.
+//    
+//-----------------------------------------------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "gameManager.h"
+
+
+// debería cargar todos los objetos automáticamente, mediante 
+// referencias claras y ordenadas
+void gameManager::objectLoader(void)
+{
+	// revisar esto... es necesario el new porque, si no, los objetos se destruyen al
+	// terminar la función y se pierden las referencias
+
+	/*activeObject* cesto = new activeObject(BASKET, basketName, basketText);
+	activeObject* fotoFam = new activeObject(FAMPIC, fampicName, fampicText);
+	activeObject* espejo = new activeObject(MIRROR, mirrorName, mirrorText);
+	activeObject* escalerasArriba = new activeObject(STAIRSUP, stairsupName, fampicText);*/
+
+	// esto sería otra solución, con un init, para no llamar al constructor manualmente
+	//activeObject* cesto = (activeObject*) malloc(sizeof(activeObject));
+	//cesto->init(BASKET, basketName, basketText);
+
+	//printf("%s\n", cesto.getDescripcion());
+
+	/*objectStack[0] = cesto;
+	objectStack[1] = fotoFam;
+	objectStack[2] = espejo;
+	objectStack[3] = escalerasArriba;*/
+
+	/*placeActiveObjects[LOBBY] = { { new activeObject(BASKET, basketName, basketText) },
+								  { new activeObject(FAMPIC, fampicName, fampicText) },
+								  { new activeObject(MIRROR, mirrorName, mirrorText) },
+								  { new activeObject(STAIRSUP, stairsupName, fampicText) } };*/
+
+	// inicializar los objetos de cada place
+
+	lobbyActiveObjects[OBJECT0] = new activeObject(BASKET, basketName, basketText);
+	lobbyActiveObjects[OBJECT1] = new activeObject(FAMPIC, fampicName, fampicText);
+	lobbyActiveObjects[OBJECT2] = new activeObject(MIRROR, mirrorName, mirrorText);
+	lobbyActiveObjects[OBJECT3] = new activeObject(STAIRSUP, stairsupName, fampicText);
+}
+
+
+// debería cargar todos los lugares automáticamente, mediante 
+// referencias claras y ordenadas, además de añadir los objetos
+// a los lugares
+void gameManager::placeLoader(void)
+{
+	// inicializar lugares
+	/*place* lobby = new place(LOBBY, "lobby", lobbyText);
+	placeStack[LOBBY] = lobby;
+	printf("%s\n\n%s\n\n%s\n\n", lobby->getDescription()[PLACE_INITIAL], lobby->getDescription()[PLACE_DESCRIPTION], lobby->getName());
+
+	// cargar objetos inicializados
+	lobby->setActiveObjects(objectStack[0], objectStack[1], objectStack[2], objectStack[3]);*/
+	//activeObject** aux = lobby->getActiveObjects();
+	//printf("%s\n\n", aux[1]->getDescription());
+	//printf("%s\n", recibidor.getObjetosActivo()[1]->getDescripcion());
+	//printf("%s\n", recibidor.getObjetosActivo()[2]->getDescripcion());
+	//printf("%s\n", recibidor.getObjetosActivo()[3]->getDescripcion());
+
+	this->map.loadObjectsPlaces();
+}
+
+
+void gameManager::playerLoader(void)
+{
+	player.setObjectsPossessed(0);
+	player.setCurrentPlace(map.getPlacesConfig()[LOBBY]);
+}
+
+gameManager::gameManager()
+{
+	// inicializar struct
+	wordsExistant.correct = false;
+	wordsExistant.order = 0;
+	wordsExistant.element = 0;
+	wordsExistant.prepos = 0;
+	wordsExistant.element2 = 0;
+}
+
+
+gameManager::~gameManager()
+{
+}
+
+
+void gameManager::gameLoad(void)
+{
+	this->objectLoader();
+	this->placeLoader();
+	this->playerLoader();
+	//this->map.loadObjectsPlaces();
+}
+
+
+void gameManager::gameStart(void)
+{
+	printf("%s\n\n%s\n\n", welcomeText, contextText);
+}
+
+// recibir el input
+void gameManager::getInput(void)
+{
+	// de momento vale, pero hay que asegurar que el input no sea mayor que el
+	// buffer del array... si no... crec!
+	// no hace falta memset porque aparentemente el scanf ya limpia el array
+	// cuando se vuelve a usar
+
+	printf("\nIntroducir orden: ");
+	//scanf_s("%s", textoInput, sizeof(char)*100);
+
+	// en vez de fgets, usar sscanf??????????????
+	// stackoverflow.com/questions/12019947/null-termination-of-char-array
+	fgets(inputText, MAX_INPUT_SIZE, stdin);
+
+	/*for (int i = 0; i < strlen(inputText); ++i)
+	{
+		printf("%ca\n", inputText[i]);
+		printf("%d\n", inputText[i]);
+	}
+
+	int **a = NULL;
+	int* punt = NULL;
+	int i = 40;
+
+	a = &punt;
+	punt = &i;
+	*a = punt;
+	printf("%d, %d, %d\n", *a, &i, **a);*/
+
+	//printf("%d, %d\n\n", textoInput[0], strlen(textoInput));
+}
+
+// parsear el input
+bool gameManager::parsing(void)
+{
+	printf("Soy parsing\n");
+	return this->parser.processText(inputText);
+}
+
+// comprobar que del input se extraen los elementos correctos que se
+// corresponden con órdenes del juego; devuelve una struct con la orden, 
+// el elemento, preposición y elemento2
+int gameManager::checkExistance(void)
+{
+	printf("Soy checkexistance\n");
+
+	char* order = textWords[0];
+	char* element = textWords[1];
+	char* prepos = textWords[2];
+	char* element2 = textWords[3];
+
+	// no sólo comprobar la orden, tambien objetos... etc OJO!!!!!
+	for (int orderPosition = 0; orderPosition < TOTAL_ORDERS; ++orderPosition)
+	{
+		if (0 == strcmp(order, possibleOrders[orderPosition]))
+		{
+			wordsExistant.order = orderPosition;
+			wordsExistant.correct = true;
+			printf("\tLa orden %s existe\n\n", order);
+		}
+	}
+
+	return true;
+}
+
+
+// en función de las palabras, actuar
+void gameManager::act(void)
+{
+	// compruebo si existe la orden y elementos
+	if (wordsExistant.correct)
+	{
+		switch (wordsExistant.order)
+		{
+		case LOOK_AT:
+			//printf("%s\n", placeStack[LOBBY].getDescription()[PLACE_DESCRIPTION]);
+
+			// de momento, si hago mirar, el jugador mira donde está y se hace un print
+			// de la descripción del lugar
+
+			// POR AQUÍ
+
+			printf("Estoy en: %s\n\nDescripcion del lugar: %s\n\n", player.getCurrentPlace()->name, player.getCurrentPlace()->description[PLACE_DESCRIPTION]);
+
+			// más adelante, el jugador podrá mirar también objetos, pero siempre que
+			// se encuentren en la misma habitación
+			break;
+		case PICK_UP:
+			printf("Pick up\n");
+			break;
+		case GO_TO: // AQUÍ ESTOY!: AHORA, CARGAR VARIAS HABITACIONES Y ESTABLECER LAS RELACIONES
+					// Y MOVER AL PERSONAJE POR ELLAS
+			break;
+		default:
+			//printf("Esa orden no existe\n\n");
+			break;
+		}
+	}
+	else {
+		printf("\tEsa orden no existe\n");
+	}
+}

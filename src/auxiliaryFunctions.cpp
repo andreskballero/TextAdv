@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "descriptions.h"
-#include "actionManager.h"
+#include "gameManager.h"
 #include "auxiliaryFunctions.h"
 
 
@@ -17,16 +17,21 @@ void allocateSpace(void)
 
 void play(void)
 {
-	actionManager AM;
+	gameManager GM;
 
-	AM.inputAnalysis();
-	if (AM.parsing() && AM.checkExistance()) // orden de ejecución a derechas, no?
-	{
-			AM.generateAnswer();
-			AM.act();
-	}
-	else {
-		// ver cómo se responde que no se puede hacer nada
-	}
+	// cargar elementos del juego
+	GM.gameLoad();
 	
+	while (1)
+	{
+		GM.getInput();
+		if (GM.parsing() && GM.checkExistance()) // orden de ejecución a derechas, no?
+		{
+			//AM.generateAnswer();
+			GM.act();
+		}
+		else {
+			// ver cómo se responde que no se puede hacer nada
+		}
+	}	
 }

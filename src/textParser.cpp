@@ -31,7 +31,7 @@ textParser::~textParser()
 {
 }
 
-// Función que procesa el la línea de input para guardar las palabras
+// función que procesa la línea de input para guardar las palabras
 // en sus posiciones globales;
 // si se ha parseado una orden de manera correcta, entonces
 // se compara con las posibles opciones y se procede a actuar
@@ -62,10 +62,10 @@ bool textParser::processText(char * orderElement)
 			// null terminator
 			text[indexWord] = '\0';
 			strcpy_s(textWords[globalWord++], sizeof(text) + 1, text);
-			indexWord = -1;
+			indexWord = -1; // reset del índice local de palabras
 
 			//printf("%s\n", textWords[0]);
-			printf("%s, %s, %s, %s\n", textWords[0], textWords[1], textWords[2], textWords[3]);
+			printf("\t[%s, %s, %s, %s]\n\n", textWords[0], textWords[1], textWords[2], textWords[3]);
 
 			memset(text, 0, sizeof(text)); // reseteo text
 		}

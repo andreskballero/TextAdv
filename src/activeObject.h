@@ -21,7 +21,7 @@ private:
 	char*				name;
 	char*				description;
 	// el estado determina si el objeto ya ha sido cogido (true) o no (false)
-	bool				state;
+	bool				pickedUp;
 public:
 	activeObject();
 	activeObject(int id, char* name, char* description);
@@ -35,3 +35,9 @@ public:
 };
 
 #endif
+
+//-----------------------------------------------------------------------------
+//
+// $Log:$
+//
+//-----------------------------------------------------------------------------

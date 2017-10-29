@@ -8,9 +8,9 @@ activeObject::activeObject()
 
 activeObject::activeObject(int id, char * name, char * description)
 {
-	this->state = false;
 	this->name = name;
 	this->description = description;
+	this->pickedUp = false;
 }
 
 activeObject::~activeObject()
@@ -34,7 +34,7 @@ char * activeObject::getDescription(void)
 
 bool activeObject::getState(void)
 {
-	return this->state;
+	return this->pickedUp;
 }
 
 void activeObject::interact(void)
