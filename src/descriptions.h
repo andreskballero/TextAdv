@@ -27,8 +27,8 @@
 #define MAX_NEXT_PLACES			4
 
 #define TOTAL_OBJECTS			100
-#define TOTAL_ORDERS			2
-#define TOTAL_PLACES			10
+#define TOTAL_ORDERS			3
+#define TOTAL_PLACES			2
 
 #define PLACE_INITIAL			0
 #define PLACE_DESCRIPTION		1
@@ -38,6 +38,10 @@
 #define OBJECT2					2
 #define OBJECT3					3
 
+#define LEFT					0
+#define RIGHT					1
+#define FORWARD					2
+#define	BACKWARD				3
 
 // identificadores de orden
 #define LOOK_AT					0
@@ -46,7 +50,11 @@
 
 // identificadores de habitación
 #define LOBBY					0
-#define KITCHEN					1
+#define GARAGE					1
+#define CORRIDOR				2
+#define KITCHEN					3
+#define BATHROOM				4
+#define LIVINGROOM				5
 
 // identificadores de objeto activo (10-19)
 
@@ -64,6 +72,11 @@ extern char*				contextText;
 
 // descripciones de lugar
 extern char*				lobbyText[];
+extern char*				corridorLvl0Text[];
+extern char*				garageText[];
+extern char*				kitchenText[];
+extern char*				bathroomText[];
+extern char*				livingRoomText[];
 
 // descripciones de objeto activo
 	// recibidor
@@ -85,6 +98,7 @@ extern char*				stairsupName;
 // variables globales
 	// objetos activos de los lugares
 extern activeObject*		lobbyActiveObjects[];
+extern activeObject*		garageActiveObjects[];
 
 // lista que usa el parser para guardar el input
 extern char*				textWords[];
@@ -95,6 +109,9 @@ extern char*				possibleOrders[];
 // posibles direcciones que se contemplan en las
 // diversas zonas del juego
 extern char*				possibleDirections[];
+
+// posibles lugares del juego
+extern char*				possiblePlaces[];
 
 #endif
 

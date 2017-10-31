@@ -16,10 +16,20 @@ char*				welcomeText = {"Bienvenido a \"Encuentra tu jeta\". Esta es una " \
 
 char*				contextText = {"Estas en una casa... haz algo!"};
 
-char*				lobbyText[] = { "Entras al recibidor. Parece una familia limpia.",
-										"En el recibidor hay un cesto, una foto de la " \
-										"familia, un espejo y unas escaleras de acceso " \
-										"al segundo piso." };
+char*				lobbyText[] = { "El recibidor. Bonito e iluminado.",
+									"En el recibidor hay un cesto, una foto de la " \
+									"familia, un espejo y unas escaleras de acceso " \
+									"al segundo piso." };
+
+char*				corridorLvl0Text[] = {"Un pasillo.", "El pasillo es recto, " \
+											"como suelen ser los pasillos."};
+char*				garageText[] = { "El garaje de la casa.", "Menudo Ferrari tienen." };
+char*				kitchenText[] = { "La cocina.", "Es una cocina cálida, pero la de " \
+										"mi abuela era mucho mejor."};
+char*				bathroomText[] = { "El cuarto de baño del piso de abajo.", "Es un " \
+										"cuarto de bano pequeno. No sé cómo se las arreglan." };
+char*				livingRoomText[] = { "Un espacioso salón comedor.", "En este salón se " \
+										"podría celebrar una comida estupenda."};
 
 char*				basketText = "Es un bonito cesto de mimbre.";
 char*				basketName = "un cesto";
@@ -32,6 +42,7 @@ char*				stairsupName = "unas escaleras hacia arriba";
 
 
 activeObject*		lobbyActiveObjects[MAX_ACTIVE_ITEMS_PLACE];
+activeObject*		garageActiveObjects[MAX_ACTIVE_ITEMS_PLACE];
 
 // lugares del juego
 
@@ -43,9 +54,11 @@ activeObject*		objectStack[TOTAL_OBJECTS];
 
 char*				textWords[MAX_WORDS_INPUT];
 
-char*				possibleOrders[] = {"mirar", "coger"};
+char*				possibleOrders[] = {"mirar", "coger", "ir"};
 
 char*				possibleDirections[] = {"atras", "izquierda", "derecha", "adelante"};
+
+char*				possiblePlaces[] = { "lobby", "garaje" };
 
 //-----------------------------------------------------------------------------
 //

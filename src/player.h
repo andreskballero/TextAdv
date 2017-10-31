@@ -23,7 +23,7 @@ private:
 	activeObject*			inventory[MAX_ITEMS_INVENTORY];
 
 	// posición actual del jugador
-	placeConfig*			currentPlace;
+	int						currentPlace;
 public:
 	player();
 	~player();
@@ -34,9 +34,9 @@ public:
 	void move(char* currentPosition, char* targetDirection);
 
 	void setObjectsPossessed(int oPossessed);
-	void setCurrentPlace(placeConfig* newPlace);
+	void setCurrentPlace(int newPlace);
 	int getObjectsPossessed(void);
-	placeConfig* getCurrentPlace(void);
+	int getCurrentPlace(void);
 };
 
 #endif

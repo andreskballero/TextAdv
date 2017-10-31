@@ -4,7 +4,7 @@
 player::player()
 {
 	this->objectsPosessed = 0;
-	this->currentPlace = NULL;
+	this->currentPlace = LOBBY;
 }
 
 
@@ -28,7 +28,7 @@ void player::setObjectsPossessed(int oPossessed)
 	this->objectsPosessed = oPossessed;
 }
 
-void player::setCurrentPlace(placeConfig* newPlace)
+void player::setCurrentPlace(int newPlace)
 {
 	this->currentPlace = newPlace;
 }
@@ -38,7 +38,7 @@ int player::getObjectsPossessed(void)
 	return this->objectsPosessed;
 }
 
-placeConfig * player::getCurrentPlace(void)
+int player::getCurrentPlace(void)
 {
 	return this->currentPlace;
 }

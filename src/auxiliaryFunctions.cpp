@@ -32,6 +32,7 @@ void play(void)
 		}
 		else {
 			// ver cómo se responde que no se puede hacer nada
+			printf("Introduce una orden correcta.\n\n");
 		}
 	}	
 }

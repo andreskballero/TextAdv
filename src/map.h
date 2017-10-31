@@ -21,8 +21,8 @@
 // struct que contiene un lugar y la dirección hacia
 // la que girar para ir (estando en un lugar adyacente)
 typedef struct {
-	char* nextPlace;
 	char* direction;
+	char* nextPlace;
 } placeRelations;
 
 // struct para guardar todos los datos de un lugar
@@ -39,7 +39,7 @@ typedef struct {
 	passiveObject**		objectsP;
 
 	// struct para guardar las relaciones
-	placeRelations*		nextPlaces;
+	placeRelations*		nextPlaces[MAX_NEXT_PLACES];
 } placeConfig;
 
 class map
@@ -50,7 +50,9 @@ private:
 	placeConfig*		placesConfig[TOTAL_PLACES];
 
 	// función que permite crear una nueva struct y devolverla
-	placeConfig* loadStruct(int newId, char* newName, char** newDescription, activeObject** newObjectsA, placeRelations* newRelations);
+	placeConfig* loadStruct(int newId, char* newName, char** newDescription, activeObject** newObjectsA);
+
+	void loadRelations(placeConfig* newPlace, placeRelations** newNextPlaces);
 
 public:
 	map();
@@ -58,7 +60,7 @@ public:
 
 	// función que crea todas las structs necesarias del juego
 	// y las añade al array de places
-	void loadObjectsPlaces(void);
+	void loadObjectsAndPlaces(void);
 
 	// función llamada por el player que comprueba que, según la 
 	// posición actual del player, se puede mover en la dirección
