@@ -52,6 +52,7 @@ activeObject*		garageActiveObjects[MAX_ACTIVE_ITEMS_PLACE];
 activeObject*		objectStack[TOTAL_OBJECTS];
 // acuérdate de delete[] objectStack;
 
+// input recibido, 4 palabras a lo sumo
 char*				textWords[MAX_WORDS_INPUT];
 
 char*				possibleOrders[] = {"mirar", "coger", "ir"};

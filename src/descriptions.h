@@ -21,7 +21,7 @@
 // defines genéricos
 #define MAX_WORDS_INPUT			4
 #define MAX_WORD_SIZE			20
-#define MAX_INPUT_SIZE			100
+#define MAX_INPUT_SIZE			80
 #define MAX_ITEMS_INVENTORY		10
 #define MAX_ACTIVE_ITEMS_PLACE	4
 #define MAX_NEXT_PLACES			4
@@ -64,6 +64,13 @@
 #define FAMPIC					21
 #define MIRROR					22
 #define STAIRSUP				23
+
+// otros
+#define LETRA_A				64
+#define LETRA_z				123
+
+#define BAD_INPUT			false
+#define GOOD_INPUT			true
 
 
 // textos de situación

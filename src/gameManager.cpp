@@ -89,11 +89,13 @@ void gameManager::playerLoader(void)
 gameManager::gameManager()
 {
 	// inicializar struct
-	wordsExistant.correct = false;
-	wordsExistant.order = 0;
-	wordsExistant.element = 0;
-	wordsExistant.prepos = 0;
-	wordsExistant.element2 = 0;
+	//wordsExistant.correct = false;
+	//wordsExistant.order = 0;
+	//wordsExistant.element = 0;
+	//wordsExistant.prepos = 0;
+	//wordsExistant.element2 = 0;
+
+	targetOrder = -1;
 }
 
 
@@ -131,6 +133,17 @@ void gameManager::getInput(void)
 	// stackoverflow.com/questions/12019947/null-termination-of-char-array
 	fgets(inputText, MAX_INPUT_SIZE, stdin);
 
+	// parece que fgets deja en el buffer lo que sobra a partir de MAX_INPUT_SIZE,
+	// lo que actúa como input en la siguiente iteración, por lo que mejor vaciar el array
+	// OJO, AUNQUE DE MOMENTO FUNCIONA PORQUE REPITE MAX_INPUT_SIZE HASTA QUE ACABA
+	/*if (strlen(inputText) == MAX_INPUT_SIZE)
+	{
+		memset(inputText, 0, MAX_INPUT_SIZE);
+	}*/
+
+	/*printf("%d\n\n", strlen(inputText));
+	printf("%d\n\n", strlen(inputText));*/
+
 	/*for (int i = 0; i < strlen(inputText); ++i)
 	{
 		printf("%ca\n", inputText[i]);
@@ -156,19 +169,19 @@ bool gameManager::parsing(void)
 	return this->parser.processText(inputText);
 }
 
-// comprobar que del input se extraen los elementos correctos que se
-// corresponden con órdenes del juego; devuelve una struct con la orden, 
-// el elemento, preposición y elemento2
+// simplemente comprobar la orden. Si la orden es correcta, ya se encargará act
+// de comprobar el resto de parámetros
 int gameManager::checkExistance(void)
 {
-	printf("Soy checkexistance\n");
+	printf("Soy checkexistance, compruebo la orden, el resto lo hace act\n");
 
-	wordsExistant.correct = false;
+	//wordsExistant.correct = false;
+	//bool correct = false;
 
 	char* order = textWords[0];
-	char* element = textWords[1];
-	char* prepos = textWords[2];
-	char* element2 = textWords[3];
+	//char* element = textWords[1];
+	//char* prepos = textWords[2];
+	//char* element2 = textWords[3];
 
 	// no sólo comprobar la orden, tambien objetos... etc OJO!!!!!
 	for (int orderPosition = 0; orderPosition < TOTAL_ORDERS; ++orderPosition)
@@ -176,28 +189,37 @@ int gameManager::checkExistance(void)
 		//printf("1");
 		if (0 == strcmp(order, possibleOrders[orderPosition]))
 		{
-			wordsExistant.order = orderPosition;
-			wordsExistant.correct = true;
-			printf("\tLa orden %s existe\n\n", order);
-			break;
-		}
-		else {
-			wordsExistant.correct = false;
+			//wordsExistant.order = orderPosition;
+			//correct = true;
+			//printf("\tLa orden %s existe\n\n", order);
+			//break;
+			targetOrder = orderPosition;
+			return GOOD_INPUT;
 		}
 	}
 
-	for (int directionPosition = 0; directionPosition < MAX_NEXT_PLACES; ++directionPosition)
+	// si llego aquí, es que no se ha encontrado la orden
+	return BAD_INPUT;
+
+	// si no se ha encontrado la orden
+	//if (!correct)
+	//{
+		//return BAD_INPUT;
+	//}
+
+	// si se ha encontrado, compruebo a qué place o elemento va asociada
+	/*for (int directionPosition = 0; directionPosition < MAX_NEXT_PLACES; ++directionPosition)
 	{
 		if (0 == strcmp(element, possibleDirections[directionPosition]))
 		{
 			wordsExistant.element = directionPosition;
-			wordsExistant.correct = true;
+			correct = true;
 			printf("\tEl elemento %s %d existe\n\n", element, directionPosition);
 			break;
 		}
 	}
 
-	return wordsExistant.correct;
+	return GOOD_INPUT;*/
 }
 
 
@@ -208,20 +230,31 @@ void gameManager::act(void)
 						// usar tal objeto?
 	//int posAct = player.getCurrentPlace(); // posición actual determina las acciones posibles
 
+	//char* order = textWords[0];
+	char* element = textWords[1];
+	char* prepos = textWords[2];
+	char* element2 = textWords[3];
+
+	unsigned int place = -1, object = -1;
+	
+
 	// compruebo si existe la orden y elementos
-	if (wordsExistant.correct)
-	{
-		switch (wordsExistant.order)
+	//if (wordsExistant.correct)
+	//{
+		switch (targetOrder) //(wordsExistant.order)
 		{
 		case LOOK_AT:
 			//printf("%s\n", placeStack[LOBBY].getDescription()[PLACE_DESCRIPTION]);
 
-			// de momento, si hago mirar, el jugador mira donde está y se hace un print
-			// de la descripción del lugar
+			// si sólo se ha escrito "mirar"
+			if ((0 == strlen(element)) && (0 == strlen(prepos)) && (0 == strlen(element2)))
+			{
+				printf("Estoy en: %s\n\nDescripcion del lugar: %s\n\n", map.getPlacesConfig()[player.getCurrentPlace()]->name, map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_DESCRIPTION]);
 
-			// POR AQUÍ
-			printf("Estoy en: %s\n\nDescripcion del lugar: %s\n\n", map.getPlacesConfig()[player.getCurrentPlace()]->name, map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_DESCRIPTION]);
-
+			}
+			else {
+				printf("Mirar que?");
+			}
 			// más adelante, el jugador podrá mirar también objetos, pero siempre que
 			// se encuentren en la misma habitación
 			// - mirar algo!
@@ -231,6 +264,16 @@ void gameManager::act(void)
 			break;
 		case GO_TO: // AQUÍ ESTOY!: AHORA, CARGAR VARIAS HABITACIONES Y ESTABLECER LAS RELACIONES
 					// Y MOVER AL PERSONAJE POR ELLAS
+
+			// comprobar que exista el sitio
+			for (int direction = 0; direction < MAX_NEXT_PLACES; ++direction)
+			{
+				if (0 == strcmp(element, possibleDirections[direction]))
+				{
+					place = direction;
+				}
+			}
+
 			//printf("test\n\n");
 			for (int searchDirection = 0; searchDirection < MAX_NEXT_PLACES; ++searchDirection) // para cada posible dirección
 			{
@@ -238,7 +281,7 @@ void gameManager::act(void)
 				{
 					//printf("%d\n", map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]);
 					if ( (map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection] != NULL) && // si en esa dirección hay algo
-						 (0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->direction, possibleDirections[wordsExistant.element])) && // si esa dirección es la indicada
+						 (0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->direction, possibleDirections[place])) && // si esa dirección es la indicada
 						 (0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->nextPlace, possiblePlaces[searchPlace]))) // si el siguiente sitio es el de la dir. indicada
 					{
 						// me muevo
@@ -251,16 +294,14 @@ void gameManager::act(void)
 			}
 
 			if (!found)
-				printf("No es posible hacer eso.\n\n");
+			{
+				printf("No se puede ir en esa direccion.\n\n");
+
+			}
 
 			break;
 			
 		default:
-			//printf("Esa orden no existe\n\n");
-			break;
+			printf("Esa orden no existe.\n\n");
 		}
-	}
-	else {
-		printf("\tEsa orden no existe\n");
-	}
 }

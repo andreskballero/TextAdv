@@ -15,6 +15,8 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include "descriptions.h"
+
 class textParser
 {
 private:
@@ -24,9 +26,9 @@ public:
 	textParser();
 	~textParser();
 
-	// separa la orden del elemento al que va dirigida la acción
-	// devuelve true si el parseo ha resultado correcto
-	bool processText(char* receivedOrder);
+	// comprueba que el input cumpla con, al menos, los requisitos
+	// base para que pueda procesarse la orden
+	bool processText(char* receivedInput);
 };
 
 #endif

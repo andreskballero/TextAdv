@@ -11,15 +11,36 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "descriptions.h"
 #include "textParser.h"
 
-#define LETRA_A 64
-#define LETRA_z 123
 
-bool textParser::checkCorrect(char* receivedOrder)
+
+bool textParser::checkCorrect(char* receivedInput)
 {
-	return true;
+	int checkWords = 0;
+
+	// longitud del input
+	if (strlen(receivedInput) == (MAX_INPUT_SIZE - 1))
+	{
+		printf("+80\n");
+		return BAD_INPUT;
+	}
+		
+	// cantidad de palabras (si hay más de 3 espacios (4 palabras), mal
+	for (int numSpaces = 0; numSpaces < strlen(receivedInput); ++numSpaces)
+	{
+		if (receivedInput[numSpaces] == ' ')
+		{
+			if ( (++checkWords) == MAX_WORDS_INPUT)
+			{
+				printf("Demasiadas palabras\n");
+				return BAD_INPUT;
+			}
+		}
+	}
+
+	// si nada me ha parado, es que el input es bueno
+	return GOOD_INPUT;
 }
 
 textParser::textParser()
@@ -37,7 +58,14 @@ textParser::~textParser()
 // se compara con las posibles opciones y se procede a actuar
 bool textParser::processText(char * orderElement)
 {
-	bool correctOrder = true;
+	// compruebo que el input cumpla con los requisitos mínimos
+	// de un input (longitud, elementos)
+	if (!checkCorrect(orderElement))
+	{
+		printf("Input incorrecto\n\n");
+		return BAD_INPUT;
+	}
+		
 	// reseteo de las posiciones globales, mejor hacerlo en otro
 	// sitio; eso hara que si hay dos palabras, 2 y 3 estén a null
 	// para poder procesarse
@@ -50,11 +78,16 @@ bool textParser::processText(char * orderElement)
 
 	char text[MAX_WORD_SIZE]; // array auxiliar para guardar cada palabra, por ahora máximo tendrá 20 chars la más larga
 
-							  // recorro todo el input buscando las palabras y aisándolas
+	// recorro todo el input buscando las palabras y aisándolas
 	for (int index = 0, indexWord = 0, globalWord = 0; index < strlen(orderElement); ++index, ++indexWord)
 	{
 		if ((orderElement[index] > LETRA_A) && (orderElement[index] < LETRA_z)) {
 			text[indexWord] = orderElement[index];
+			// si la palabra actual es de más de 20 chars
+			if ( (indexWord + 1) == MAX_WORD_SIZE)
+			{
+				return BAD_INPUT;
+			}
 		}
 		else {
 			// recuerda que cualquier string debe, cuando se llena manualmente
@@ -71,7 +104,7 @@ bool textParser::processText(char * orderElement)
 		}
 	}
 
-	return correctOrder;
+	return GOOD_INPUT;
 }
 
 //-----------------------------------------------------------------------------

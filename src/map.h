@@ -50,7 +50,7 @@ private:
 	placeConfig*		placesConfig[TOTAL_PLACES];
 
 	// función que permite crear una nueva struct y devolverla
-	placeConfig* loadStruct(int newId, char* newName, char** newDescription, activeObject** newObjectsA);
+	placeConfig*		loadStruct(int newId, char* newName, char** newDescription, activeObject** newObjectsA);
 
 	void loadRelations(placeConfig* newPlace, placeRelations** newNextPlaces);
 

@@ -6,10 +6,10 @@
 
 void allocateSpace(void)
 {
-	textWords[0] = (char*)malloc(sizeof(char) * (MAX_WORD_SIZE + 1)); // 21 bytes (+1 por el \0, la orden más larga tendrá siempre menos
-	textWords[1] = (char*)malloc(sizeof(char) * (MAX_WORD_SIZE + 1));
-	textWords[2] = (char*)malloc(sizeof(char) * (MAX_WORD_SIZE + 1));
-	textWords[3] = (char*)malloc(sizeof(char) * (MAX_WORD_SIZE + 1));
+	textWords[0] = (char*)malloc((sizeof(char) * MAX_WORD_SIZE) + 1); // 21 bytes (+1 por el \0, la orden más larga tendrá siempre menos
+	textWords[1] = (char*)malloc((sizeof(char) * MAX_WORD_SIZE) + 1);
+	textWords[2] = (char*)malloc((sizeof(char) * MAX_WORD_SIZE) + 1);
+	textWords[3] = (char*)malloc((sizeof(char) * MAX_WORD_SIZE) + 1);
 	//memset(textWords[0], 0, 10);
 	//strcpy_s(textWords[0], 10, "mima");
 	//printf("%s\n", textWords[0]);

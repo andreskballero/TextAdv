@@ -23,7 +23,6 @@
 // si el input es correcto y la posición de la
 // orden en el array de órdenes
 typedef struct {
-	bool correct;
 	int order;
 	int element;
 	int prepos;
@@ -48,6 +47,7 @@ private:
 	map						map;
 	words					wordsExistant;
 
+	unsigned int			targetOrder;
 	char					inputText[MAX_INPUT_SIZE];
 
 	void objectLoader(void);
