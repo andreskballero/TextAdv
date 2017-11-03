@@ -66,13 +66,13 @@ void play(void)
 	GM.gameLoad();
 
 	printText(welcomeText);
-	printText("< Pulsa enter >"); fgets(skipIntroduction, MAX_INPUT_SIZE, stdin);
+	printText("< Press enter to start playing >"); fgets(skipIntroduction, MAX_INPUT_SIZE, stdin);
 	printText(contextText);
 
 	while (1)
 	{
 		GM.getInput();
-		if (GM.parsing() && GM.checkExistance()) // orden de ejecución a derechas, no?
+		if (GM.parsing() && GM.checkCommand()) // orden de ejecución a derechas, no?
 		{
 			//AM.generateAnswer();
 			GM.act();

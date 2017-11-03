@@ -27,7 +27,7 @@
 #define MAX_NEXT_PLACES			6
 
 #define TOTAL_OBJECTS			100
-#define TOTAL_ORDERS			6
+#define TOTAL_COMMANDS			8
 #define TOTAL_PLACES			7 // piso de abajo 7, finales son 14
 
 #define PLACE_INITIAL_TEXT		0
@@ -46,23 +46,25 @@
 #define DOWN					5
 
 // identificadores de orden
-#define LOOK_AT					0
-#define PICK_UP					1
-#define GO_TO					2
-#define TALK_TO					3
-#define USE						4
-#define GIVE					5
+#define LOOK_AROUND				0
+#define LOOK_AT					1
+#define PICK_UP					2
+#define GO						3
+#define TALK_TO					4
+#define USE						5
+#define GIVE					6
+#define HELP					7
 
 // identificadores de habitación
 #define LOBBY					0
 #define GARAGE					1
-#define CORRIDOR_0				2
+#define DOWNSTAIRS_CORRIDOR		2
 #define KITCHEN					3
 #define WC						4
 #define LIVING_ROOM				5
 #define BASEMENT				6
-#define CORRIDOR_1				7 // rellano piso de arriba
-#define CORRIDOR_2				8 // pasillo piso de arriba
+#define UPSTARIS_HALL			7 // rellano piso de arriba
+#define UPSTAIRS_CORRIDOR		8 // pasillo piso de arriba
 #define MAIN_BEDROOM			9
 #define TWINS_BEDROOM			10
 #define OWN_BEDROOM				11
@@ -86,6 +88,8 @@
 #define BAD_INPUT				false
 #define GOOD_INPUT				true
 
+// texto de ayuda
+extern char*					helpText;
 
 // textos de situación
 extern char*					welcomeText;
@@ -94,7 +98,7 @@ extern char*					contextText;
 // descripciones de lugar
 	// planta baja
 extern char*					lobbyText[];
-extern char*					corridor0Text[]; // pasillo planta baja
+extern char*					downstairsCorridorText[]; // pasillo planta baja
 extern char*					garageText[];
 extern char*					kitchenText[];
 extern char*					bathroomText[];
@@ -104,8 +108,8 @@ extern char*					livingRoomText[];
 extern char*					basementText[];
 
 	// primera planta
-extern char*					corridor1Text[]; // rellano primer piso
-extern char*					corridor2Text[]; // pasillo primer piso
+extern char*					upstairsHallText[]; // rellano primer piso
+extern char*					upstairsCorridorText[]; // pasillo primer piso
 extern char*					mainBedroomText[];
 extern char*					twinsBedroomText[];
 extern char*					ownBedroomText[];
@@ -142,7 +146,7 @@ extern activeObject*			garageActiveObjects[];
 extern char*					textWords[];
 
 // órdenes que existen en el juego
-extern char*					possibleOrders[];
+extern char*					possibleCommands[];
 
 // posibles direcciones que	se contemplan en las
 // diversas zonas del juego

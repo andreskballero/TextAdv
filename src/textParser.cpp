@@ -22,19 +22,24 @@ bool textParser::checkCorrect(char* receivedInput)
 	// longitud del input
 	if (strlen(receivedInput) == (MAX_INPUT_SIZE - 1))
 	{
-		printf("+80\n");
+		printf("No input can be that long.\n");
 		return BAD_INPUT;
 	}
 		
 	// cantidad de palabras (si hay más de 3 espacios (4 palabras), mal
-	for (unsigned int numSpaces = 0; numSpaces < strlen(receivedInput); ++numSpaces)
+	for (unsigned int numChars = 0; numChars < strlen(receivedInput); ++numChars)
 	{
-		if (receivedInput[numSpaces] == ' ')
+		if (receivedInput[numChars] == ' ')
 		{
 			if ( (++checkWords) == MAX_WORDS_INPUT)
 			{
-				printf("Demasiadas palabras\n");
+				printf("Too many words.\n");
 				return BAD_INPUT;
+			}
+
+			while (receivedInput[numChars + 1] == ' ') // si hay muchos espacios seguidos, contarlos como uno
+			{
+				++numChars;
 			}
 		}
 	}
@@ -56,13 +61,13 @@ textParser::~textParser()
 // en sus posiciones globales;
 // si se ha parseado una orden de manera correcta, entonces
 // se compara con las posibles opciones y se procede a actuar
-bool textParser::processText(char * orderElement)
+bool textParser::processText(char * commandElements)
 {
 	// compruebo que el input cumpla con los requisitos mínimos
 	// de un input (longitud, elementos)
-	if (!checkCorrect(orderElement))
+	if (!checkCorrect(commandElements))
 	{
-		printf("Input incorrecto\n\n");
+		//printf("Input incorrecto\n\n");
 		return BAD_INPUT;
 	}
 		
@@ -79,10 +84,11 @@ bool textParser::processText(char * orderElement)
 	char text[MAX_WORD_SIZE]; // array auxiliar para guardar cada palabra, por ahora máximo tendrá 20 chars la más larga
 
 	// recorro todo el input buscando las palabras y aisándolas
-	for (unsigned int index = 0, indexWord = 0, globalWord = 0; index < strlen(orderElement); ++index, ++indexWord)
+	for (unsigned int index = 0, indexWord = 0, globalWord = 0; index < strlen(commandElements); ++index, ++indexWord)
 	{
-		if ((orderElement[index] > LETRA_A) && (orderElement[index] < LETRA_z)) {
-			text[indexWord] = orderElement[index];
+		if ((commandElements[index] > LETRA_A) && (commandElements[index] < LETRA_z)) {
+			text[indexWord] = commandElements[index];
+			
 			// si la palabra actual es de más de 20 chars
 			if ( (indexWord + 1) == MAX_WORD_SIZE)
 			{
@@ -93,14 +99,35 @@ bool textParser::processText(char * orderElement)
 			// recuerda que cualquier string debe, cuando se llena manualmente
 			// (cuando no proviene de string literal char* a = "aja"; , necesita el
 			// null terminator
-			text[indexWord] = '\0';
-			strcpy_s(textWords[globalWord++], sizeof(text) + 1, text);
-			indexWord = -1; // reset del índice local de palabras
 
-			//printf("%s\n", textWords[0]);
-			printf("\t[%s, %s, %s, %s]\n\n", textWords[0], textWords[1], textWords[2], textWords[3]);
+			text[indexWord] = '\0'; // para poder comparar
 
-			memset(text, 0, sizeof(text)); // reseteo text
+			//printf("%s\n", text);
+			//printf("%d, %d, %d, %d\n", !strcmp(text, "look"), !strcmp(text, "pick"), !strcmp(text, "go"), !strcmp(text, "talk"));
+
+			if (strcmp(text, "look") && strcmp(text, "pick") && strcmp(text, "talk"))
+			{
+				strcpy_s(textWords[globalWord++], sizeof(text) + 1, text);
+				indexWord = -1; // reset del índice local de palabras
+
+								//printf("%s\n", textWords[0]);
+				printf("\t[%s, %s, %s, %s]\n\n", textWords[0], textWords[1], textWords[2], textWords[3]);
+
+				memset(text, 0, sizeof(text)); // reseteo text
+			}
+			else {
+				text[indexWord] = ' '; // devuelvo el espacio a su lugar para seguir con la orden
+			}
+
+			// podria hacerse con una función, que también está en checkcorrect
+			// si hay muchos espacios seguidos, hacer como si solo fuera uno
+			// no hay que comprobar que vaya a acceder fuera de la memoria del array porque el
+			// strlen devuelve len-1 (no cuenta la null termination)
+			while (commandElements[index + 1] == ' ')
+			{
+				++index;
+			}
+			
 		}
 	}
 

@@ -50,27 +50,27 @@ void map::loadObjectsAndPlaces(void)
 
 		// carga de los lugares
 	placesConfig[LOBBY] = loadStruct(LOBBY, "lobby", lobbyText, NULL);
-	placesConfig[GARAGE] = loadStruct(GARAGE, "garaje", garageText, NULL);
-	placesConfig[CORRIDOR_0] = loadStruct(CORRIDOR_0, "pasillo de abajo", corridor0Text, NULL);
-	placesConfig[KITCHEN] = loadStruct(KITCHEN, "cocina", kitchenText, NULL);
+	placesConfig[GARAGE] = loadStruct(GARAGE, "garage", garageText, NULL);
+	placesConfig[DOWNSTAIRS_CORRIDOR] = loadStruct(DOWNSTAIRS_CORRIDOR, "downstairs corridor", downstairsCorridorText, NULL);
+	placesConfig[KITCHEN] = loadStruct(KITCHEN, "kitchen", kitchenText, NULL);
 	placesConfig[WC] = loadStruct(WC, "WC", bathroomText, NULL);
-	placesConfig[LIVING_ROOM] = loadStruct(LIVING_ROOM, "sala de estar", livingRoomText, NULL);
-	placesConfig[BASEMENT] = loadStruct(BASEMENT, "sotano", basementText, NULL);
+	placesConfig[LIVING_ROOM] = loadStruct(LIVING_ROOM, "living room", livingRoomText, NULL);
+	placesConfig[BASEMENT] = loadStruct(BASEMENT, "basement", basementText, NULL);
 
 
 	//------------ LOBBY ------------//
 
 		// carga relaciones LOBBY
-	leftRelations->direction = "izquierda";
-	leftRelations->nextPlace = "pasillo de abajo";
-	rightRelations->direction = "derecha";
-	rightRelations->nextPlace = "garaje";
+	leftRelations->direction = "left";
+	leftRelations->nextPlace = "downstairs corridor";
+	rightRelations->direction = "right";
+	rightRelations->nextPlace = "garage";
 	forwardRelations->direction = NULL;
 	forwardRelations->nextPlace = NULL;
 	backRelations->direction = NULL;
 	backRelations->nextPlace = NULL;
-	upRelations->direction = "arriba";
-	upRelations->nextPlace = "piso de arriba";
+	upRelations->direction = "up";
+	upRelations->nextPlace = "hall"; // hall es el descansillo de arriba
 	downRelations->direction = NULL;
 	downRelations->nextPlace = NULL;
 
@@ -104,12 +104,12 @@ void map::loadObjectsAndPlaces(void)
 	rightRelations->nextPlace = NULL;
 	forwardRelations->direction = NULL;
 	forwardRelations->nextPlace = NULL;
-	backRelations->direction = "atras";
+	backRelations->direction = "backward";
 	backRelations->nextPlace = "lobby";
 	upRelations->direction = NULL;
 	upRelations->nextPlace = NULL;
-	downRelations->direction = "abajo";
-	downRelations->nextPlace = "sotano";
+	downRelations->direction = "down";
+	downRelations->nextPlace = "basement";
 
 	// cargo las direcciones
 	placesLoad[LEFT] = NULL;
@@ -135,13 +135,13 @@ void map::loadObjectsAndPlaces(void)
 	downRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 
 	// carga relaciones
-	leftRelations->direction = "izquierda";
+	leftRelations->direction = "left";
 	leftRelations->nextPlace = "WC";
-	rightRelations->direction = "derecha";
-	rightRelations->nextPlace = "cocina";
-	forwardRelations->direction = "adelante";
-	forwardRelations->nextPlace = "sala de estar";
-	backRelations->direction = "atras";
+	rightRelations->direction = "right";
+	rightRelations->nextPlace = "kitchen";
+	forwardRelations->direction = "forward";
+	forwardRelations->nextPlace = "living room";
+	backRelations->direction = "backward";
 	backRelations->nextPlace = "lobby";
 	upRelations->direction = NULL;
 	upRelations->nextPlace = NULL;
@@ -155,7 +155,7 @@ void map::loadObjectsAndPlaces(void)
 	placesLoad[BACKWARD] = backRelations;
 	placesLoad[UP] = NULL;
 	placesLoad[DOWN] = NULL;
-	loadRelations(placesConfig[CORRIDOR_0], placesLoad);
+	loadRelations(placesConfig[DOWNSTAIRS_CORRIDOR], placesLoad);
 
 
 	//------------ COCINA ------------//
@@ -178,8 +178,8 @@ void map::loadObjectsAndPlaces(void)
 	rightRelations->nextPlace = NULL;
 	forwardRelations->direction = NULL;
 	forwardRelations->nextPlace = NULL;
-	backRelations->direction = "atras";
-	backRelations->nextPlace = "pasillo de abajo";
+	backRelations->direction = "backward";
+	backRelations->nextPlace = "downstairs corridor";
 	upRelations->direction = NULL;
 	upRelations->nextPlace = NULL;
 	downRelations->direction = NULL;
@@ -215,8 +215,8 @@ void map::loadObjectsAndPlaces(void)
 	rightRelations->nextPlace = NULL;
 	forwardRelations->direction = NULL;
 	forwardRelations->nextPlace = NULL;
-	backRelations->direction = "atras";
-	backRelations->nextPlace = "pasillo de abajo";
+	backRelations->direction = "backward";
+	backRelations->nextPlace = "downstairs corridor";
 	upRelations->direction = NULL;
 	upRelations->nextPlace = NULL;
 	downRelations->direction = NULL;
@@ -252,8 +252,8 @@ void map::loadObjectsAndPlaces(void)
 	rightRelations->nextPlace = NULL;
 	forwardRelations->direction = NULL;
 	forwardRelations->nextPlace = NULL;
-	backRelations->direction = "atras";
-	backRelations->nextPlace = "pasillo de abajo";
+	backRelations->direction = "backward";
+	backRelations->nextPlace = "downstairs corridor";
 	upRelations->direction = NULL;
 	upRelations->nextPlace = NULL;
 	downRelations->direction = NULL;
@@ -291,8 +291,8 @@ void map::loadObjectsAndPlaces(void)
 	forwardRelations->nextPlace = NULL;
 	backRelations->direction = NULL;
 	backRelations->nextPlace = NULL;
-	upRelations->direction = "arriba";
-	upRelations->nextPlace = "garaje";
+	upRelations->direction = "up";
+	upRelations->nextPlace = "garage";
 	downRelations->direction = NULL;
 	downRelations->nextPlace = NULL;
 

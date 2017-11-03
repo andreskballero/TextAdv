@@ -95,7 +95,7 @@ gameManager::gameManager()
 	//wordsExistant.prepos = 0;
 	//wordsExistant.element2 = 0;
 
-	targetOrder = -1;
+	targetCommand = -1;
 }
 
 
@@ -171,29 +171,29 @@ bool gameManager::parsing(void)
 
 // simplemente comprobar la orden. Si la orden es correcta, ya se encargará act
 // de comprobar el resto de parámetros
-int gameManager::checkExistance(void)
+bool gameManager::checkCommand(void)
 {
 	//printf("Soy checkexistance, compruebo la orden, el resto lo hace act\n");
 
 	//wordsExistant.correct = false;
 	//bool correct = false;
 
-	char* order = textWords[0];
+	char* command = textWords[0];
 	//char* element = textWords[1];
 	//char* prepos = textWords[2];
 	//char* element2 = textWords[3];
 
 	// no sólo comprobar la orden, tambien objetos... etc OJO!!!!!
-	for (int orderPosition = 0; orderPosition < TOTAL_ORDERS; ++orderPosition)
+	for (int commandPosition = 0; commandPosition < TOTAL_COMMANDS; ++commandPosition)
 	{
 		//printf("1");
-		if (0 == strcmp(order, possibleOrders[orderPosition]))
+		if (0 == strcmp(command, possibleCommands[commandPosition]))
 		{
 			//wordsExistant.order = orderPosition;
 			//correct = true;
 			//printf("\tLa orden %s existe\n\n", order);
 			//break;
-			targetOrder = orderPosition;
+			targetCommand = commandPosition;
 			return GOOD_INPUT;
 		}
 	}
@@ -241,9 +241,9 @@ void gameManager::act(void)
 	// compruebo si existe la orden y elementos
 	//if (wordsExistant.correct)
 	//{
-		switch (targetOrder) //(wordsExistant.order)
+		switch (targetCommand) //(wordsExistant.order)
 		{
-		case LOOK_AT:
+		case LOOK_AROUND:
 			//printf("%s\n", placeStack[LOBBY].getDescription()[PLACE_DESCRIPTION]);
 
 			// si sólo se ha escrito "mirar"
@@ -253,16 +253,20 @@ void gameManager::act(void)
 
 			}
 			else {
-				printf("Mirar que?");
+				printf("Look what?");
 			}
 			// más adelante, el jugador podrá mirar también objetos, pero siempre que
 			// se encuentren en la misma habitación
 			// - mirar algo!
+
+			break;
+		case LOOK_AT:
+			printf("Look at sth\n");
 			break;
 		case PICK_UP:
 			printf("Pick up\n");
 			break;
-		case GO_TO: // AQUÍ ESTOY!: AHORA, CARGAR VARIAS HABITACIONES Y ESTABLECER LAS RELACIONES
+		case GO: // AQUÍ ESTOY!: AHORA, CARGAR VARIAS HABITACIONES Y ESTABLECER LAS RELACIONES
 					// Y MOVER AL PERSONAJE POR ELLAS
 
 			// comprobar que exista el sitio
@@ -304,7 +308,7 @@ void gameManager::act(void)
 			
 			if (!found)
 			{
-				printf("No se puede ir en esa dirección y no pienso atravesar una pared.\n\n");
+				printf("Can't go that way and I'm not going through a wall, sorry.\n\n");
 
 			}
 
@@ -318,6 +322,9 @@ void gameManager::act(void)
 			break;
 		case GIVE:
 			printf("Give\n");
+			break;
+		case HELP:
+			printText(helpText);
 			break;
 		default:
 			printf("Esa orden no existe.\n\n");

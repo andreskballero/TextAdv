@@ -10,48 +10,67 @@
 //-----------------------------------------------------------------------------
 #include "descriptions.h"
 
-char*				welcomeText = { "PERDON POR LA FALTA DE ACENTOS\n\n" \
-									"Bienvenido a \"Skeleton Skape Skirmish\".\n\n"
-									"PERDON, DE VERDAD.\n\nEste es " \
-									"un software de prueba. Si encuentras algun error, " \
-									"no dudes en ponerte en contacto con el " \
-									"desarrollador: Andres (a secas), casual " \
-									"programador de realidades y eterno mendigo.\n\n" \
-									"Bueno, basta.\n\n" \
-									"Un momento, que esto es demasiado bueno:\n\n" \
-									"Copyright (c) Andres. A secas.\n\n" \
-									"Ahora si.\n\n" \
-									"PERDON\n" };
 
-char*				contextText = { "A las dos de la tarde de un dia soleado, Murray McMurray, "
-									"un escualido esqueleto de 667 primaveras que siente una ferviente pasion por " \
-									"las bebidas bajas en azucar y bricomania, abre los ojos y se levanta " \
-									"del sofa con la espalda hecha un cristo. Es la ultima vez que duerme en " \
-									"el sofa, se dice.\n\nHoy es un gran dia: es la fiesta de aniversario de Clicli, " \
-									"su amiguete de la infancia, y se va a liar gorda. Ha de empezar a arreglarse " \
-									"si no quiere llegar tarde, asi que decide ir a la cocina a comer algo antes " \
-									"de vestirse.\n\n" \
-									"Al llegar a la cocina se encuentra con sus hermanas gemelas haciendo una tarta " \
-									"de cerebelos. Coca y Cola le comentan que su padre ha salido y, harto de que, cuando " \
-									"el no esta, salgan a matar vagabundos para hacer sus dichosas tartas, se ha " \
-									"llevado todas las llaves y no hay manera de salir de la casa.\n\n" \
-									"Presa del panico, Murray suelta su taza del club megatrix y corre hacia la puerta y "
-									"zarandea el pomo con toda la fuerza que sus distroficos brazos le permiten. Cerrada.\n\n" \
-									"Sus hermanas, camino de su habitacion, pasan por el rellano y deciden desvelarle un " \
-									"secreto a su enjuto hermano: \"padre guarda otras llaves en algun sitio de la casa, " \
-									"pero no sabemos donde\", susurran. " \
-									"Recobrando la calma, deshace su postura acurrucada, se levanta del suelo, seca sus lagrimas " \
-									"y decide buscarlas.\n\n" \
-									"Bien. Tu eres Murray McMurray. Que sorpresa, eh?\n\n"
-									"El tiempo corre en tu contra, la fiesta es dentro de una hora.\n\n" \
-									"Explorar la casa parece la unica opcion para llegar a tiempo a la fiesta..." };
+char*				helpText = "GAME, SEND ME HELP!\n\n"\
+								"There you go, my beautiful player.\n\n"\
+								"There are 7 commands available. Anything different command typed "
+								"is not even considered. The commands are:\n"\
+								"- look around\n"\
+								"- look at\n"\
+								"- pick up\n"\
+								"- go to\n"\
+								"- talk to\n"\
+								"- use\n"\
+								"- give\n"\
+								"\n\nApart from that, these things must be taken into consideration:\n\n"
+								"- Capital letters are not to be used in any word\n"\
+								"- The command must always be the first word\n"\
+								"- No spaces are allowed before the command\n"\
+								"- Only up to 4 words are expected to be part of the input\n"\
+								"- Except for \"look around\", which can be casted independently, every command must be followed by a statement\n"\
+								"- The statements are for the player to guess, obviously\n"\
+								"- Did you think the game was going to be that easy?\n";
+
+char*				welcomeText = "Welcome to \"Skeleton escape\".\n\n"\
+									"This is just a personal project. If you stumble upon "\
+									"any error, please, contact the programmer: you surely know who he is.\n\n"\
+									"Okey, let's get to it.\n\n"\
+									"Oh, yeah. I almost forgot. This is, you know, too good to leave it to the scavengers, so...\n\n"\
+									"\tCopyright (c) Andres.\n\n"\
+									"Now it's safe. Go.";
+
+char*				contextText = "You are Murray McMurray, squishy 667-year-old skeleton who loves "\
+									"low-sugar soda and Craig Ferguson's Late Late Show.\nToday is Davy's "\
+									"birthday party, Murray's ol' friendo, and it's going to be a huge event.\n\n"\
+									"What could go wrong?\n"\
+									"Well, something. Obviously.\n\n"\
+									"Apparently, Mom & Dad McMurray has left the house for a while and he has locked all the doors and "
+									"taken with him all the house keys.\n\n"\
+									"Why, you say? That's the twin sisters fault.\n\nYep, Murray has two twin sisters, "\
+									"and they are the living hell. They love cooking brain cake, and in order "\
+									"to do so, they enjoy very much hunting bums when Dad isn't home. Last week, "
+									"Dad found some blood on the kitchen's floor, and now he is suspicious, "
+									"and he feels bad for the hobos, so... since that moment, whenever he isn't home, he takes the "
+									"keys with him and locks up every possible way out.\n\n"\
+									"And now he's not home.\n\n"\
+									"You see the problem, right?\n\n"\
+									"...\n\n"\
+									"Murray needs to go!\n\n"\
+									"And YOU are MURRAY!\n\n"\
+									"Hey! Stop! Hold your horses! Mom once told you they keep another keys "\
+									"in the house, just in case something happens. So, finding those keys seems like a good idea.\n\n"\
+									"The party is in an hour, HURRY UP! You are not going to achieve anything there, "\
+									"in the lobby, gazing at the door.\n\nC'MON, FETCH!";
+
+
+
 
 char*				lobbyText[] = { "Estoy en el recibidor.",
 									"El recibidor es asi.\n\n" \
 									"A la izquierda hay un pasillo, a la derecha el garaje, y las escaleras " \
 									"llevan al piso de arriba." };
 
-char*				corridor0Text[] = {"Estoy en el pasillo del piso de abajo.", "El pasillo es recto, " \
+char*				downstairsCorridorText[] = {"Estoy en el pasillo del piso de abajo.", "El pasillo es recto, " \
 											"como suelen ser los pasillos."};
 char*				garageText[] = { "Estoy en el garaje de la casa.", "Menudo Ferrari tienen." };
 char*				kitchenText[] = { "Estoy en la cocina.", "Es una cocina cálida, pero la de " \
@@ -65,8 +84,8 @@ char*				livingRoomText[] = { "Estoy en la sala de estar" /*"n espacioso salón c
 char*				basementText[] = { "Estoy en el sotano", "" };
 
 
-char*				corridor1Text[]; // rellano primer piso
-char*				corridor2Text[]; // pasillo primer piso
+char*				upstairsHallText[]; // rellano primer piso
+char*				upstairsCorridorText[]; // pasillo primer piso
 char*				mainBedroomText[];
 char*				twinsBedroomText[];
 char*				ownBedroomText[];
@@ -102,11 +121,11 @@ activeObject*		objectStack[TOTAL_OBJECTS];
 // input recibido, 4 palabras a lo sumo
 char*				textWords[MAX_WORDS_INPUT];
 
-char*				possibleOrders[] = {"mirar", "coger", "ir", "hablar", "usar", "dar"};
+char*				possibleCommands[] = {"look around", "look at", "pick up", "go", "talk to", "use", "give", "help"};
 
-char*				possibleDirections[] = {"izquierda", "derecha", "adelante", "atras", "arriba", "abajo"};
+char*				possibleDirections[] = {"left", "right", "forward", "backward", "up", "down"};
 
-char*				possiblePlaces[] = { "lobby", "garaje", "pasillo de abajo", "cocina", "WC", "sala de estar", "sotano" };
+char*				possiblePlaces[] = { "lobby", "garage", "downstairs corridor", "kitchen", "WC", "living room", "basement" };
 
 //-----------------------------------------------------------------------------
 //
