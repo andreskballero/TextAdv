@@ -15,6 +15,7 @@
 #define GESTACC_H
 
 #include "descriptions.h"
+#include "auxiliaryFunctions.h"
 #include "textParser.h"
 #include "player.h"
 #include "map.h"

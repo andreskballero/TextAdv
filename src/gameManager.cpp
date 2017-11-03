@@ -126,7 +126,7 @@ void gameManager::getInput(void)
 	// no hace falta memset porque aparentemente el scanf ya limpia el array
 	// cuando se vuelve a usar
 
-	printf("\nIntroducir orden: ");
+	printf("\n> ");
 	//scanf_s("%s", textoInput, sizeof(char)*100);
 
 	// en vez de fgets, usar sscanf??????????????
@@ -165,7 +165,7 @@ void gameManager::getInput(void)
 // parsear el input
 bool gameManager::parsing(void)
 {
-	printf("Soy parsing\n");
+	//printf("Soy parsing\n");
 	return this->parser.processText(inputText);
 }
 
@@ -173,7 +173,7 @@ bool gameManager::parsing(void)
 // de comprobar el resto de parámetros
 int gameManager::checkExistance(void)
 {
-	printf("Soy checkexistance, compruebo la orden, el resto lo hace act\n");
+	//printf("Soy checkexistance, compruebo la orden, el resto lo hace act\n");
 
 	//wordsExistant.correct = false;
 	//bool correct = false;
@@ -249,7 +249,7 @@ void gameManager::act(void)
 			// si sólo se ha escrito "mirar"
 			if ((0 == strlen(element)) && (0 == strlen(prepos)) && (0 == strlen(element2)))
 			{
-				printf("Estoy en: %s\n\nDescripcion del lugar: %s\n\n", map.getPlacesConfig()[player.getCurrentPlace()]->name, map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_DESCRIPTION]);
+				printText(map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_DESCRIPTION_TEXT]);
 
 			}
 			else {
@@ -279,29 +279,49 @@ void gameManager::act(void)
 			{
 				for (int searchPlace = 0; searchPlace < TOTAL_PLACES; ++searchPlace) // busco el nuevo lugar entre todos
 				{
-					//printf("%d\n", map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]);
-					if ( (map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection] != NULL) && // si en esa dirección hay algo
+					
+					if ( (!found) &&
+						 (map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection] != NULL) && // si en esa dirección hay algo
 						 (0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->direction, possibleDirections[place])) && // si esa dirección es la indicada
 						 (0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->nextPlace, possiblePlaces[searchPlace]))) // si el siguiente sitio es el de la dir. indicada
 					{
+						//printf("%d\n", searchPlace);
+						//printf("%s, %s, %s, %s\n", map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->direction, possibleDirections[place],
+							//map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->nextPlace, possiblePlaces[searchPlace]);
 						// me muevo
 						player.setCurrentPlace(searchPlace);
-						printf("%d\n\n", player.getCurrentPlace());
+						//printf("%d\n\n", player.getCurrentPlace());
 						found = true;
-						printf("Estoy en: %s\n\nDescripcion del lugar: %s\n\n", map.getPlacesConfig()[player.getCurrentPlace()]->name, map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_DESCRIPTION]);
+						//printf("%s\n", map.getPlacesConfig()[player.getCurrentPlace()]->name);
+						//printf("Estoy en: %s\n\nDescripcion del lugar: %s\n\n", map.getPlacesConfig()[player.getCurrentPlace()]->name, map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_DESCRIPTION_TEXT]);
+						printText(map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_INITIAL_TEXT]);
+						
+						//break; // porque si voy izquierda, y en ese lugar hay otro izquierda y el numero del lugar es superior, pasa a ese lugar tambien
+						// arreglado con el found
 					}
 				}	
 			}
-
+			
 			if (!found)
 			{
-				printf("No se puede ir en esa direccion.\n\n");
+				printf("No se puede ir en esa dirección y no pienso atravesar una pared.\n\n");
 
 			}
 
 			break;
 			
+		case TALK_TO:
+			printf("Talk to\n");
+			break;
+		case USE:
+			printf("Use\n");
+			break;
+		case GIVE:
+			printf("Give\n");
+			break;
 		default:
 			printf("Esa orden no existe.\n\n");
 		}
+
+		//printf("\n\n//==================================================//\n");
 }

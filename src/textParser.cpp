@@ -27,7 +27,7 @@ bool textParser::checkCorrect(char* receivedInput)
 	}
 		
 	// cantidad de palabras (si hay más de 3 espacios (4 palabras), mal
-	for (int numSpaces = 0; numSpaces < strlen(receivedInput); ++numSpaces)
+	for (unsigned int numSpaces = 0; numSpaces < strlen(receivedInput); ++numSpaces)
 	{
 		if (receivedInput[numSpaces] == ' ')
 		{
@@ -79,7 +79,7 @@ bool textParser::processText(char * orderElement)
 	char text[MAX_WORD_SIZE]; // array auxiliar para guardar cada palabra, por ahora máximo tendrá 20 chars la más larga
 
 	// recorro todo el input buscando las palabras y aisándolas
-	for (int index = 0, indexWord = 0, globalWord = 0; index < strlen(orderElement); ++index, ++indexWord)
+	for (unsigned int index = 0, indexWord = 0, globalWord = 0; index < strlen(orderElement); ++index, ++indexWord)
 	{
 		if ((orderElement[index] > LETRA_A) && (orderElement[index] < LETRA_z)) {
 			text[indexWord] = orderElement[index];
