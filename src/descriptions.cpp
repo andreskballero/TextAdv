@@ -39,49 +39,59 @@ char*				welcomeText = "Welcome to \"Skeleton escape\".\n\n"\
 									"\tCopyright (c) Andres.\n\n"\
 									"Now it's safe. Go.";
 
-char*				contextText = "You are Murray McMurray, squishy 667-year-old skeleton who loves "\
-									"low-sugar soda and Craig Ferguson's Late Late Show.\nToday is Davy's "\
-									"birthday party, Murray's ol' friendo, and it's going to be a huge event.\n\n"\
-									"What could go wrong?\n"\
-									"Well, something. Obviously.\n\n"\
-									"Apparently, Mom & Dad McMurray has left the house for a while and he has locked all the doors and "
-									"taken with him all the house keys.\n\n"\
-									"Why, you say? That's the twin sisters fault.\n\nYep, Murray has two twin sisters, "\
-									"and they are the living hell. They love cooking brain cake, and in order "\
-									"to do so, they enjoy very much hunting bums when Dad isn't home. Last week, "
-									"Dad found some blood on the kitchen's floor, and now he is suspicious, "
-									"and he feels bad for the hobos, so... since that moment, whenever he isn't home, he takes the "
-									"keys with him and locks up every possible way out.\n\n"\
-									"And now he's not home.\n\n"\
-									"You see the problem, right?\n\n"\
-									"...\n\n"\
-									"Murray needs to go!\n\n"\
-									"And YOU are MURRAY!\n\n"\
-									"Hey! Stop! Hold your horses! Mom once told you they keep another keys "\
-									"in the house, just in case something happens. So, finding those keys seems like a good idea.\n\n"\
-									"The party is in an hour, HURRY UP! You are not going to achieve anything there, "\
+char*				contextText = "You are Murray McMurray, squishy 667-year-old skeleton who loves low-sugar soda and Craig Ferguson's "\
+									"Late Late Show.\nToday is Davy's birthday party, Murray's ol' friendo, and it's going to be a huge "\
+									"event.\n\nWhat could go wrong?\nWell, something. Obviously.\n\nApparently, Mom & Dad McMurray has "\
+									"left the house for a while and he has locked all the doors and Taken with him all the house keys.\n\n"\
+									"Why, you say? That's the twin sisters fault.\n\nYep, Murray has two twin sisters, and they are the "\
+									"living hell. They love cooking brain cake, and in order to do so, they enjoy very much hunting bums "\
+									"when Dad isn't at home. Last week, Dad found some blood on the kitchen's floor, and now he is suspicious, "\
+									"and he feels bad for the hobos, so... since that moment, whenever he isn't at home, he takes the keys with "\
+									"him and locks up every possible way out.\n\nAnd now he's not at home.\n\nYou see the problem, right?\n\n"\
+									"...\n\nMurray needs to attend the party!\n\nAnd YOU are MURRAY!\n\nHey! Stop! Hold your horses! Mom once "\
+									"told you they keep another keys in the house, just in case something happens. So, finding those keys seems "\
+									"like a good idea.\n\nThe party is in an hour, HURRY UP! You are not going to achieve anything there, "\
 									"in the lobby, gazing at the door.\n\nC'MON, FETCH!";
 
 
 
 
-char*				lobbyText[] = { "Estoy en el recibidor.",
-									"El recibidor es asi.\n\n" \
-									"A la izquierda hay un pasillo, a la derecha el garaje, y las escaleras " \
-									"llevan al piso de arriba." };
+char*				lobbyText[] = { "I'm in the lobby.",
+									"There is a red woolen carpet on the floor, Mommy's favourite piece of fabric in "\
+									"the house. She says it's worthy of the Oscars. On my right there is the garage door, and just beside it, " \
+									"the stairs to the next floor. Just in front of me rests a nice wooden commode. "\
+									"On the left side, the door to the corridor and, hung on the wall, a picture and a golden commemorative plate. " };
 
-char*				downstairsCorridorText[] = {"Estoy en el pasillo del piso de abajo.", "El pasillo es recto, " \
-											"como suelen ser los pasillos."};
-char*				garageText[] = { "Estoy en el garaje de la casa.", "Menudo Ferrari tienen." };
-char*				kitchenText[] = { "Estoy en la cocina.", "Es una cocina cálida, pero la de " \
-										"mi abuela era mucho mejor."};
-char*				bathroomText[] = { "Estoy en el WC.", "Es un " \
-										"cuarto de bano pequeno. No sé cómo se las arreglan." };
-char*				livingRoomText[] = { "Estoy en la sala de estar" /*"n espacioso salón comedor."*/, "En este salón se " \
-										"podría celebrar una comida estupenda."};
+char*				downstairsCorridorText[] = {"I'm in the corridor next to the lobby.",
+												"I've never liked this corridor, it reminds me of the one from \"The Shining\", and I don't know why, there "\
+												"is no resemblance. Lots of framed letters from Mommy's fans hung on both sides since I can remember. I've "\
+												"never counted them, but there must be hundreds. The kitchen is on the right side, the bathroom on the left, "\
+												"the living room at the end." };
 
+char*				garageText[] = { "I'm in the garage.", 
+									"This garage looks exactly like the one from \"The Simpsons\". Here's the car. Mom and Dad have probably taken "\
+									"the bus, they are very concerned about pollution lately. There is a large shelf full of stuff on the door's  "\
+									"opposite wall. On the right, the garage door, and the left belongs to the basement door. That place creeps the "\
+									"hell out of me. Dad doesn't allow anyone to go down there, he keeps the place electronically locked. Why?" };
 
-char*				basementText[] = { "Estoy en el sotano", "" };
+char*				kitchenText[] = { "I'm in the kitchen.", 
+										"The twins' favourite place in the whole house, I can easily guess why. There is a big white table in the middle."\
+										"On the right side stands the biggest fridge ever. I love it. On the front wall, the worktop, full of housewares."\
+										"The left wall has another worktop, where the electrical appliances are placed, and, by its side, a door to the "\
+										"garden with a screen door, for the dog." };
+
+char*				bathroomText[] = { "I'm in the WC.", 
+										"Nice and simple. A shower plate on the right, the sink and a big mirror, and the toilet "\
+										"on the left side, beside a tall, narrow piece of furniture where we keep our hygiene... things." };
+
+char*				livingRoomText[] = { "I'm in the living room.",
+										"This living room is way too big for a 5-member family, a dog and a parrot. On the left side there's "\
+										"a big bookshelf behind the dining table, the next wall holds a big piano and Gwaihir's birdcage, and, "\
+										"on right side, the worst TV in the world. The On/Off button is broken and it has been on for ages. And "\
+										"last, but not least, two sofas pointing to the TV and a small table in between occupy the centre of "\
+										"the room." };
+
+char*				basementText[] = { "I'm in the basement.", "Nothing yet." };
 
 
 char*				upstairsHallText[]; // rellano primer piso
@@ -107,6 +117,9 @@ char*				stairsupText = "Son las escaleras para subir a la primera planta.";
 char*				stairsupName = "unas escaleras hacia arriba";
 
 
+char*				guyPictureText = "kepassssa";
+
+
 activeObject*		lobbyActiveObjects[MAX_ACTIVE_ITEMS_PLACE];
 activeObject*		garageActiveObjects[MAX_ACTIVE_ITEMS_PLACE];
 
@@ -121,6 +134,7 @@ activeObject*		objectStack[TOTAL_OBJECTS];
 // input recibido, 4 palabras a lo sumo
 char*				textWords[MAX_WORDS_INPUT];
 
+// en estas tres es importante que el orden coincida con el valor de sus macros, todo está organizado para corresponder
 char*				possibleCommands[] = {"look around", "look at", "pick up", "go", "talk to", "use", "give", "help"};
 
 char*				possibleDirections[] = {"left", "right", "forward", "backward", "up", "down"};

@@ -15,8 +15,11 @@
 
 #include "descriptions.h"
 #include "activeObject.h"
-#include "passiveObject.h"
 
+typedef struct {
+	char* name;
+	char* description;
+} normalObject;
 
 // struct que contiene un lugar y la dirección hacia
 // la que girar para ir (estando en un lugar adyacente)
@@ -28,15 +31,14 @@ typedef struct {
 // struct para guardar todos los datos de un lugar
 // y luego poder cargarlos fácilmente
 typedef struct {
-	int					id;
 	char*				name;
 
 	// hay dos descripciones: [0] es la de entrada, [1] la normal
 	char**				description;
 
-	// como mucho, 4 objetos activos y pasivos por lugar
-	activeObject**		objectsA;
-	passiveObject**		objectsP;
+	// como mucho, X objetos activos y normales por lugar
+	activeObject**		aObjects;
+	normalObject**		nObjects;
 
 	// struct para guardar las relaciones
 	placeRelations*		nextPlaces[MAX_NEXT_PLACES];
@@ -50,7 +52,7 @@ private:
 	placeConfig*		placesConfig[TOTAL_PLACES];
 
 	// función que permite crear una nueva struct y devolverla
-	placeConfig*		loadStruct(int newId, char* newName, char** newDescription, activeObject** newObjectsA);
+	placeConfig*		loadStruct(char* newName, char** newDescription);
 
 	void loadRelations(placeConfig* newPlace, placeRelations** newNextPlaces);
 

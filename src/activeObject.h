@@ -17,17 +17,15 @@
 class activeObject
 {
 private:
-	int					id;
 	char*				name;
 	char*				description;
 	// el estado determina si el objeto ya ha sido cogido (true) o no (false)
 	bool				pickedUp;
 public:
 	activeObject();
-	activeObject(int id, char* name, char* description);
+	activeObject(char* name, char* description);
 	~activeObject();
 
-	int getID(void);
 	char* getName(void);
 	char* getDescription(void);
 	bool getState(void);

@@ -47,10 +47,10 @@ void gameManager::objectLoader(void)
 	// inicializar los objetos de cada place
 			
 		// lobby
-	lobbyActiveObjects[OBJECT0] = new activeObject(BASKET, basketName, basketText);
-	lobbyActiveObjects[OBJECT1] = new activeObject(FAMPIC, fampicName, fampicText);
-	lobbyActiveObjects[OBJECT2] = new activeObject(MIRROR, mirrorName, mirrorText);
-	lobbyActiveObjects[OBJECT3] = new activeObject(STAIRSUP, stairsupName, fampicText);
+	lobbyActiveObjects[OBJECT0] = new activeObject(basketName, basketText);
+	lobbyActiveObjects[OBJECT1] = new activeObject(fampicName, fampicText);
+	lobbyActiveObjects[OBJECT2] = new activeObject(mirrorName, mirrorText);
+	lobbyActiveObjects[OBJECT3] = new activeObject(stairsupName, fampicText);
 
 		// corridor
 
@@ -262,6 +262,26 @@ void gameManager::act(void)
 			break;
 		case LOOK_AT:
 			printf("Look at sth\n");
+
+			int currentPlace;
+			currentPlace = player.getCurrentPlace();
+
+			for (int item = 0; item < MAX_NORMAL_ITEMS_PLACE && !found; ++item)
+			{
+				// si hay algún objeto ahi, y si lo introducido 
+				if (map.getPlacesConfig()[currentPlace]->nObjects[item] != NULL &&
+					(0 == strcmp(element, map.getPlacesConfig()[currentPlace]->nObjects[item]->name)))
+				{
+					found = true;
+					printText(map.getPlacesConfig()[currentPlace]->nObjects[item]->description);
+				}
+			}
+
+			if (!found)
+			{
+				printText("That doesn't exist.");
+			}
+
 			break;
 		case PICK_UP:
 			printf("Pick up\n");
@@ -269,41 +289,29 @@ void gameManager::act(void)
 		case GO: // AQUÍ ESTOY!: AHORA, CARGAR VARIAS HABITACIONES Y ESTABLECER LAS RELACIONES
 					// Y MOVER AL PERSONAJE POR ELLAS
 
-			// comprobar que exista el sitio
-			for (int direction = 0; direction < MAX_NEXT_PLACES; ++direction)
-			{
-				if (0 == strcmp(element, possibleDirections[direction]))
-				{
-					place = direction;
-				}
-			}
-
 			//printf("test\n\n");
-			for (int searchDirection = 0; searchDirection < MAX_NEXT_PLACES; ++searchDirection) // para cada posible dirección
+			for (int searchDirection = 0; searchDirection < MAX_NEXT_PLACES && !found; ++searchDirection) // para cada posible dirección
 			{
-				for (int searchPlace = 0; searchPlace < TOTAL_PLACES; ++searchPlace) // busco el nuevo lugar entre todos
+				if ((!found) &&
+					(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection] != NULL) && // si en esa dirección hay algo
+					(0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->direction, element)))
 				{
-					
-					if ( (!found) &&
-						 (map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection] != NULL) && // si en esa dirección hay algo
-						 (0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->direction, possibleDirections[place])) && // si esa dirección es la indicada
-						 (0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->nextPlace, possiblePlaces[searchPlace]))) // si el siguiente sitio es el de la dir. indicada
+					for (int searchPlace = 0; searchPlace < TOTAL_PLACES && !found; ++searchPlace) // busco el nuevo lugar entre todos
 					{
-						//printf("%d\n", searchPlace);
-						//printf("%s, %s, %s, %s\n", map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->direction, possibleDirections[place],
-							//map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->nextPlace, possiblePlaces[searchPlace]);
-						// me muevo
-						player.setCurrentPlace(searchPlace);
-						//printf("%d\n\n", player.getCurrentPlace());
-						found = true;
-						//printf("%s\n", map.getPlacesConfig()[player.getCurrentPlace()]->name);
-						//printf("Estoy en: %s\n\nDescripcion del lugar: %s\n\n", map.getPlacesConfig()[player.getCurrentPlace()]->name, map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_DESCRIPTION_TEXT]);
-						printText(map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_INITIAL_TEXT]);
-						
-						//break; // porque si voy izquierda, y en ese lugar hay otro izquierda y el numero del lugar es superior, pasa a ese lugar tambien
-						// arreglado con el found
+						// cojo el numero del nuevo lugar del player y se lo asigno
+						if (0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->nextPlace, possiblePlaces[searchPlace]))
+						{
+							found = true;
+							player.setCurrentPlace(searchPlace);
+						}
 					}
-				}	
+					//printf("%s\n", map.getPlacesConfig()[player.getCurrentPlace()]->name);
+					//printf("Estoy en: %s\n\nDescripcion del lugar: %s\n\n", map.getPlacesConfig()[player.getCurrentPlace()]->name, map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_DESCRIPTION_TEXT]);
+					printText(map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_INITIAL_TEXT]);
+						
+					//break; // porque si voy izquierda, y en ese lugar hay otro izquierda y el numero del lugar es superior, pasa a ese lugar tambien
+					// arreglado con el found
+				}
 			}
 			
 			if (!found)

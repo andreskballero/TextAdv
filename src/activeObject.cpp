@@ -6,7 +6,7 @@ activeObject::activeObject()
 {
 }
 
-activeObject::activeObject(int id, char * name, char * description)
+activeObject::activeObject(char * name, char * description)
 {
 	this->name = name;
 	this->description = description;
@@ -15,11 +15,6 @@ activeObject::activeObject(int id, char * name, char * description)
 
 activeObject::~activeObject()
 {
-}
-
-int activeObject::getID(void)
-{
-	return this->id;
 }
 
 char * activeObject::getName(void)

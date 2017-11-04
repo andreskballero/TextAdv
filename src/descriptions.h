@@ -24,6 +24,7 @@
 #define MAX_INPUT_SIZE			80
 #define MAX_ITEMS_INVENTORY		20
 #define MAX_ACTIVE_ITEMS_PLACE	4
+#define MAX_NORMAL_ITEMS_PLACE	8
 #define MAX_NEXT_PLACES			6
 
 #define TOTAL_OBJECTS			100
@@ -71,14 +72,11 @@
 #define OFFICE					12
 #define GARRET					13
 
-// identificadores de objeto activo (10-19)
+// identificadores de objeto activo
 
 
-// identificadores de objeto pasivo (20-29)
-#define BASKET					20
-#define FAMPIC					21
-#define MIRROR					22
-#define STAIRSUP				23
+// identificadores de objeto normal
+#define GUY_PICTURE				0
 
 // otros
 #define LETRA_A					64
@@ -134,8 +132,8 @@ extern char*					stairsupName;
 	// cocina
 
 
-// descripciones de objeto pasivo
-
+// descripciones de objeto normal
+extern char*					guyPictureText;
 
 // variables globales
 	// objetos activos de los lugares
