@@ -76,7 +76,12 @@
 
 
 // identificadores de objeto normal
-#define GUY_PICTURE				0
+#define LOBBY_PICTURE			0
+#define LOBBY_PLATE				1
+#define LOBBY_PEG				2
+#define LOBBY_CARPET			3
+#define LOBBY_COMMODE			4
+#define LOBBY_STAIRS			5
 
 // otros
 #define LETRA_A					64
@@ -116,24 +121,24 @@ extern char*					officeText[];
 	// desván
 extern char*					garretText[];
 
-	// 
 
-// descripciones de objeto activo
-	// recibidor
-extern char*					basketText;
-extern char*					basketName;
-extern char*					fampicText;
-extern char*					fampicName;
-extern char*					mirrorText;
-extern char*					mirrorName;
-extern char*					stairsupText;
-extern char*					stairsupName;
 
-	// cocina
+
+
 
 
 // descripciones de objeto normal
-extern char*					guyPictureText;
+
+	// recibidor
+extern char*					lobbyPictureText;
+extern char*					lobbyPlateText;
+extern char*					lobbyPegText;
+extern char*					lobbyCarpetText;
+extern char*					lobbyCommodeText;
+extern char*					lobbyStairsText;
+
+
+	// cocina
 
 // variables globales
 	// objetos activos de los lugares
@@ -148,10 +153,10 @@ extern char*					possibleCommands[];
 
 // posibles direcciones que	se contemplan en las
 // diversas zonas del juego
-extern char*					possibleDirections[];
+//extern char*					possibleDirections[];
 
 // posibles lugares del juego
-extern char*					possiblePlaces[];
+//extern char*					possiblePlaces[];
 
 #endif
 

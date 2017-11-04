@@ -47,10 +47,10 @@ void gameManager::objectLoader(void)
 	// inicializar los objetos de cada place
 			
 		// lobby
-	lobbyActiveObjects[OBJECT0] = new activeObject(basketName, basketText);
-	lobbyActiveObjects[OBJECT1] = new activeObject(fampicName, fampicText);
-	lobbyActiveObjects[OBJECT2] = new activeObject(mirrorName, mirrorText);
-	lobbyActiveObjects[OBJECT3] = new activeObject(stairsupName, fampicText);
+	//lobbyActiveObjects[OBJECT0] = new activeObject(basketName, basketText);
+	//lobbyActiveObjects[OBJECT1] = new activeObject(fampicName, fampicText);
+	//lobbyActiveObjects[OBJECT2] = new activeObject(mirrorName, mirrorText);
+	//lobbyActiveObjects[OBJECT3] = new activeObject(stairsupName, fampicText);
 
 		// corridor
 
@@ -286,8 +286,9 @@ void gameManager::act(void)
 		case PICK_UP:
 			printf("Pick up\n");
 			break;
-		case GO: // AQUÍ ESTOY!: AHORA, CARGAR VARIAS HABITACIONES Y ESTABLECER LAS RELACIONES
-					// Y MOVER AL PERSONAJE POR ELLAS
+		case GO: 
+
+			// podria haber un loop para comprobar si la dirección es correcta antes de hacer la búsqueda
 
 			//printf("test\n\n");
 			for (int searchDirection = 0; searchDirection < MAX_NEXT_PLACES && !found; ++searchDirection) // para cada posible dirección
@@ -299,7 +300,7 @@ void gameManager::act(void)
 					for (int searchPlace = 0; searchPlace < TOTAL_PLACES && !found; ++searchPlace) // busco el nuevo lugar entre todos
 					{
 						// cojo el numero del nuevo lugar del player y se lo asigno
-						if (0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->nextPlace, possiblePlaces[searchPlace]))
+						if (0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->nextPlace, map.getPlacesConfig()[searchPlace]->name))
 						{
 							found = true;
 							player.setCurrentPlace(searchPlace);
@@ -316,8 +317,17 @@ void gameManager::act(void)
 			
 			if (!found)
 			{
-				printf("Can't go that way and I'm not going through a wall, sorry.\n\n");
-
+				if (0 == strcmp(element, "down"))
+				{
+					printText("Floors are to walk on, not to go through.");
+				}
+				else if (0 == strcmp(element, "up"))
+				{
+					printText("Can't jump through the ceiling... Yet.");
+				}
+				else {
+					printText("I'm not going through a wall, sorry.");
+				}
 			}
 
 			break;

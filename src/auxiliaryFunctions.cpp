@@ -68,6 +68,7 @@ void play(void)
 	printText(welcomeText);
 	printText("< Press enter to start playing >"); fgets(skipIntroduction, MAX_INPUT_SIZE, stdin);
 	printText(contextText);
+	printText("(type help to know the basics if you don't know them already)");
 
 	while (1)
 	{

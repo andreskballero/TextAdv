@@ -24,13 +24,7 @@ placeConfig* map::loadStruct(char* newName, char** newDescription)
 
 void map::loadRelations(placeConfig* newPlace, placeRelations** newNextPlaces)
 {
-	newPlace->nextPlaces[LEFT] = newNextPlaces[LEFT];
-	newPlace->nextPlaces[RIGHT] = newNextPlaces[RIGHT];
-	newPlace->nextPlaces[FORWARD] = newNextPlaces[FORWARD];
-	newPlace->nextPlaces[BACKWARD] = newNextPlaces[BACKWARD];
-	newPlace->nextPlaces[UP] = newNextPlaces[UP];
-	newPlace->nextPlaces[DOWN] = newNextPlaces[DOWN];
-
+	newPlace->nextPlaces = newNextPlaces;
 }
 
 
@@ -334,18 +328,31 @@ void map::loadObjectsAndPlaces(void)
 	//------------ OBJETOS LOBBY ------------//
 
 	nObject0->name = "picture";
-	nObject0->description = guyPictureText;
+	nObject0->description = lobbyPictureText;
+	nObject1->name = "plate";
+	nObject1->description = lobbyPlateText;
+	nObject2->name = "peg";
+	nObject2->description = lobbyPegText;
+	nObject3->name = "carpet";
+	nObject3->description = lobbyCarpetText;
+	nObject4->name = "commode";
+	nObject4->description = lobbyCommodeText;
+	nObject5->name = "stairs";
+	nObject5->description = lobbyStairsText;
 
-	objects[GUY_PICTURE] = nObject0;
-	objects[1] = NULL;
-	objects[2] = NULL;
-	objects[3] = NULL;
-	objects[4] = NULL;
-	objects[5] = NULL;
+	objects[LOBBY_PICTURE] = nObject0;
+	objects[LOBBY_PLATE] = nObject1;
+	objects[LOBBY_PEG] = nObject2;
+	objects[LOBBY_CARPET] = nObject3;
+	objects[LOBBY_COMMODE] = nObject4;
+	objects[LOBBY_STAIRS] = nObject5;
 	objects[6] = NULL;
 	objects[7] = NULL;
 
 	placesConfig[LOBBY]->nObjects = objects;
+
+
+	//------------ OBJETOS CORRIDOR ------------//
 }
 
 

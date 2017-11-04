@@ -59,7 +59,7 @@ char*				contextText = "You are Murray McMurray, squishy 667-year-old skeleton w
 char*				lobbyText[] = { "I'm in the lobby.",
 									"There is a red woolen carpet on the floor, Mommy's favourite piece of fabric in "\
 									"the house. She says it's worthy of the Oscars. On my right there is the garage door, and just beside it, " \
-									"the stairs to the next floor. Just in front of me rests a nice wooden commode. "\
+									"the stairs to the next floor. Just in front of me rests a nice wooden commode. By the garage door, there's a peg. "\
 									"On the left side, the door to the corridor and, hung on the wall, a picture and a golden commemorative plate. " };
 
 char*				downstairsCorridorText[] = {"I'm in the corridor next to the lobby.",
@@ -70,9 +70,9 @@ char*				downstairsCorridorText[] = {"I'm in the corridor next to the lobby.",
 
 char*				garageText[] = { "I'm in the garage.", 
 									"This garage looks exactly like the one from \"The Simpsons\". Here's the car. Mom and Dad have probably taken "\
-									"the bus, they are very concerned about pollution lately. There is a large shelf full of stuff on the door's  "\
-									"opposite wall. On the right, the garage door, and the left belongs to the basement door. That place creeps the "\
-									"hell out of me. Dad doesn't allow anyone to go down there, he keeps the place electronically locked. Why?" };
+									"the bus, they are very concerned about pollution lately. There is a large shelf full of stuff and a workbench "\
+									"on the door's opposite wall. On the right, the garage door, and the left belongs to the basement door. That place "\
+									"creeps the hell out of me. Dad doesn't allow anyone to go down there, he keeps the place electronically locked. Why?" };
 
 char*				kitchenText[] = { "I'm in the kitchen.", 
 										"The twins' favourite place in the whole house, I can easily guess why. There is a big white table in the middle."\
@@ -104,20 +104,28 @@ char*				officeText[];
 
 char*				garretText[];
 
+// objetos normales que no se pueden coger
 
+char*				lobbyPictureText = "A pirate in an epic stance appears in this picture. \"The mightiest pirate\" can be read carved in "\
+										"the bottom of the wooden frame. Dad loves this Guy, I can't understand why.";
 
+char*				lobbyPlateText = "This plate was given to Mom when she won that stupid hot-dog eating contest. She ate 89 hot-dogs in 5 "\
+										"minutes and didn't even blink once. She's a beast, I thought she wasn't going to make it after that, "\
+										"but she did, and the price money encouraged her to fund that stupid company of hers: \"Electronical "\
+										"Locks Inc.\"";
 
-char*				basketText = "Es un bonito cesto de mimbre.";
-char*				basketName = "un cesto";
-char*				fampicText = "Es una bonita foto de familia.";
-char*				fampicName = "una foto de familia";
-char*				mirrorText = "Es un espejo.";
-char*				mirrorName = "un espejo";
-char*				stairsupText = "Son las escaleras para subir a la primera planta.";
-char*				stairsupName = "unas escaleras hacia arriba";
+char*				lobbyPegText = "Dad's DIY uniform hangs there. He loves assembling up odd plastic sculptures, and he must protect himself "\
+									"to do that. I've seen him making those, but never seen one around. I wonder where he stores them.";
 
+char*				lobbyCarpetText = "According to Mom, the best carpet in the world, although it seems quite normal to me. It used to be "
+										"green, but carrying fresh cakes upstairs has consequences. When it started changing colour, Mom thought "\
+										"it was a miracle and converted to Christianism... *sigh*";
 
-char*				guyPictureText = "kepassssa";
+char*				lobbyCommodeText = "It has some candy on top, for the guests. We keep our shoes in the lower part. Jeez, I wonder how 76 pairs "
+										"of shoes fit in 1 square meter. I have a pair, Dad has two. The rest? Do the math. Women tricks.";
+
+char*				lobbyStairsText = "The stairs to the next floor.";
+
 
 
 activeObject*		lobbyActiveObjects[MAX_ACTIVE_ITEMS_PLACE];
@@ -137,9 +145,9 @@ char*				textWords[MAX_WORDS_INPUT];
 // en estas tres es importante que el orden coincida con el valor de sus macros, todo está organizado para corresponder
 char*				possibleCommands[] = {"look around", "look at", "pick up", "go", "talk to", "use", "give", "help"};
 
-char*				possibleDirections[] = {"left", "right", "forward", "backward", "up", "down"};
+//char*				possibleDirections[] = {"left", "right", "forward", "backward", "up", "down"};
 
-char*				possiblePlaces[] = { "lobby", "garage", "downstairs corridor", "kitchen", "WC", "living room", "basement" };
+//char*				possiblePlaces[] = { "lobby", "garage", "downstairs corridor", "kitchen", "WC", "living room", "basement" };
 
 //-----------------------------------------------------------------------------
 //

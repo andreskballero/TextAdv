@@ -41,7 +41,7 @@ typedef struct {
 	normalObject**		nObjects;
 
 	// struct para guardar las relaciones
-	placeRelations*		nextPlaces[MAX_NEXT_PLACES];
+	placeRelations**	nextPlaces;
 } placeConfig;
 
 class map
