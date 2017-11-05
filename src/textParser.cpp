@@ -8,8 +8,7 @@
 // Definiciones del parser.
 //    
 //-----------------------------------------------------------------------------
-#include <stdio.h>
-#include <string.h>
+
 
 #include "textParser.h"
 

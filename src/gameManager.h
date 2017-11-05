@@ -14,6 +14,10 @@
 #ifndef GESTACC_H
 #define GESTACC_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "descriptions.h"
 #include "auxiliaryFunctions.h"
 #include "textParser.h"

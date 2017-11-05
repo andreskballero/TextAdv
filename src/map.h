@@ -14,12 +14,16 @@
 #define MAP_H
 
 #include "descriptions.h"
-#include "activeObject.h"
 
 typedef struct {
 	char* name;
-	char* description;
+	char** description;
 } normalObject;
+
+typedef struct : normalObject {
+	bool picked;
+	char* holder;
+} activeObject;
 
 // struct que contiene un lugar y la dirección hacia
 // la que girar para ir (estando en un lugar adyacente)

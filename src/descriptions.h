@@ -16,8 +16,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "activeObject.h"
-
 // defines genéricos
 #define MAX_WORDS_INPUT			4
 #define MAX_WORD_SIZE			20
@@ -28,7 +26,7 @@
 #define MAX_NEXT_PLACES			6
 
 #define TOTAL_OBJECTS			100
-#define TOTAL_COMMANDS			8
+#define TOTAL_COMMANDS			9
 #define TOTAL_PLACES			7 // piso de abajo 7, finales son 14
 
 #define PLACE_INITIAL_TEXT		0
@@ -55,6 +53,7 @@
 #define USE						5
 #define GIVE					6
 #define HELP					7
+#define INVENTORY				8
 
 // identificadores de habitación
 #define LOBBY					0
@@ -74,6 +73,11 @@
 
 // identificadores de objeto activo
 
+#define LIVING_ROOM_BIBLE		0
+#define LIVING_ROOM_VASE		1
+#define LIVING_ROOM_SCREWDRIVER	2
+#define LIVING_ROOM_CENTS		3
+
 
 // identificadores de objeto normal
 #define LOBBY_PICTURE			0
@@ -83,6 +87,16 @@
 #define LOBBY_COMMODE			4
 #define LOBBY_STAIRS			5
 
+#define DOWNSTAIRS_CORRIDOR_LETTERS		0
+
+#define LIVING_ROOM_BOOKSHELF	0
+#define LIVING_ROOM_TABLE		1
+#define LIVING_ROOM_PIANO		2
+#define LIVING_ROOM_BIRDCAGE	3
+#define LIVING_ROOM_TV			4
+#define LIVING_ROOM_SOFAS		5
+#define LIVING_ROOM_WINDOW		6
+
 // otros
 #define LETRA_A					64
 #define LETRA_z					123
@@ -90,6 +104,9 @@
 
 #define BAD_INPUT				false
 #define GOOD_INPUT				true
+
+#define VALID_TEXT				0
+#define AUX_TEXT				1
 
 // texto de ayuda
 extern char*					helpText;
@@ -130,20 +147,34 @@ extern char*					garretText[];
 // descripciones de objeto normal
 
 	// recibidor
-extern char*					lobbyPictureText;
-extern char*					lobbyPlateText;
-extern char*					lobbyPegText;
-extern char*					lobbyCarpetText;
-extern char*					lobbyCommodeText;
-extern char*					lobbyStairsText;
+extern char*					lobbyPictureText[];
+extern char*					lobbyPlateText[];
+extern char*					lobbyPegText[];
+extern char*					lobbyCarpetText[];
+extern char*					lobbyCommodeText[];
+extern char*					lobbyStairsText[];
 
 
-	// cocina
+	// corridor
+extern char*					corridorLettersText[];
+
+	// living room
+extern char*					livingroomBookshelfText[];
+extern char*					pickedLivingroomBookshelfText;
+extern char*					livingroomTableText[];
+extern char*					pickedLivingroomTableText;
+extern char*					livingroomPianoText[];
+extern char*					pickedLivingroomPianoText;
+extern char*					livingroomBirdcageText[];
+extern char*					livingroomTVText[];
+extern char*					livingroomSofasText[];
+extern char*					pickedLivingroomSofasText;
+extern char*					livingroomWindowText[];
 
 // variables globales
 	// objetos activos de los lugares
-extern activeObject*			lobbyActiveObjects[];
-extern activeObject*			garageActiveObjects[];
+//extern activeObject*			lobbyActiveObjects[];
+//extern activeObject*			garageActiveObjects[];
 
 // lista que usa el parser para guardar el input
 extern char*					textWords[];

@@ -9,10 +9,6 @@
 //    
 //-----------------------------------------------------------------------------
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #include "gameManager.h"
 
 
@@ -235,6 +231,8 @@ void gameManager::act(void)
 	char* prepos = textWords[2];
 	char* element2 = textWords[3];
 
+	char* auxDir;
+
 	unsigned int place = -1, object = -1;
 	
 
@@ -253,7 +251,7 @@ void gameManager::act(void)
 
 			}
 			else {
-				printf("Look what?");
+				printText("Look around what? Just look around!");
 			}
 			// más adelante, el jugador podrá mirar también objetos, pero siempre que
 			// se encuentren en la misma habitación
@@ -261,7 +259,7 @@ void gameManager::act(void)
 
 			break;
 		case LOOK_AT:
-			printf("Look at sth\n");
+			//printf("Look at sth\n");
 
 			int currentPlace;
 			currentPlace = player.getCurrentPlace();
@@ -269,22 +267,57 @@ void gameManager::act(void)
 			for (int item = 0; item < MAX_NORMAL_ITEMS_PLACE && !found; ++item)
 			{
 				// si hay algún objeto ahi, y si lo introducido 
-				if (map.getPlacesConfig()[currentPlace]->nObjects[item] != NULL &&
+				if (map.getPlacesConfig()[currentPlace]->nObjects[item]->name != NULL &&
 					(0 == strcmp(element, map.getPlacesConfig()[currentPlace]->nObjects[item]->name)))
 				{
 					found = true;
-					printText(map.getPlacesConfig()[currentPlace]->nObjects[item]->description);
+					printText(map.getPlacesConfig()[currentPlace]->nObjects[item]->description[VALID_TEXT]);
 				}
 			}
 
 			if (!found)
 			{
-				printText("That doesn't exist.");
+				printText("I can't see that.");
 			}
 
 			break;
 		case PICK_UP:
-			printf("Pick up\n");
+			//printf("Pick up\n");
+
+			for (int item = 0; item < MAX_ACTIVE_ITEMS_PLACE; ++item)
+			{
+				if ((map.getPlacesConfig()[player.getCurrentPlace()]->aObjects[item] != NULL) &&
+					(0 == strcmp(element, map.getPlacesConfig()[player.getCurrentPlace()]->aObjects[item]->name)))
+				{
+					found = true;
+					printText("Done.");
+
+					// añadir objeto al inventario
+					player.addToInventory(map.getPlacesConfig()[player.getCurrentPlace()]->aObjects[item]);
+
+					// cambiar el texto del objeto normal para adaptarlo a que ya no posee el objeto
+					for (int i = 0; i < MAX_NORMAL_ITEMS_PLACE; ++i)
+					{
+						if ((map.getPlacesConfig()[player.getCurrentPlace()]->nObjects[i] != NULL) &&
+							(0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->aObjects[item]->holder, map.getPlacesConfig()[player.getCurrentPlace()]->nObjects[i]->name)))
+						{
+							auxDir = map.getPlacesConfig()[player.getCurrentPlace()]->nObjects[i]->description[VALID_TEXT];
+							map.getPlacesConfig()[player.getCurrentPlace()]->nObjects[i]->description[VALID_TEXT] = map.getPlacesConfig()[player.getCurrentPlace()]->nObjects[i]->description[AUX_TEXT];
+							map.getPlacesConfig()[player.getCurrentPlace()]->nObjects[i]->description[AUX_TEXT] = auxDir;
+							break;
+						}
+					}
+
+					// eliminarlo de los del sitio
+					map.getPlacesConfig()[player.getCurrentPlace()]->aObjects[item] = NULL;
+				}
+			}
+
+			if (!found)
+			{
+				printText("That object doesn't seem to be here.");
+			}
+
 			break;
 		case GO: 
 
@@ -343,6 +376,9 @@ void gameManager::act(void)
 			break;
 		case HELP:
 			printText(helpText);
+			break;
+		case INVENTORY:
+			player.showInventory();
 			break;
 		default:
 			printf("Esa orden no existe.\n\n");
