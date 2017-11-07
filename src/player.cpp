@@ -12,9 +12,9 @@ player::player()
 
 	// inicializar todas las direcciones a NULL para poder realizar
 	// búsquedas
-	for (int i = 0; i < MAX_ITEMS_INVENTORY; ++i)
+	for (int item = 0; item < MAX_ITEMS_INVENTORY; ++item)
 	{
-		this->inventory[i] = NULL;
+		this->inventory[item] = NULL;
 	}
 }
 

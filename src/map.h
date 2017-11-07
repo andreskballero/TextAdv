@@ -21,7 +21,6 @@ typedef struct {
 } normalObject;
 
 typedef struct : normalObject {
-	bool picked;
 	char* holder;
 } activeObject;
 

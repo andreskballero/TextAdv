@@ -80,6 +80,9 @@ void gameManager::playerLoader(void)
 {
 	player.setObjectsPossessed(0);
 	player.setCurrentPlace(LOBBY);
+
+	// inicializo la semilla del rand
+	srand(time(NULL));
 }
 
 gameManager::gameManager()
@@ -251,7 +254,7 @@ void gameManager::act(void)
 
 			}
 			else {
-				printText("Look around what? Just look around!");
+				printText(lookAroundErrorText);
 			}
 			// más adelante, el jugador podrá mirar también objetos, pero siempre que
 			// se encuentren en la misma habitación
@@ -264,20 +267,43 @@ void gameManager::act(void)
 			int currentPlace;
 			currentPlace = player.getCurrentPlace();
 
-			for (int item = 0; item < MAX_NORMAL_ITEMS_PLACE && !found; ++item)
+			// busco el objeto entre los normales
+			for (int itemNormal = 0; itemNormal < MAX_NORMAL_ITEMS_PLACE && !found; ++itemNormal)
 			{
 				// si hay algún objeto ahi, y si lo introducido 
-				if (map.getPlacesConfig()[currentPlace]->nObjects[item]->name != NULL &&
-					(0 == strcmp(element, map.getPlacesConfig()[currentPlace]->nObjects[item]->name)))
+				if ((map.getPlacesConfig()[currentPlace]->nObjects[itemNormal]->name != NULL) &&
+					((0 == strcmp(element, map.getPlacesConfig()[currentPlace]->nObjects[itemNormal]->name))))
 				{
 					found = true;
-					printText(map.getPlacesConfig()[currentPlace]->nObjects[item]->description[VALID_TEXT]);
+					printText(map.getPlacesConfig()[currentPlace]->nObjects[itemNormal]->description[VALID_TEXT]);
+				}
+			}
+
+			// busco el objeto entre los activos
+			for (int itemActive = 0; itemActive < MAX_ACTIVE_ITEMS_PLACE && !found; ++itemActive)
+			{
+				if ((map.getPlacesConfig()[currentPlace]->aObjects[itemActive] != NULL) &&
+					(0 == strcmp(element, map.getPlacesConfig()[currentPlace]->aObjects[itemActive]->name)))
+				{
+					found = true;
+					printText(map.getPlacesConfig()[currentPlace]->aObjects[itemActive]->description[VALID_TEXT]);
+				}
+			}
+
+			// busco el objeto entre los poseídos
+			for (int itemPossessed = 0; itemPossessed < MAX_ITEMS_INVENTORY && !found; ++itemPossessed)
+			{
+				if (player.getInventory()[itemPossessed] != NULL &&
+					0 == strcmp(element, player.getInventory()[itemPossessed]->name))
+				{
+					found = true;
+					printText(player.getInventory()[itemPossessed]->description[VALID_TEXT]);
 				}
 			}
 
 			if (!found)
 			{
-				printText("I can't see that.");
+				printText(lookAtErrorText[(rand() % 3)]);
 			}
 
 			break;
@@ -315,7 +341,7 @@ void gameManager::act(void)
 
 			if (!found)
 			{
-				printText("That object doesn't seem to be here.");
+				printText(pickUpErrorText[(rand() % 3)]);
 			}
 
 			break;
@@ -352,14 +378,14 @@ void gameManager::act(void)
 			{
 				if (0 == strcmp(element, "down"))
 				{
-					printText("Floors are to walk on, not to go through.");
+					printText(goErrorText[1]);
 				}
 				else if (0 == strcmp(element, "up"))
 				{
-					printText("Can't jump through the ceiling... Yet.");
+					printText(goErrorText[2]);
 				}
 				else {
-					printText("I'm not going through a wall, sorry.");
+					printText(goErrorText[0]);
 				}
 			}
 

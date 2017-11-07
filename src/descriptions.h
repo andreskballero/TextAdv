@@ -20,9 +20,9 @@
 #define MAX_WORDS_INPUT			4
 #define MAX_WORD_SIZE			20
 #define MAX_INPUT_SIZE			80
-#define MAX_ITEMS_INVENTORY		20
+#define MAX_ITEMS_INVENTORY		30
 #define MAX_ACTIVE_ITEMS_PLACE	4
-#define MAX_NORMAL_ITEMS_PLACE	8
+#define MAX_NORMAL_ITEMS_PLACE	10
 #define MAX_NEXT_PLACES			6
 
 #define TOTAL_OBJECTS			100
@@ -72,12 +72,20 @@
 #define GARRET					13
 
 // identificadores de objeto activo
+#define LOBBY_SHOES				0
+#define LOBBY_BATTERY			1
+#define LOBBY_LEAFLET			2
+#define LOBBY_PLANT				3
 
 #define LIVING_ROOM_BIBLE		0
 #define LIVING_ROOM_VASE		1
 #define LIVING_ROOM_SCREWDRIVER	2
 #define LIVING_ROOM_CENTS		3
 
+#define KITCHEN_KNIFE			0
+#define KITCHEN_BEEF			1
+#define KITCHEN_COFFEE			2
+#define KITCHEN_WATER			3
 
 // identificadores de objeto normal
 #define LOBBY_PICTURE			0
@@ -86,8 +94,23 @@
 #define LOBBY_CARPET			3
 #define LOBBY_COMMODE			4
 #define LOBBY_STAIRS			5
+#define LOBBY_CANDY				6
+#define LOBBY_FLOWERPOT			7
+#define LOBBY_CLOCK				8
+#define LOBBY_COATS				9
 
 #define DOWNSTAIRS_CORRIDOR_LETTERS		0
+
+#define KITCHEN_TABLEBOARD		0
+#define KITCHEN_FRIDGE			1
+#define KITCHEN_WORKTOP			2
+#define KITCHEN_FITMENT			3
+#define KITCHEN_DOORWAY			4
+#define KITCHEN_MILK			5
+#define KITCHEN_FLOUR			6
+#define KITCHEN_EGGS			7
+#define KITCHEN_MICROWAVE		8
+#define KITCHEN_STOVE			9
 
 #define LIVING_ROOM_BOOKSHELF	0
 #define LIVING_ROOM_TABLE		1
@@ -96,6 +119,9 @@
 #define LIVING_ROOM_TV			4
 #define LIVING_ROOM_SOFAS		5
 #define LIVING_ROOM_WINDOW		6
+#define LIVING_ROOM_FIGURE		7 // to do
+#define LIVING_ROOM_DISH		8 // to do
+#define LIVING_ROOM_STICK		9 // to do
 
 // otros
 #define LETRA_A					64
@@ -114,6 +140,12 @@ extern char*					helpText;
 // textos de situación
 extern char*					welcomeText;
 extern char*					contextText;
+
+// textos de error
+extern char*					lookAroundErrorText;
+extern char*					lookAtErrorText[];
+extern char*					pickUpErrorText[];
+extern char*					goErrorText[];
 
 // descripciones de lugar
 	// planta baja
@@ -142,8 +174,6 @@ extern char*					garretText[];
 
 
 
-
-
 // descripciones de objeto normal
 
 	// recibidor
@@ -153,23 +183,67 @@ extern char*					lobbyPegText[];
 extern char*					lobbyCarpetText[];
 extern char*					lobbyCommodeText[];
 extern char*					lobbyStairsText[];
+extern char*					lobbyCandyText[];
+extern char*					lobbyFlowerpotText[];
+extern char*					lobbyClockText[];
+extern char*					lobbyCoatsText[];
 
 
 	// corridor
 extern char*					corridorLettersText[];
 
+	// kitchen
+extern char*					kitchenTableboardText[];
+extern char*					kitchenFridgeText[];
+extern char*					kitchenWorktopText[];
+extern char*					kitchenFitmentText[];
+extern char*					kitchenDoorwayText[];
+extern char*					kitchenMilkText[];
+extern char*					kitchenFlourText[];
+extern char*					kitchenEggsText[];
+extern char*					kitchenMicrowaveText[];
+extern char*					kitchenStoveText[];
+
+
+	// WC
+
 	// living room
 extern char*					livingroomBookshelfText[];
-extern char*					pickedLivingroomBookshelfText;
 extern char*					livingroomTableText[];
-extern char*					pickedLivingroomTableText;
 extern char*					livingroomPianoText[];
-extern char*					pickedLivingroomPianoText;
 extern char*					livingroomBirdcageText[];
 extern char*					livingroomTVText[];
 extern char*					livingroomSofasText[];
-extern char*					pickedLivingroomSofasText;
 extern char*					livingroomWindowText[];
+extern char*					livingroomFigureText[];
+extern char*					livingroomDishText[];
+extern char*					livingroomStickText[];
+
+
+
+// descripciones de objeto activo
+
+	// lobby
+extern char*					lobbyShoesText[];
+extern char*					lobbyBatteryText[];
+extern char*					lobbyLeafletText[];
+extern char*					lobbyPlantText[];
+
+	// kitchen
+extern char*					kitchenKnifeText[];
+extern char*					kitchenBeefText[];
+extern char*					kitchenCoffeeText[];
+extern char*					kitchenWaterText[];
+
+	// living room
+extern char*					livingroomBibleText[];
+extern char*					livingroomVaseText[];
+extern char*					livingroomScrewdriverText[];
+extern char*					livingroomCentsText[];
+
+
+
+
 
 // variables globales
 	// objetos activos de los lugares
