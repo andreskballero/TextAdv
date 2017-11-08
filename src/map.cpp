@@ -364,6 +364,55 @@ void map::loadObjectsAndPlaces(void)
 	placesConfig[LOBBY]->nObjects = objects;
 
 
+	//------------ OBJETOS GARAJE ------------//
+
+	objects = (normalObject**)malloc((sizeof(normalObject*) * MAX_NORMAL_ITEMS_PLACE) + 1);
+
+	nObject0 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject1 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject2 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject3 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject4 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject5 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject6 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject7 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject8 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject9 = (normalObject*)malloc(sizeof(normalObject) + 1);
+
+	nObject0->name = "car";
+	nObject0->description = garageCarText;
+	nObject1->name = "shelf";
+	nObject1->description = garageShelfText;
+	nObject2->name = "workbench";
+	nObject2->description = garageWorkbenchText;
+	nObject3->name = "boxes";
+	nObject3->description = garageBoxesText;
+	nObject4->name = "chainsaw";
+	nObject4->description = garageChainsawText;
+	nObject5->name = "bike";
+	nObject5->description = garageBikeText;
+	nObject6->name = "door";
+	nObject6->description = garageDoorText;
+	nObject7->name = "lock";
+	nObject7->description = garageElectricalLockText;
+	nObject8->name = "signboard";
+	nObject8->description = garageSignboardText;
+	nObject9->name = "gate";
+	nObject9->description = garageGateText;
+
+	objects[GARAGE_CAR] = nObject0;
+	objects[GARAGE_SHELF] = nObject1;
+	objects[GARAGE_WORKBENCH] = nObject2;
+	objects[GARAGE_BOXES] = nObject3;
+	objects[GARAGE_CHAINSAW] = nObject4;
+	objects[GARAGE_BIKE] = nObject5;
+	objects[GARAGE_DOOR] = nObject6;
+	objects[GARAGE_ELECTRICAL_LOCK] = nObject7;
+	objects[GARAGE_SIGNBOARD] = nObject8;
+	objects[GARAGE_GATE] = nObject9;
+
+	placesConfig[GARAGE]->nObjects = objects;
+
 	//------------ OBJETOS CORRIDOR ------------//
 
 	objects = (normalObject**)malloc((sizeof(normalObject*) * MAX_NORMAL_ITEMS_PLACE) + 1);
@@ -545,6 +594,40 @@ void map::loadObjectsAndPlaces(void)
 	activeObjects[LOBBY_PLANT] = actObject3;
 
 	placesConfig[LOBBY]->aObjects = activeObjects;
+
+		// garage
+
+	activeObjects = (activeObject**)malloc((sizeof(activeObject*)*MAX_ACTIVE_ITEMS_PLACE) + 1);
+
+	actObject0 = (activeObject*)malloc(sizeof(activeObject) + 1);
+	actObject1 = (activeObject*)malloc(sizeof(activeObject) + 1);
+	actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
+	actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
+
+	actObject0->name = "tape";
+	actObject0->description = garageTapeText;
+	actObject0->holder = "bike";
+
+	actObject1->name = "sawdust";
+	actObject1->description = garageSawdustText;
+	actObject1->holder = "workbench";
+
+	actObject2->name = "lighter";
+	actObject2->description = garageLighterText;
+	actObject2->holder = "car";
+
+	actObject3->name = "fireworks";
+	actObject3->description = garageFireworksText;
+	actObject3->holder = "shelf";
+
+	activeObjects[GARAGE_TAPE] = actObject0;
+	activeObjects[GARAGE_SAWDUST] = actObject1;
+	activeObjects[GARAGE_LIGHTER] = actObject2;
+	activeObjects[GARAGE_FIREWORKS] = actObject3;
+
+	placesConfig[GARAGE]->aObjects = activeObjects;
+
+		// downstairs corridor (nothing)
 
 		// kitchen
 	activeObjects = (activeObject**)malloc((sizeof(activeObject*)*MAX_ACTIVE_ITEMS_PLACE) + 1);

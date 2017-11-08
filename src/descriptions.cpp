@@ -12,7 +12,7 @@
 
 
 char*					helpText = "GAME, SEND ME HELP!\n\n"\
-									"There you go, my beautiful player.\n\n"\
+									"There you go, beautiful player.\n\n"\
 									"There are 7 commands available. Anything different command typed "
 									"is not even considered. The commands are:\n"\
 									"- look around\n"\
@@ -74,11 +74,10 @@ char*					downstairsCorridorText[] = {"I'm in the corridor next to the lobby.",
 													"never counted them, but there must be hundreds. The kitchen is on the right side, the bathroom on the left, "\
 													"the living room at the end." };
 
-char*					garageText[] = { "I'm in the garage.", 
-										"This garage looks exactly like the one from \"The Simpsons\". Here's the car. Mom and Dad have probably taken "\
-										"the bus, they are very concerned about pollution lately. There is a large shelf full of stuff and a workbench "\
-										"on the door's opposite wall. On the right, the garage door, and the left belongs to the basement door. That place "\
-										"creeps the hell out of me. Dad doesn't allow anyone to go down there, he keeps the place electronically locked. Why?" };
+char*					garageText[] = { "I'm in the garage.",
+										"This garage looks almost like the one from \"The Simpsons\". Here's the car and that supid signboard. There is a "\
+										"large shelf and a workbench on the door's opposite wall. On the right, the garage gate, and the left "\
+										"belongs to the basement door. Oh! And my... bike?" };
 
 char*					kitchenText[] = { "I'm in the kitchen.", 
 											"The twins' favourite place in the whole house, I can easily guess why. There is a big white tableboard in the middle."\
@@ -155,6 +154,46 @@ char*					lobbyClockText[] = { { "God, now it's quiet, but, during the night, th
 char*					lobbyCoatsText[] = { { "Yellow coats, you know, for the cold." },
 											{ NULL } };
 
+
+char*					garageCarText[] = { { "Dad's 1968 Ford. I think he loves this car more than me and my sisters. There's a lighter inside. Oh, and "\
+											"that upholstery looks like it could really use a good cleanup." },
+											{ "Dad's 1968 Ford. I think he loves this car more than me and my sisters. That upholstery looks like it could really "\
+											"use a good cleanup." } };
+
+char*					garageShelfText[] = { { "Illegal fireworks, old car pieces and empty Special-K boxes. What a strange mixture." },
+											{ "It's full of old car pieces and empty Special-K boxes. What a strange mixture." } };
+
+char*					garageWorkbenchText[] = { { "Here's where Dad builds his unique pieces of... art. I mean, do you really need a chainsaw to make sculptures? "\
+													"This is a mess, there's sawdust all around! I truly hope the twins never find out about this. " },
+												{ "Here's where Dad builds his unique pieces of... art. I mean, do you really need a chainsaw to make sculptures? "\
+													"I truly hope the twins never find out about this. " } };
+
+char*					garageBoxesText[] = { { "Plain brown boxes from the box factory. The owner and Dad are close friends. He always sends us boxes filled with chocolates "
+												"for Christmas. It might seem good, but we spend half a year eating chocolates. Half. A. Year. I'm diabetic now." },
+												{ NULL } };
+
+char*					garageChainsawText[] = { { "I dread these things. I've seen too many horror movies." },
+												{ NULL } };
+
+char*					garageBikeText[] = { { "My bike! What has Dad done to you? Did he really need your pieces? Why is there a duct tape roll on your seat? "\
+												"Does he use you just as a duct tape holder? No! Don't breathe, don't breathe, I'll seek out help, don't move!" },
+											{ "My bike! What has Dad done to you? Did he really need your pieces? No! Don't breathe, don't breathe, I'll seek out help, don't move!" } };
+
+char*					garageDoorText[] = { { "The door to the basement. It's locked. An electrical lock prevents anyone from stepping in without permission or the key. "\
+												"I crave answers, I want to know what lies within those walls. And I will." },
+											{ "The door to the basement. Woah, when Mom sees what happened, she's going to have me killed. Lucky I can't die again." } };
+
+char*					garageElectricalLockText[] = { { "I can't open the door because of this weird electrical lock. It looks older than Methuselah. There must be some way "\
+														"to brake it."},
+														{ "Now it's useless. I hope it wasn't the last version of an old series. Jinx." } };
+
+char*					garageSignboardText[] = { { "It reads: \"DIY. Follow your dreams and don't stop even if you make something explode in the process.\". I hope Dad "\
+													"to survive the mid-forties crysis he's going through. Does that exist for skeletons?" },
+												{ NULL } };
+
+char*					garageGateText[] = { { "The door! Wait. The electrical circuitry is broken and I can't lift up the door without muscles. Damn it." },
+											{ NULL } };
+
 	// corridor
 
 char*					corridorLettersText[] = { { "Hundreds of letters from Mom's fans cover the walls! But they aren't what one could expect from fan letters. "\
@@ -167,20 +206,35 @@ char*					corridorLettersText[] = { { "Hundreds of letters from Mom's fans cover
 	// kitchen
 char*					kitchenTableboardText[] = { {"The knife on top is so sharp. I can picture beheaded hobos laying here, I swear."},
 													{ "I can picture beheaded hobos laying here, I swear." } };
+
 char*					kitchenFridgeText[] = { { "We should go to the groceries. There's only beef, milk and eggs. Beh, if I'm hungry I can ask Coca and Cola for a "\
 												"piece of cake." },{ "We should go to the groceries. There's only milk and eggs. Beh, if I'm hungry I can ask Coca "
 												"and Cola for a piece of cake." } };
+
 char*					kitchenWorktopText[] = { { "Here is where Mom cooks... and the twins too. Someone has poured coffee here and hasn't even bothered in cleaning it." },
 												{ "Here is where Mom cooks... and the twins too." } };
+
 char*					kitchenFitmentText[] = { { "Here's the microwave and the magic it contains. How does it work? I wasn't paying attention in school the day that was "\
 													"explained. Well, the thing next to it I can surely explain. I love you, bottle of water."},
 													{ "Here's the microwave and the magic it contains. How does it work? I wasn't paying attention in school the day that was explained." } };
-char*					kitchenDoorwayText[] = { { "It has a nice mini screen door at the bottom. Fang uses it to go out to the garden." },{ NULL } };
-char*					kitchenMilkText[] = { { "No animal should drink another species' milk. It's unnatural." },{ NULL } };
-char*					kitchenFlourText[] = { { "Making cakes leaves footprints, sisters. More, I mean." },{ NULL } };
-char*					kitchenEggsText[] = { { "How can stomach holders eat something that pops out of a hen's hole?" },{ NULL } };
-char*					kitchenMicrowaveText[] = { { "I remember Mom warming milk up in the stewpan when this thing didn't exist." },{ NULL } };
-char*					kitchenStoveText[] = { { "Touching this is forbidden to me. Dad says I'm so dumb I could set the house on fire without even turning it on." },{ NULL } };
+
+char*					kitchenDoorwayText[] = { { "It has a nice mini screen door at the bottom. Fang uses it to go out to the garden." },
+													{ NULL } };
+
+char*					kitchenMilkText[] = { { "No animal should drink another species' milk. It's unnatural." },
+												{ NULL } };
+
+char*					kitchenFlourText[] = { { "Making cakes leaves footprints, sisters. More, I mean." },
+												{ NULL } };
+
+char*					kitchenEggsText[] = { { "How can stomach holders eat something that pops out of a hen's hole?" },
+												{ NULL } };
+
+char*					kitchenMicrowaveText[] = { { "I remember Mom warming milk up in the stewpan when this thing didn't exist." },
+												{ NULL } };
+
+char*					kitchenStoveText[] = { { "Touching this is forbidden to me. Dad says I'm so dumb I could set the house on fire without even turning it on." },
+												{ NULL } };
 
 	// living room
 char*					livingroomBookshelfText[] = { {"I've read every one of those books but two... The Bible and that stupid Necronomi-don't-know-what-else "\
@@ -236,6 +290,17 @@ char*					lobbyLeafletText[] = { { "The recipee for making a... bomb? I should t
 												{ NULL } };
 char*					lobbyPlantText[] = { { "It seems hungry." },
 												{ NULL } };
+
+	// garage
+
+char*					garageTapeText[] = { { "\"Unbreakable\", Dad says every time he brings this out in a conversation." },
+											{ NULL } };
+char*					garageSawdustText[] = { { "Granma used to say that most people's heads are filled with sawdust. Granma talked oddly sometimes." },
+											{ NULL } };
+char*					garageLighterText[] = { { "I remember this lighter. There was a time when I found a sprite in the garden. He told me to burn things. I started with him." },
+											{ NULL } };
+char*					garageFireworksText[] = { { "\"Caution: enough power to blow a little safe. Keep away from mad adults.\"" },
+											{ NULL } };
 
 	//downstairscorridor (nada)
 	

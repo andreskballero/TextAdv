@@ -77,6 +77,11 @@
 #define LOBBY_LEAFLET			2
 #define LOBBY_PLANT				3
 
+#define GARAGE_TAPE				0
+#define GARAGE_SAWDUST			1
+#define GARAGE_LIGHTER			2
+#define GARAGE_FIREWORKS		3
+
 #define LIVING_ROOM_BIBLE		0
 #define LIVING_ROOM_VASE		1
 #define LIVING_ROOM_SCREWDRIVER	2
@@ -98,6 +103,17 @@
 #define LOBBY_FLOWERPOT			7
 #define LOBBY_CLOCK				8
 #define LOBBY_COATS				9
+
+#define	GARAGE_CAR				0
+#define	GARAGE_SHELF			1
+#define	GARAGE_WORKBENCH		2
+#define	GARAGE_BOXES			3
+#define	GARAGE_CHAINSAW			4
+#define	GARAGE_BIKE				5
+#define	GARAGE_DOOR				6
+#define	GARAGE_ELECTRICAL_LOCK	7
+#define GARAGE_SIGNBOARD		8
+#define GARAGE_GATE				9
 
 #define DOWNSTAIRS_CORRIDOR_LETTERS		0
 
@@ -188,6 +204,17 @@ extern char*					lobbyFlowerpotText[];
 extern char*					lobbyClockText[];
 extern char*					lobbyCoatsText[];
 
+	// garage
+extern char*					garageCarText[];
+extern char*					garageShelfText[];
+extern char*					garageWorkbenchText[];
+extern char*					garageBoxesText[];
+extern char*					garageChainsawText[];
+extern char*					garageBikeText[];
+extern char*					garageDoorText[];
+extern char*					garageElectricalLockText[];
+extern char*					garageSignboardText[];
+extern char*					garageGateText[];
 
 	// corridor
 extern char*					corridorLettersText[];
@@ -228,6 +255,12 @@ extern char*					lobbyShoesText[];
 extern char*					lobbyBatteryText[];
 extern char*					lobbyLeafletText[];
 extern char*					lobbyPlantText[];
+
+	// garage
+extern char*					garageTapeText[];
+extern char*					garageSawdustText[];
+extern char*					garageLighterText[];
+extern char*					garageFireworksText[];
 
 	// kitchen
 extern char*					kitchenKnifeText[];
