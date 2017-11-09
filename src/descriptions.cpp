@@ -59,6 +59,8 @@ char*					lookAroundErrorText = "Look around what ? Just look around!";
 char*					lookAtErrorText[] = { {"I can't see that."}, {"I don't think that exists here."}, {"We don't have anything like that."} };
 char*					pickUpErrorText[] = { {"I can't pick that up."}, {"No way."}, {"Did you type that right?"} };
 char*					goErrorText[] = { { "I'm not going through a wall, sorry." }, { "Floors are to walk on, not to go through." } , { "Can't jump through the ceiling... Yet." } };
+char*					useErrorText[] = { { "I can't use that." },{ "Do I have that?" },{ "Did you type that right?" } };
+
 
 
 
@@ -87,7 +89,7 @@ char*					kitchenText[] = { "I'm in the kitchen.",
 
 char*					bathroomText[] = { "I'm in the WC.", 
 											"Nice and simple. A shower plate on the right, the sink and a big mirror, and the toilet "\
-											"on the left side, beside a tall, narrow piece of furniture where we keep our hygiene... things." };
+											"on the left side, beside a tall, narrow piece of furniture where we keep our hygiene stuff." };
 
 char*					livingRoomText[] = { "I'm in the living room.",
 											"This living room is way too big for a 5-member family, a dog and a parrot. On the left side there's "\
@@ -177,7 +179,8 @@ char*					garageChainsawText[] = { { "I dread these things. I've seen too many h
 
 char*					garageBikeText[] = { { "My bike! What has Dad done to you? Did he really need your pieces? Why is there a duct tape roll on your seat? "\
 												"Does he use you just as a duct tape holder? No! Don't breathe, don't breathe, I'll seek out help, don't move!" },
-											{ "My bike! What has Dad done to you? Did he really need your pieces? No! Don't breathe, don't breathe, I'll seek out help, don't move!" } };
+											{ "My bike! What has Dad done to you? Did he really need your pieces? No! Don't breathe, don't breathe, I'll seek out help, "\
+											"don't move!" } };
 
 char*					garageDoorText[] = { { "The door to the basement. It's locked. An electrical lock prevents anyone from stepping in without permission or the key. "\
 												"I crave answers, I want to know what lies within those walls. And I will." },
@@ -216,7 +219,8 @@ char*					kitchenWorktopText[] = { { "Here is where Mom cooks... and the twins t
 
 char*					kitchenFitmentText[] = { { "Here's the microwave and the magic it contains. How does it work? I wasn't paying attention in school the day that was "\
 													"explained. Well, the thing next to it I can surely explain. I love you, bottle of water."},
-													{ "Here's the microwave and the magic it contains. How does it work? I wasn't paying attention in school the day that was explained." } };
+													{ "Here's the microwave and the magic it contains. How does it work? I wasn't paying attention in school the day that was "
+													"explained." } };
 
 char*					kitchenDoorwayText[] = { { "It has a nice mini screen door at the bottom. Fang uses it to go out to the garden." },
 													{ NULL } };
@@ -235,6 +239,38 @@ char*					kitchenMicrowaveText[] = { { "I remember Mom warming milk up in the st
 
 char*					kitchenStoveText[] = { { "Touching this is forbidden to me. Dad says I'm so dumb I could set the house on fire without even turning it on." },
 												{ NULL } };
+
+
+	// WC
+char*					wcShowerText[] = { {"The shower plate. Oops, we should replace the soap, there's little left."}, 
+											{ "The shower plate." } };
+
+char*					wcSinkText[] = { {"Here we leave the mouth related stuff, such as the toothpaste. Also, apparently my sisters leave all "\
+											"their hair in here."},
+											{ "Here we leave the mouth related stuff. Also, apparently my sisters leave all "\
+												"their hair in here." } };
+
+char*					wcMirrorText[] = { {"God, I'm uglier than I remembered. I wonder if this happens to you too. Wait, who am I talking to?"},
+											{ NULL } };
+
+char*					wcToiletText[] = { {"This stupid white rock feels like the best sofa in the world when the occasion comes. No! I think that toilet paper "\
+											"is from the coarse type. Humans don't like that. Smooth is better, they say."},
+											{ "This stupid white rock feels like the best sofa in the world when the occasion comes. I wish I had the chance to use it." } };
+
+char*					wcFurnitureText[] = { {"Here we keep a comb, aspirins and bandages... and there's a hidden drawer in here, but it stands out blatantly."},
+											{ "Here we keep aspirins and bandages... and there's a hidden drawer in here, but it stands out blatantly." } };
+
+char*					wcDrawerText[] = { { "Perfectly hidden. Mom hides here her 800-coin feminine perfume. She thinks we don't... I mean, the sisters don't know." },
+											{ "Perfectly hidden. Empty now." } };
+
+char*					wcPaperText[] = { {"Coarse."},
+											{ NULL } };
+
+char*					wcAspirinText[] = { {"This little things... They have never proved useful to me."},
+											{ NULL } };
+
+char*					wcBandageText[] = { {"I wish I could bleed."},
+											{ NULL } };
 
 	// living room
 char*					livingroomBookshelfText[] = { {"I've read every one of those books but two... The Bible and that stupid Necronomi-don't-know-what-else "\
@@ -262,8 +298,9 @@ char*					livingroomTVText[] = { { "The good ol' Grampa's WWII TV. It's always o
 												"hell? Who believes that a strip of duct tape can resist water and remain glued?" },
 												{NULL} };
 
-char*					livingroomSofasText[] = { {"A comfy pair of sofas for 3-hour naps. From the fourth hour on, the back starts hurting. Look! Two cents. They probably "
-													"slipped out of my pocket while sleeping." }, { "A comfy pair of sofas for 3-hour naps. From the fourth hour on, the back starts hurting." } };
+char*					livingroomSofasText[] = { {"A comfy pair of sofas for 3-hour naps. From the fourth hour on, the back starts hurting. Look! Two cents. They probably "\
+													"slipped out of my pocket while sleeping." }, { "A comfy pair of sofas for 3-hour naps. From the fourth hour on, the "\
+													"back starts hurting." } };
 
 char*					livingroomWindowText[] = { { "The garden can be seen through the window. In fact, nothing can be seen through the window. We should mow the lawn "\
 													"from time to time." }, 
@@ -313,6 +350,16 @@ char*					kitchenCoffeeText[] = { { "It stinks." },
 												{ NULL } };
 char*					kitchenWaterText[] = { { "I wish I could drink it. It's hard without a stomach." },
 												{ NULL } };
+
+	// WC
+char*					wcSoapText[] = { {"Slippery."}, 
+										{ NULL } };
+char*					wcToothpasteText[] = { {"Strawberry flavour! Yummy!"},
+												{ NULL } };
+char*					wcCombText[] = { {"It's electrified."},
+										{ NULL } };
+char*					wcPerfumeText[] = { {"Smells like teen spirit."},
+											{ NULL } };
 
 	//living room
 char*					livingroomBibleText[] = { { "This bible seems to be hollow. Wow, a booze flask. Someone's hitting it hard and it's not me. I hope." },

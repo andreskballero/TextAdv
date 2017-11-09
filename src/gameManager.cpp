@@ -72,7 +72,7 @@ void gameManager::placeLoader(void)
 	//printf("%s\n", recibidor.getObjetosActivo()[2]->getDescripcion());
 	//printf("%s\n", recibidor.getObjetosActivo()[3]->getDescripcion());
 
-	this->map.loadObjectsAndPlaces();
+	this->map.loadPlacesObjectsCombinations();
 }
 
 
@@ -395,7 +395,33 @@ void gameManager::act(void)
 			printf("Talk to\n");
 			break;
 		case USE:
-			printf("Use\n");
+			printf("Use\n\n");
+
+			if (prepos[0] == '\0' && element2[0] == '\0') // si no hay un with significa que es un uso en el player
+			{
+				//printf("%d, %d\n", (player.getObjectInventory(element) != NULL), (events.checkPlayerUsage(element)));
+				if ((player.getObjectInventory(element) != NULL) && (events.checkPlayerUsage(element))) // si se debe activar el objeto
+				{
+					if (player.getObjectInventory(element)->used == false)
+					{
+						player.getObjectInventory(element)->used = true;
+						printText(events.getNotice(element));
+					}
+					else {
+						printText("I've already used that.");
+					}
+
+				}
+				else {
+					printText(useErrorText[(rand() % 3)]);
+				}
+			}
+			else { // si no es en player, es uso entre objetos o con el entorno, comprobar
+
+			}
+
+			// si se han desbloqueado todos los elementos de un desbloqueo total, desbloquear
+
 			break;
 		case GIVE:
 			printf("Give\n");

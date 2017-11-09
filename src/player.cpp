@@ -86,18 +86,39 @@ activeObject** player::getInventory(void)
 	return this->inventory;
 }
 
+activeObject * player::getObjectInventory(char * objectTarget)
+{
+	for (int i = 0; i < MAX_ITEMS_INVENTORY; ++i)
+	{
+		if ((inventory[i] != NULL) &&
+			(0 == strcmp(objectTarget, inventory[i]->name)))
+		{
+			return inventory[i];
+		}
+	}
+
+	return NULL; //si no existe
+}
+
 
 void player::showInventory(void)
 {
-	for (int item = 0; item < MAX_ITEMS_INVENTORY; ++item)
+	if (inventory[0] != NULL)
 	{
-		if (this->inventory[item] != NULL)
+		for (int item = 0; item < MAX_ITEMS_INVENTORY; ++item)
 		{
-			if (0 == (item % 3)) // filas de 3 items
+			if (this->inventory[item] != NULL)
 			{
-				printf("\n");
+				if (0 == (item % 3)) // filas de 3 items
+				{
+					printf("\n");
+				}
+				printf("%s    ", this->inventory[item]->name);
 			}
-			printf("%s    ", this->inventory[item]->name);
 		}
 	}
+	else {
+		printText("The inventory is empty.");
+	}
+
 }

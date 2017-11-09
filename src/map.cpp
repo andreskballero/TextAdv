@@ -12,23 +12,19 @@ map::~map()
 }
 
 
-placeConfig* map::loadStruct(char* newName, char** newDescription)
+placeConfig* map::initPlace(char* newName, char** newDescription, bool newAccess)
 {
 	placeConfig* newPlace = (placeConfig*)malloc(sizeof(placeConfig) + 1);
 
 	newPlace->name = newName;
 	newPlace->description = newDescription;
+	newPlace->accessible = newAccess;
 
 	return newPlace;
 }
 
-void map::loadRelations(placeConfig* newPlace, placeRelations** newNextPlaces)
-{
-	newPlace->nextPlaces = newNextPlaces;
-}
 
-
-void map::loadObjectsAndPlaces(void)
+void map::loadPlacesObjectsCombinations(void)
 {
 
 	//----------------------- PLACES -----------------------//
@@ -43,13 +39,13 @@ void map::loadObjectsAndPlaces(void)
 	placeRelations* downRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 
 		// carga de los lugares
-	placesConfig[LOBBY] = loadStruct("lobby", lobbyText);
-	placesConfig[GARAGE] = loadStruct("garage", garageText);
-	placesConfig[DOWNSTAIRS_CORRIDOR] = loadStruct("downstairs corridor", downstairsCorridorText);
-	placesConfig[KITCHEN] = loadStruct("kitchen", kitchenText);
-	placesConfig[WC] = loadStruct("WC", bathroomText);
-	placesConfig[LIVING_ROOM] = loadStruct("living room", livingRoomText);
-	placesConfig[BASEMENT] = loadStruct("basement", basementText);
+	placesConfig[LOBBY] = initPlace("lobby", lobbyText, true);
+	placesConfig[GARAGE] = initPlace("garage", garageText, true);
+	placesConfig[DOWNSTAIRS_CORRIDOR] = initPlace("downstairs corridor", downstairsCorridorText, true);
+	placesConfig[KITCHEN] = initPlace("kitchen", kitchenText, true);
+	placesConfig[WC] = initPlace("WC", bathroomText, true);
+	placesConfig[LIVING_ROOM] = initPlace("living room", livingRoomText, true);
+	placesConfig[BASEMENT] = initPlace("basement", basementText, false);
 
 
 	//------------ LOBBY ------------//
@@ -75,7 +71,8 @@ void map::loadObjectsAndPlaces(void)
 	placesLoad[BACKWARD] = NULL;
 	placesLoad[UP] = upRelations;
 	placesLoad[DOWN] = NULL;
-	loadRelations(placesConfig[LOBBY], placesLoad);
+
+	placesConfig[LOBBY]->nextPlaces = placesLoad;
 
 
 	//------------ GARAJE ------------//
@@ -112,7 +109,8 @@ void map::loadObjectsAndPlaces(void)
 	placesLoad[BACKWARD] = backRelations;
 	placesLoad[UP] = NULL;
 	placesLoad[DOWN] = downRelations;
-	loadRelations(placesConfig[GARAGE], placesLoad);
+
+	placesConfig[GARAGE]->nextPlaces = placesLoad;
 
 
 	//------------ PASILLO DE ABAJO ------------//
@@ -149,7 +147,8 @@ void map::loadObjectsAndPlaces(void)
 	placesLoad[BACKWARD] = backRelations;
 	placesLoad[UP] = NULL;
 	placesLoad[DOWN] = NULL;
-	loadRelations(placesConfig[DOWNSTAIRS_CORRIDOR], placesLoad);
+
+	placesConfig[DOWNSTAIRS_CORRIDOR]->nextPlaces = placesLoad;
 
 
 	//------------ COCINA ------------//
@@ -186,7 +185,8 @@ void map::loadObjectsAndPlaces(void)
 	placesLoad[BACKWARD] = backRelations;
 	placesLoad[UP] = NULL;
 	placesLoad[DOWN] = NULL;
-	loadRelations(placesConfig[KITCHEN], placesLoad);
+	
+	placesConfig[KITCHEN]->nextPlaces = placesLoad;
 
 
 	//------------ WC ------------//
@@ -223,7 +223,8 @@ void map::loadObjectsAndPlaces(void)
 	placesLoad[BACKWARD] = backRelations;
 	placesLoad[UP] = NULL;
 	placesLoad[DOWN] = NULL;
-	loadRelations(placesConfig[WC], placesLoad);
+
+	placesConfig[WC]->nextPlaces = placesLoad;
 
 
 	//------------ SALA DE ESTAR ------------//
@@ -260,7 +261,8 @@ void map::loadObjectsAndPlaces(void)
 	placesLoad[BACKWARD] = backRelations;
 	placesLoad[UP] = NULL;
 	placesLoad[DOWN] = NULL;
-	loadRelations(placesConfig[LIVING_ROOM], placesLoad);
+
+	placesConfig[LIVING_ROOM]->nextPlaces = placesLoad;
 
 
 	//------------ SOTANO ------------//
@@ -297,7 +299,8 @@ void map::loadObjectsAndPlaces(void)
 	placesLoad[BACKWARD] = NULL;
 	placesLoad[UP] = upRelations;
 	placesLoad[DOWN] = NULL;
-	loadRelations(placesConfig[BASEMENT], placesLoad);
+
+	placesConfig[BASEMENT]->nextPlaces = placesLoad;
 
 
 	/*for (int i = 0; i < 7; ++i)
@@ -328,7 +331,6 @@ void map::loadObjectsAndPlaces(void)
 	normalObject* nObject9 = (normalObject*)malloc(sizeof(normalObject) + 1);
 
 	//------------ OBJETOS LOBBY ------------//
-
 	nObject0->name = "picture";
 	nObject0->description = lobbyPictureText;
 	nObject1->name = "plate";
@@ -365,7 +367,6 @@ void map::loadObjectsAndPlaces(void)
 
 
 	//------------ OBJETOS GARAJE ------------//
-
 	objects = (normalObject**)malloc((sizeof(normalObject*) * MAX_NORMAL_ITEMS_PLACE) + 1);
 
 	nObject0 = (normalObject*)malloc(sizeof(normalObject) + 1);
@@ -413,8 +414,8 @@ void map::loadObjectsAndPlaces(void)
 
 	placesConfig[GARAGE]->nObjects = objects;
 
-	//------------ OBJETOS CORRIDOR ------------//
 
+	//------------ OBJETOS CORRIDOR ------------//
 	objects = (normalObject**)malloc((sizeof(normalObject*) * MAX_NORMAL_ITEMS_PLACE) + 1);
 
 	nObject0 = (normalObject*)malloc(sizeof(normalObject) + 1);
@@ -464,7 +465,6 @@ void map::loadObjectsAndPlaces(void)
 
 
 	//------------ OBJETOS COCINA ------------//
-
 	objects = (normalObject**)malloc((sizeof(normalObject*) * MAX_NORMAL_ITEMS_PLACE) + 1);
 
 	nObject0 = (normalObject*)malloc(sizeof(normalObject) + 1);
@@ -512,8 +512,57 @@ void map::loadObjectsAndPlaces(void)
 
 	placesConfig[KITCHEN]->nObjects = objects;
 
-	//------------ OBJETOS SALA DE ESTAR ------------//
 
+	//------------ OBJETOS WC ------------//
+	objects = (normalObject**)malloc((sizeof(normalObject*) * MAX_NORMAL_ITEMS_PLACE) + 1);
+
+	nObject0 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject1 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject2 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject3 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject4 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject5 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject6 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject7 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject8 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject9 = (normalObject*)malloc(sizeof(normalObject) + 1);
+
+	nObject0->name = "shower";
+	nObject0->description = wcShowerText;
+	nObject1->name = "sink";
+	nObject1->description = wcSinkText;
+	nObject2->name = "mirror";
+	nObject2->description = wcMirrorText;
+	nObject3->name = "toilet";
+	nObject3->description = wcToiletText;
+	nObject4->name = "furniture";
+	nObject4->description = wcFurnitureText;
+	nObject5->name = "drawer";
+	nObject5->description = wcDrawerText;
+	nObject6->name = "paper";
+	nObject6->description = wcPaperText;
+	nObject7->name = "aspirin";
+	nObject7->description = wcAspirinText;
+	nObject8->name = "bandage";
+	nObject8->description = wcBandageText;
+	nObject9->name = NULL;
+	nObject9->description = NULL;
+
+	objects[WC_SHOWER] = nObject0;
+	objects[WC_SINK] = nObject1;
+	objects[WC_MIRROR] = nObject2;
+	objects[WC_TOILET] = nObject3;
+	objects[WC_FURNITURE] = nObject4;
+	objects[WC_DRAWER] = nObject5;
+	objects[WC_PAPER] = nObject6;
+	objects[WC_ASPIRIN] = nObject7;
+	objects[WC_BANDAGE] = nObject8;
+	objects[9] = nObject9;
+
+	placesConfig[WC]->nObjects = objects;
+
+
+	//------------ OBJETOS SALA DE ESTAR ------------//
 	objects = (normalObject**)malloc((sizeof(normalObject*) * MAX_NORMAL_ITEMS_PLACE) + 1);
 
 	nObject0 = (normalObject*)malloc(sizeof(normalObject) + 1);
@@ -572,9 +621,16 @@ void map::loadObjectsAndPlaces(void)
 	activeObject* actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
 	activeObject* actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
 
-	actObject0->name = "shoes";
+
+	loadActiveObject(actObject0, "shoes", lobbyShoesText, "commode");
+	loadActiveObject(actObject1, "battery", lobbyBatteryText, "uniform");
+	loadActiveObject(actObject2, "leaflet", lobbyLeafletText, "carpet");
+	loadActiveObject(actObject3, "plant", lobbyPlantText, "flowerpot");
+
+	/*actObject0->name = "shoes";
 	actObject0->description = lobbyShoesText;
 	actObject0->holder = "commode";
+	actObject0->used = false;
 
 	actObject1->name = "battery";
 	actObject1->description = lobbyBatteryText;
@@ -586,7 +642,7 @@ void map::loadObjectsAndPlaces(void)
 
 	actObject3->name = "plant";
 	actObject3->description = lobbyPlantText;
-	actObject3->holder = "flowerpot";
+	actObject3->holder = "flowerpot";*/
 
 	activeObjects[LOBBY_SHOES] = actObject0;
 	activeObjects[LOBBY_BATTERY] = actObject1;
@@ -595,8 +651,8 @@ void map::loadObjectsAndPlaces(void)
 
 	placesConfig[LOBBY]->aObjects = activeObjects;
 
-		// garage
 
+		// garage
 	activeObjects = (activeObject**)malloc((sizeof(activeObject*)*MAX_ACTIVE_ITEMS_PLACE) + 1);
 
 	actObject0 = (activeObject*)malloc(sizeof(activeObject) + 1);
@@ -604,7 +660,12 @@ void map::loadObjectsAndPlaces(void)
 	actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
 	actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
 
-	actObject0->name = "tape";
+	loadActiveObject(actObject0, "tape", garageTapeText, "bike");
+	loadActiveObject(actObject1, "sawdust", garageSawdustText, "workbench");
+	loadActiveObject(actObject2, "lighter", garageLighterText, "car");
+	loadActiveObject(actObject3, "fireworks", garageFireworksText, "shelf");
+
+	/*actObject0->name = "tape";
 	actObject0->description = garageTapeText;
 	actObject0->holder = "bike";
 
@@ -618,7 +679,7 @@ void map::loadObjectsAndPlaces(void)
 
 	actObject3->name = "fireworks";
 	actObject3->description = garageFireworksText;
-	actObject3->holder = "shelf";
+	actObject3->holder = "shelf";*/
 
 	activeObjects[GARAGE_TAPE] = actObject0;
 	activeObjects[GARAGE_SAWDUST] = actObject1;
@@ -629,6 +690,7 @@ void map::loadObjectsAndPlaces(void)
 
 		// downstairs corridor (nothing)
 
+
 		// kitchen
 	activeObjects = (activeObject**)malloc((sizeof(activeObject*)*MAX_ACTIVE_ITEMS_PLACE) + 1);
 
@@ -637,7 +699,12 @@ void map::loadObjectsAndPlaces(void)
 	actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
 	actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
 
-	actObject0->name = "knife";
+	loadActiveObject(actObject0, "knife", kitchenKnifeText, "tableboard");
+	loadActiveObject(actObject1, "beef", kitchenBeefText, "fridge");
+	loadActiveObject(actObject2, "coffee", kitchenCoffeeText, "worktop");
+	loadActiveObject(actObject3, "water", kitchenWaterText, "fitment");
+
+	/*actObject0->name = "knife";
 	actObject0->description = kitchenKnifeText;
 	actObject0->holder = "tableboard";
 
@@ -651,7 +718,7 @@ void map::loadObjectsAndPlaces(void)
 
 	actObject3->name = "water";
 	actObject3->description = kitchenWaterText;
-	actObject3->holder = "fitment";
+	actObject3->holder = "fitment";*/
 
 	activeObjects[KITCHEN_KNIFE] = actObject0;
 	activeObjects[KITCHEN_BEEF] = actObject1;
@@ -660,7 +727,8 @@ void map::loadObjectsAndPlaces(void)
 
 	placesConfig[KITCHEN]->aObjects = activeObjects;
 
-		//living room
+
+		// WC
 	activeObjects = (activeObject**)malloc((sizeof(activeObject*)*MAX_ACTIVE_ITEMS_PLACE) + 1);
 
 	actObject0 = (activeObject*)malloc(sizeof(activeObject) + 1);
@@ -668,7 +736,49 @@ void map::loadObjectsAndPlaces(void)
 	actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
 	actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
 
-	actObject0->name = "bible";
+	loadActiveObject(actObject0, "soap", wcSoapText, "shower");
+	loadActiveObject(actObject1, "toothpaste", wcToothpasteText, "sink");
+	loadActiveObject(actObject2, "comb", wcCombText, "furniture");
+	loadActiveObject(actObject3, "perfume", wcPerfumeText, "drawer");
+
+	/*actObject0->name = "soap";
+	actObject0->description = wcSoapText;
+	actObject0->holder = "shower";
+
+	actObject1->name = "toothpaste";
+	actObject1->description = wcToothpasteText;
+	actObject1->holder = "sink";
+
+	actObject2->name = "comb";
+	actObject2->description = wcCombText;
+	actObject2->holder = "furniture";
+
+	actObject3->name = "perfume";
+	actObject3->description = wcPerfumeText;
+	actObject3->holder = "drawer";*/
+
+	activeObjects[WC_SOAP] = actObject0;
+	activeObjects[WC_TOOTHPASTE] = actObject1;
+	activeObjects[WC_COMB] = actObject2;
+	activeObjects[WC_PERFUME] = actObject3;
+
+	placesConfig[WC]->aObjects = activeObjects;
+
+
+		// living room
+	activeObjects = (activeObject**)malloc((sizeof(activeObject*)*MAX_ACTIVE_ITEMS_PLACE) + 1);
+
+	actObject0 = (activeObject*)malloc(sizeof(activeObject) + 1);
+	actObject1 = (activeObject*)malloc(sizeof(activeObject) + 1);
+	actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
+	actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
+
+	loadActiveObject(actObject0, "bible", livingroomBibleText, "bookshelf");
+	loadActiveObject(actObject1, "vase", livingroomVaseText, "table");
+	loadActiveObject(actObject2, "screwdriver", livingroomScrewdriverText, "piano");
+	loadActiveObject(actObject3, "cents", livingroomCentsText, "sofas");
+
+	/*actObject0->name = "bible";
 	actObject0->description = livingroomBibleText;
 	actObject0->holder = "bookshelf";
 
@@ -682,7 +792,7 @@ void map::loadObjectsAndPlaces(void)
 
 	actObject3->name = "cents";
 	actObject3->description = livingroomCentsText;
-	actObject3->holder = "sofas";
+	actObject3->holder = "sofas";*/
 
 	activeObjects[LIVING_ROOM_BIBLE] = actObject0;
 	activeObjects[LIVING_ROOM_VASE] = actObject1;
@@ -691,6 +801,16 @@ void map::loadObjectsAndPlaces(void)
 
 	placesConfig[LIVING_ROOM]->aObjects = activeObjects;
 
+
+	//----------------------- COMBINACIONES -----------------------//
+
+	//accessCombination*	combination = (accessCombination*)malloc((sizeof(accessCombination) * MAX_COMBINATIONS) + 1);
+
+	//combination->objectA = "shoes";
+	//combination->objectB = "arm";
+
+	//placesConfig[]
+	
 }
 
 

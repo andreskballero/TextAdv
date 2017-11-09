@@ -14,15 +14,7 @@
 #define MAP_H
 
 #include "descriptions.h"
-
-typedef struct {
-	char* name;
-	char** description;
-} normalObject;
-
-typedef struct : normalObject {
-	char* holder;
-} activeObject;
+#include "objects.h"
 
 // struct que contiene un lugar y la dirección hacia
 // la que girar para ir (estando en un lugar adyacente)
@@ -39,9 +31,13 @@ typedef struct {
 	// hay dos descripciones: [0] es la de entrada, [1] la normal
 	char**				description;
 
+	// si el lugar es accesible
+	bool				accessible;
+
 	// como mucho, X objetos activos y normales por lugar
 	activeObject**		aObjects;
 	normalObject**		nObjects;
+	//accessCombination*	combination;
 
 	// struct para guardar las relaciones
 	placeRelations**	nextPlaces;
@@ -52,12 +48,12 @@ class map
 private:
 	// array de structs que contienen todos los datos
 	// necesarios que el mapa debe conocer de cada lugar
-	placeConfig*		placesConfig[TOTAL_PLACES];
+	placeConfig*					placesConfig[TOTAL_PLACES];
+
+	//environmentCombination*			combinations[MAX_COMBINATIONS];
 
 	// función que permite crear una nueva struct y devolverla
-	placeConfig*		loadStruct(char* newName, char** newDescription);
-
-	void loadRelations(placeConfig* newPlace, placeRelations** newNextPlaces);
+	placeConfig*		initPlace(char* newName, char** newDescription, bool newAccess);
 
 public:
 	map();
@@ -65,7 +61,7 @@ public:
 
 	// función que crea todas las structs necesarias del juego
 	// y las añade al array de places
-	void loadObjectsAndPlaces(void);
+	void loadPlacesObjectsCombinations(void);
 
 	// función llamada por el player que comprueba que, según la 
 	// posición actual del player, se puede mover en la dirección

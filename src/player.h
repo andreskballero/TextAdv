@@ -15,6 +15,7 @@
 
 #include <string.h>
 
+#include "auxiliaryFunctions.h"
 #include "map.h"
 
 class player
@@ -41,6 +42,7 @@ public:
 	int getObjectsPossessed(void);
 	int getCurrentPlace(void);
 	activeObject** getInventory(void);
+	activeObject* getObjectInventory(char* objectTarget);
 	void showInventory(void);
 };
 

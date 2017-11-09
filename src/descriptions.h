@@ -24,8 +24,11 @@
 #define MAX_ACTIVE_ITEMS_PLACE	4
 #define MAX_NORMAL_ITEMS_PLACE	10
 #define MAX_NEXT_PLACES			6
+#define MAX_PLACE_EVENTS		10
+#define MAX_PLAYER_EVENTS		5
 
 #define TOTAL_OBJECTS			100
+#define TOTAL_CRAFTED_OBJECTS	5
 #define TOTAL_COMMANDS			9
 #define TOTAL_PLACES			7 // piso de abajo 7, finales son 14
 
@@ -71,27 +74,6 @@
 #define OFFICE					12
 #define GARRET					13
 
-// identificadores de objeto activo
-#define LOBBY_SHOES				0
-#define LOBBY_BATTERY			1
-#define LOBBY_LEAFLET			2
-#define LOBBY_PLANT				3
-
-#define GARAGE_TAPE				0
-#define GARAGE_SAWDUST			1
-#define GARAGE_LIGHTER			2
-#define GARAGE_FIREWORKS		3
-
-#define LIVING_ROOM_BIBLE		0
-#define LIVING_ROOM_VASE		1
-#define LIVING_ROOM_SCREWDRIVER	2
-#define LIVING_ROOM_CENTS		3
-
-#define KITCHEN_KNIFE			0
-#define KITCHEN_BEEF			1
-#define KITCHEN_COFFEE			2
-#define KITCHEN_WATER			3
-
 // identificadores de objeto normal
 #define LOBBY_PICTURE			0
 #define LOBBY_PLATE				1
@@ -128,6 +110,16 @@
 #define KITCHEN_MICROWAVE		8
 #define KITCHEN_STOVE			9
 
+#define WC_SHOWER				0
+#define WC_SINK					1
+#define WC_MIRROR				2
+#define WC_TOILET				3
+#define WC_FURNITURE			4
+#define WC_DRAWER				5
+#define WC_PAPER				6
+#define WC_ASPIRIN				7
+#define WC_BANDAGE				8
+
 #define LIVING_ROOM_BOOKSHELF	0
 #define LIVING_ROOM_TABLE		1
 #define LIVING_ROOM_PIANO		2
@@ -135,9 +127,40 @@
 #define LIVING_ROOM_TV			4
 #define LIVING_ROOM_SOFAS		5
 #define LIVING_ROOM_WINDOW		6
-#define LIVING_ROOM_FIGURE		7 // to do
-#define LIVING_ROOM_DISH		8 // to do
-#define LIVING_ROOM_STICK		9 // to do
+#define LIVING_ROOM_FIGURE		7
+#define LIVING_ROOM_DISH		8
+#define LIVING_ROOM_STICK		9
+
+
+// identificadores de objeto activo
+#define LOBBY_SHOES				0
+#define LOBBY_BATTERY			1
+#define LOBBY_LEAFLET			2
+#define LOBBY_PLANT				3
+
+#define GARAGE_TAPE				0
+#define GARAGE_SAWDUST			1
+#define GARAGE_LIGHTER			2
+#define GARAGE_FIREWORKS		3
+
+#define LIVING_ROOM_BIBLE		0
+#define LIVING_ROOM_VASE		1
+#define LIVING_ROOM_SCREWDRIVER	2
+#define LIVING_ROOM_CENTS		3
+
+#define KITCHEN_KNIFE			0
+#define KITCHEN_BEEF			1
+#define KITCHEN_COFFEE			2
+#define KITCHEN_WATER			3
+
+#define WC_SOAP					0
+#define WC_TOOTHPASTE			1
+#define WC_COMB					2
+#define WC_PERFUME				3
+
+
+// identificadores de combinación
+#define PUT_SHOES				0
 
 // otros
 #define LETRA_A					64
@@ -162,6 +185,7 @@ extern char*					lookAroundErrorText;
 extern char*					lookAtErrorText[];
 extern char*					pickUpErrorText[];
 extern char*					goErrorText[];
+extern char*					useErrorText[];
 
 // descripciones de lugar
 	// planta baja
@@ -231,8 +255,16 @@ extern char*					kitchenEggsText[];
 extern char*					kitchenMicrowaveText[];
 extern char*					kitchenStoveText[];
 
-
 	// WC
+extern char*					wcShowerText[];
+extern char*					wcSinkText[];
+extern char*					wcMirrorText[];
+extern char*					wcToiletText[];
+extern char*					wcFurnitureText[];
+extern char*					wcDrawerText[];
+extern char*					wcPaperText[];
+extern char*					wcAspirinText[];
+extern char*					wcBandageText[];
 
 	// living room
 extern char*					livingroomBookshelfText[];
@@ -267,6 +299,12 @@ extern char*					kitchenKnifeText[];
 extern char*					kitchenBeefText[];
 extern char*					kitchenCoffeeText[];
 extern char*					kitchenWaterText[];
+
+	// WC
+extern char*					wcSoapText[];
+extern char*					wcToothpasteText[];
+extern char*					wcCombText[];
+extern char*					wcPerfumeText[];
 
 	// living room
 extern char*					livingroomBibleText[];

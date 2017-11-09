@@ -24,6 +24,7 @@
 #include "textParser.h"
 #include "player.h"
 #include "map.h"
+#include "events.h"
 
 // struct para chequear existencia; almacena
 // si el input es correcto y la posición de la
@@ -51,6 +52,7 @@ private:
 	textParser				parser;
 	player					player;
 	map						map;
+	events					events;
 	words					wordsExistant;
 
 	unsigned int			targetCommand;
