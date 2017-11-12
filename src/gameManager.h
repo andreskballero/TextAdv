@@ -26,6 +26,11 @@
 #include "map.h"
 #include "events.h"
 
+// defines de búsqueda
+#define NORMAL_ITEM				0
+#define ACTIVE_ITEM				1
+#define INVENTORY_ITEM			2
+
 // struct para chequear existencia; almacena
 // si el input es correcto y la posición de la
 // orden en el array de órdenes
@@ -44,8 +49,8 @@ private:
 	// hecho con array dinámico para poder eliminar con el delete los objetos
 	// contenidos reservados de forma dinámica
 
-	//objetoActivo*				colaObjetos[100]; 
-	//activeObject*				objectStack = new activeObject[100]; // mejor global
+	//objetoActivo				*colaObjetos[100]; 
+	//activeObject				*objectStack = new activeObject[100]; // mejor global
 
 
 	// parser propio para parsear el texto analizado
@@ -58,10 +63,6 @@ private:
 	unsigned int			targetCommand;
 	char					inputText[MAX_INPUT_SIZE];
 
-	void objectLoader(void);
-	void placeLoader(void);
-	void playerLoader(void);
-
 public:
 	gameManager();
 	~gameManager();
@@ -73,6 +74,11 @@ public:
 	bool parsing(void);
 	bool checkCommand(void);
 	void act(void);
+
+	void lookAround(char *element, char *prepos, char *element2);
+	void lookAt(char *element);
+	void pickUp(char *element);
+	void go(char *element);
 };
 
 #endif

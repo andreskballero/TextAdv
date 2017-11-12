@@ -18,7 +18,7 @@ void allocateSpace(void)
 
 // hay un problema, al partir desarrollador, se printa el char y luego el -
 // eso no deberia ser asi
-void printText(char* text)
+void printText(char *text)
 {
 	for (signed int letter = 0, line = 0; text[letter] != '\0'; ++letter, ++line)
 	{
@@ -80,7 +80,7 @@ void play(void)
 		}
 		else {
 			// ver cómo se responde que no se puede hacer nada
-			printf("Introduce una orden correcta.\n\n");
+			printf("Input not allowed.\n\n");
 		}
 	}	
 }

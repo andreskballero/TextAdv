@@ -13,34 +13,38 @@
 #ifndef MAP_H
 #define MAP_H
 
+#include <string.h>
+
 #include "descriptions.h"
-#include "objects.h"
+#include "player.h"
+#include "normalObject.h"
+#include "activeObject.h"
 
 // struct que contiene un lugar y la dirección hacia
 // la que girar para ir (estando en un lugar adyacente)
 typedef struct {
-	char* direction;
-	char* nextPlace;
+	char *direction;
+	char *nextPlace;
 } placeRelations;
 
 // struct para guardar todos los datos de un lugar
 // y luego poder cargarlos fácilmente
 typedef struct {
-	char*				name;
+	char				*name;
 
 	// hay dos descripciones: [0] es la de entrada, [1] la normal
-	char**				description;
+	char				**description;
 
 	// si el lugar es accesible
 	bool				accessible;
 
 	// como mucho, X objetos activos y normales por lugar
-	activeObject**		aObjects;
-	normalObject**		nObjects;
-	//accessCombination*	combination;
+	activeObject		**aObjects;
+	normalObject		**nObjects;
+	//accessCombination	*combination;
 
 	// struct para guardar las relaciones
-	placeRelations**	nextPlaces;
+	placeRelations		**nextPlaces;
 } placeConfig;
 
 class map
@@ -48,12 +52,12 @@ class map
 private:
 	// array de structs que contienen todos los datos
 	// necesarios que el mapa debe conocer de cada lugar
-	placeConfig*					placesConfig[TOTAL_PLACES];
+	placeConfig					*placesConfig[TOTAL_PLACES];
 
-	//environmentCombination*			combinations[MAX_COMBINATIONS];
+	//environmentCombination			*combinations[MAX_COMBINATIONS];
 
 	// función que permite crear una nueva struct y devolverla
-	placeConfig*		initPlace(char* newName, char** newDescription, bool newAccess);
+	placeConfig					*initPlace(char *newName, char **newDescription, bool newAccess = true);
 
 public:
 	map();
@@ -63,11 +67,8 @@ public:
 	// y las añade al array de places
 	void loadPlacesObjectsCombinations(void);
 
-	// función llamada por el player que comprueba que, según la 
-	// posición actual del player, se puede mover en la dirección
-	// deseada; devuelve true si cierto (TO-DO)
-	bool callPlayerMovement(char* currentPosition, char* targetDirection);
-	bool callPlayerPickUp(char* currentPosition, char* targetObject);
+	bool searchPlaceItem(char *element, player *player, int knownItems, char *typeObjects);
+	bool searchInventoryItem(char *element, player *player);
 
 	placeConfig** getPlacesConfig(void);
 };

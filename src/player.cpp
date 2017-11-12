@@ -24,13 +24,13 @@ player::~player()
 }
 
 // no hace falta reordenar, se reordena en quitar
-void player::addToInventory(activeObject * newObject)
+void player::addToInventory(activeObject *newObject)
 {
 	this->inventory[this->objectsPosessed++] = newObject;
 }
 
 // eliminar un objeto del inventario y reordenar
-void player::deleteFromInventory(activeObject* deleteObject)
+void player::deleteFromInventory(activeObject *deleteObject)
 {
 	bool sort = false;
 	--objectsPosessed;
@@ -40,7 +40,7 @@ void player::deleteFromInventory(activeObject* deleteObject)
 	{
 		if (!sort) // si estoy buscando el item
 		{
-			if (0 == strcmp(deleteObject->name, inventory[item]->name))
+			if (0 == strcmp(deleteObject->getName(), inventory[item]->getName()))
 			{
 				inventory[item] = NULL;
 				positionSort = item;
@@ -86,12 +86,12 @@ activeObject** player::getInventory(void)
 	return this->inventory;
 }
 
-activeObject * player::getObjectInventory(char * objectTarget)
+activeObject* player::getObjectInventory(char *objectTarget)
 {
 	for (int i = 0; i < MAX_ITEMS_INVENTORY; ++i)
 	{
 		if ((inventory[i] != NULL) &&
-			(0 == strcmp(objectTarget, inventory[i]->name)))
+			(0 == strcmp(objectTarget, inventory[i]->getName())))
 		{
 			return inventory[i];
 		}
@@ -113,7 +113,7 @@ void player::showInventory(void)
 				{
 					printf("\n");
 				}
-				printf("%s    ", this->inventory[item]->name);
+				printf("%s    ", this->inventory[item]->getName());
 			}
 		}
 	}

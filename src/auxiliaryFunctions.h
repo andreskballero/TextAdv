@@ -22,7 +22,7 @@ void allocateSpace(void);
 
 // función que hace un print justificado y con ms entre
 // letras
-void printText(char* text);
+void printText(char *text);
 
 // función principal del bucle del juego
 void play(void);

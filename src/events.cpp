@@ -29,7 +29,7 @@ events::~events()
 {
 }
 
-char* events::getNotice(char* target)
+char* events::getNotice(char *target)
 {
 	for (int item = 0; item < MAX_PLAYER_EVENTS; ++item)
 	{
@@ -48,7 +48,7 @@ void events::initEvents(void)
 	playerEvents[PUT_SHOES]->notice = "Now you have the heels on!";
 }
 
-bool events::checkPlayerUsage(char* objectUsed)
+bool events::checkPlayerUsage(char *objectUsed)
 {
 	for (int item = 0; item < MAX_PLAYER_EVENTS; ++item)
 	{

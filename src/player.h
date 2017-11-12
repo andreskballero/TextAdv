@@ -16,14 +16,14 @@
 #include <string.h>
 
 #include "auxiliaryFunctions.h"
-#include "map.h"
+#include "activeObject.h"
 
 class player
 {
 private:
 	// número e inventario de objetos
 	int						objectsPosessed;
-	activeObject*			inventory[MAX_ITEMS_INVENTORY];
+	activeObject			*inventory[MAX_ITEMS_INVENTORY];
 
 	// posición actual del jugador
 	int						currentPlace;
@@ -34,15 +34,17 @@ public:
 	~player();
 
 	// añadir un objeto al inventario
-	void addToInventory(activeObject* newObject);
-	void deleteFromInventory(activeObject* deleteObject);
+	void addToInventory(activeObject *newObject);
+	void deleteFromInventory(activeObject *deleteObject);
 
 	void setObjectsPossessed(int oPossessed);
 	void setCurrentPlace(int newPlace);
+
 	int getObjectsPossessed(void);
 	int getCurrentPlace(void);
 	activeObject** getInventory(void);
-	activeObject* getObjectInventory(char* objectTarget);
+	activeObject* getObjectInventory(char *objectTarget);
+
 	void showInventory(void);
 };
 

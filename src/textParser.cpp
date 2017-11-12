@@ -14,7 +14,7 @@
 
 
 
-bool textParser::checkCorrect(char* receivedInput)
+bool textParser::checkCorrect(char *receivedInput)
 {
 	int checkWords = 0;
 
@@ -26,11 +26,20 @@ bool textParser::checkCorrect(char* receivedInput)
 	}
 		
 	// cantidad de palabras (si hay más de 3 espacios (4 palabras), mal
-	for (unsigned int numChars = 0; numChars < strlen(receivedInput); ++numChars)
+	for (unsigned int numChars = 0, wordLength = 0; numChars < strlen(receivedInput); ++numChars)
 	{
-		if (receivedInput[numChars] == ' ')
+		if (receivedInput[numChars] == ' ' || receivedInput[numChars] == '\n') // strlen devuelve tamaño sin contar null, y antes de null hay \n
 		{
-			if ( (++checkWords) == MAX_WORDS_INPUT)
+			if ((wordLength + 1) >= MAX_WORD_SIZE)
+			{
+				printf("Word too long.\n");
+				return BAD_INPUT;
+			}
+			else {
+				wordLength = 0;
+			}
+
+			if ((receivedInput[numChars] == ' ') && ((++checkWords) == MAX_WORDS_INPUT))
 			{
 				printf("Too many words.\n");
 				return BAD_INPUT;
@@ -40,6 +49,9 @@ bool textParser::checkCorrect(char* receivedInput)
 			{
 				++numChars;
 			}
+		}
+		else {
+			++wordLength;
 		}
 	}
 
@@ -60,7 +72,7 @@ textParser::~textParser()
 // en sus posiciones globales;
 // si se ha parseado una orden de manera correcta, entonces
 // se compara con las posibles opciones y se procede a actuar
-bool textParser::processText(char * commandElements)
+bool textParser::processText(char *commandElements)
 {
 	// compruebo que el input cumpla con los requisitos mínimos
 	// de un input (longitud, elementos)
@@ -87,16 +99,10 @@ bool textParser::processText(char * commandElements)
 	{
 		if ((commandElements[index] > LETRA_A) && (commandElements[index] < LETRA_z)) {
 			text[indexWord] = commandElements[index];
-			
-			// si la palabra actual es de más de 20 chars
-			if ( (indexWord + 1) == MAX_WORD_SIZE)
-			{
-				return BAD_INPUT;
-			}
 		}
 		else {
 			// recuerda que cualquier string debe, cuando se llena manualmente
-			// (cuando no proviene de string literal char* a = "aja"; , necesita el
+			// (cuando no proviene de string literal char *a = "aja"; , necesita el
 			// null terminator
 
 			text[indexWord] = '\0'; // para poder comparar

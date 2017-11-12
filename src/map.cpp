@@ -12,9 +12,9 @@ map::~map()
 }
 
 
-placeConfig* map::initPlace(char* newName, char** newDescription, bool newAccess)
+placeConfig* map::initPlace(char *newName, char **newDescription, bool newAccess)
 {
-	placeConfig* newPlace = (placeConfig*)malloc(sizeof(placeConfig) + 1);
+	placeConfig *newPlace = (placeConfig*)malloc(sizeof(placeConfig) + 1);
 
 	newPlace->name = newName;
 	newPlace->description = newDescription;
@@ -29,23 +29,23 @@ void map::loadPlacesObjectsCombinations(void)
 
 	//----------------------- PLACES -----------------------//
 		// array auxiliar de carga
-	placeRelations** placesLoad = (placeRelations**) malloc((sizeof(placeRelations*) * MAX_NEXT_PLACES) + 1); 
+	placeRelations **placesLoad = (placeRelations**) malloc((sizeof(placeRelations*) * MAX_NEXT_PLACES) + 1); 
 		// punteros auxiliares de carga de relaciones
-	placeRelations* leftRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	placeRelations* rightRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	placeRelations* backRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	placeRelations* forwardRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	placeRelations* upRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	placeRelations* downRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
+	placeRelations *leftRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
+	placeRelations *rightRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
+	placeRelations *backRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
+	placeRelations *forwardRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
+	placeRelations *upRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
+	placeRelations *downRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 
 		// carga de los lugares
-	placesConfig[LOBBY] = initPlace("lobby", lobbyText, true);
-	placesConfig[GARAGE] = initPlace("garage", garageText, true);
-	placesConfig[DOWNSTAIRS_CORRIDOR] = initPlace("downstairs corridor", downstairsCorridorText, true);
-	placesConfig[KITCHEN] = initPlace("kitchen", kitchenText, true);
-	placesConfig[WC] = initPlace("WC", bathroomText, true);
-	placesConfig[LIVING_ROOM] = initPlace("living room", livingRoomText, true);
-	placesConfig[BASEMENT] = initPlace("basement", basementText, false);
+	placesConfig[LOBBY] = initPlace("lobby", lobbyText);
+	placesConfig[GARAGE] = initPlace("garage", garageText);
+	placesConfig[DOWNSTAIRS_CORRIDOR] = initPlace("downstairs corridor", downstairsCorridorText);
+	placesConfig[KITCHEN] = initPlace("kitchen", kitchenText);
+	placesConfig[WC] = initPlace("WC", bathroomText);
+	placesConfig[LIVING_ROOM] = initPlace("living room", livingRoomText);
+	placesConfig[BASEMENT] = initPlace("basement", basementText);
 
 
 	//------------ LOBBY ------------//
@@ -317,40 +317,30 @@ void map::loadPlacesObjectsCombinations(void)
 
 	//----------------------- OBJETOS NORMALES-----------------------//
 
-	normalObject** objects = (normalObject**)malloc((sizeof(normalObject*) * MAX_NORMAL_ITEMS_PLACE) + 1);
+	normalObject **objects = (normalObject**)malloc((sizeof(normalObject*) * MAX_NORMAL_ITEMS_PLACE) + 1);
 
-	normalObject* nObject0 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject* nObject1 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject* nObject2 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject* nObject3 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject* nObject4 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject* nObject5 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject* nObject6 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject* nObject7 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject* nObject8 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject* nObject9 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	normalObject *nObject0 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	normalObject *nObject1 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	normalObject *nObject2 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	normalObject *nObject3 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	normalObject *nObject4 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	normalObject *nObject5 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	normalObject *nObject6 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	normalObject *nObject7 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	normalObject *nObject8 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	normalObject *nObject9 = (normalObject*)malloc(sizeof(normalObject) + 1);
 
 	//------------ OBJETOS LOBBY ------------//
-	nObject0->name = "picture";
-	nObject0->description = lobbyPictureText;
-	nObject1->name = "plate";
-	nObject1->description = lobbyPlateText;
-	nObject2->name = "peg";
-	nObject2->description = lobbyPegText;
-	nObject3->name = "carpet";
-	nObject3->description = lobbyCarpetText;
-	nObject4->name = "commode";
-	nObject4->description = lobbyCommodeText;
-	nObject5->name = "stairs";
-	nObject5->description = lobbyStairsText;
-	nObject6->name = "candy";
-	nObject6->description = lobbyCandyText;
-	nObject7->name = "flowerpot";
-	nObject7->description = lobbyFlowerpotText;
-	nObject8->name = "clock";
-	nObject8->description = lobbyClockText;
-	nObject9->name = "coats";
-	nObject9->description = lobbyCoatsText;
+	nObject0->setMembers("picture", lobbyPictureText);
+	nObject1->setMembers("plate", lobbyPlateText);
+	nObject2->setMembers("peg", lobbyPegText);
+	nObject3->setMembers("carpet", lobbyCarpetText);
+	nObject4->setMembers("commode", lobbyCommodeText);
+	nObject5->setMembers("stairs", lobbyStairsText);
+	nObject6->setMembers("candy", lobbyCandyText);
+	nObject7->setMembers("flowerpot", lobbyFlowerpotText);
+	nObject8->setMembers("clock", lobbyClockText);
+	nObject9->setMembers("coats", lobbyCoatsText);
 
 	objects[LOBBY_PICTURE] = nObject0;
 	objects[LOBBY_PLATE] = nObject1;
@@ -380,26 +370,16 @@ void map::loadPlacesObjectsCombinations(void)
 	nObject8 = (normalObject*)malloc(sizeof(normalObject) + 1);
 	nObject9 = (normalObject*)malloc(sizeof(normalObject) + 1);
 
-	nObject0->name = "car";
-	nObject0->description = garageCarText;
-	nObject1->name = "shelf";
-	nObject1->description = garageShelfText;
-	nObject2->name = "workbench";
-	nObject2->description = garageWorkbenchText;
-	nObject3->name = "boxes";
-	nObject3->description = garageBoxesText;
-	nObject4->name = "chainsaw";
-	nObject4->description = garageChainsawText;
-	nObject5->name = "bike";
-	nObject5->description = garageBikeText;
-	nObject6->name = "door";
-	nObject6->description = garageDoorText;
-	nObject7->name = "lock";
-	nObject7->description = garageElectricalLockText;
-	nObject8->name = "signboard";
-	nObject8->description = garageSignboardText;
-	nObject9->name = "gate";
-	nObject9->description = garageGateText;
+	nObject0->setMembers("car", garageCarText);
+	nObject1->setMembers("shelf", garageShelfText);
+	nObject2->setMembers("workbench", garageWorkbenchText);
+	nObject3->setMembers("boxes", garageBoxesText);
+	nObject4->setMembers("chainsaw", garageChainsawText);
+	nObject5->setMembers("bike", garageBikeText);
+	nObject6->setMembers("door", garageDoorText);
+	nObject7->setMembers("lock", garageElectricalLockText);
+	nObject8->setMembers("signboard", garageSignboardText);
+	nObject9->setMembers("gate", garageGateText);
 
 	objects[GARAGE_CAR] = nObject0;
 	objects[GARAGE_SHELF] = nObject1;
@@ -429,26 +409,16 @@ void map::loadPlacesObjectsCombinations(void)
 	nObject8 = (normalObject*)malloc(sizeof(normalObject) + 1);
 	nObject9 = (normalObject*)malloc(sizeof(normalObject) + 1);
 
-	nObject0->name = "letters";
-	nObject0->description = corridorLettersText;
-	nObject1->name = NULL;
-	nObject1->description = NULL;
-	nObject2->name = NULL;
-	nObject2->description = NULL;
-	nObject3->name = NULL;
-	nObject3->description = NULL;
-	nObject4->name = NULL;
-	nObject4->description = NULL;
-	nObject5->name = NULL;
-	nObject5->description = NULL;
-	nObject6->name = NULL;
-	nObject6->description = NULL;
-	nObject7->name = NULL;
-	nObject7->description = NULL;
-	nObject8->name = NULL;
-	nObject8->description = NULL;
-	nObject9->name = NULL;
-	nObject9->description = NULL;
+	nObject0->setMembers("letters", corridorLettersText);
+	nObject1->setMembers(NULL, NULL);
+	nObject2->setMembers(NULL, NULL);
+	nObject3->setMembers(NULL, NULL);
+	nObject4->setMembers(NULL, NULL);
+	nObject5->setMembers(NULL, NULL);
+	nObject6->setMembers(NULL, NULL);
+	nObject7->setMembers(NULL, NULL);
+	nObject8->setMembers(NULL, NULL);
+	nObject9->setMembers(NULL, NULL);
 
 	objects[DOWNSTAIRS_CORRIDOR_LETTERS] = nObject0;
 	objects[1] = nObject1;
@@ -478,26 +448,16 @@ void map::loadPlacesObjectsCombinations(void)
 	nObject8 = (normalObject*)malloc(sizeof(normalObject) + 1);
 	nObject9 = (normalObject*)malloc(sizeof(normalObject) + 1);
 
-	nObject0->name = "tableboard";
-	nObject0->description = kitchenTableboardText;
-	nObject1->name = "fridge";
-	nObject1->description = kitchenFridgeText;
-	nObject2->name = "worktop";
-	nObject2->description = kitchenWorktopText;
-	nObject3->name = "fitment";
-	nObject3->description = kitchenFitmentText;
-	nObject4->name = "doorway";
-	nObject4->description = kitchenDoorwayText;
-	nObject5->name = "milk";
-	nObject5->description = kitchenMilkText;
-	nObject6->name = "flour";
-	nObject6->description = kitchenFlourText;
-	nObject7->name = "eggs";
-	nObject7->description = kitchenEggsText;
-	nObject8->name = "microwave";
-	nObject8->description = kitchenMicrowaveText;
-	nObject9->name = "stove";
-	nObject9->description = kitchenStoveText;
+	nObject0->setMembers("tableboard", kitchenTableboardText);
+	nObject1->setMembers("fridge", kitchenFridgeText);
+	nObject2->setMembers("worktop", kitchenWorktopText);
+	nObject3->setMembers("fitment", kitchenFitmentText);
+	nObject4->setMembers("doorway", kitchenDoorwayText);
+	nObject5->setMembers("milk", kitchenMilkText);
+	nObject6->setMembers("flour", kitchenFlourText);
+	nObject7->setMembers("eggs", kitchenEggsText);
+	nObject8->setMembers("microwave", kitchenMicrowaveText);
+	nObject9->setMembers("stove", kitchenStoveText);
 
 	objects[KITCHEN_TABLEBOARD] = nObject0;
 	objects[KITCHEN_FRIDGE] = nObject1;
@@ -527,26 +487,16 @@ void map::loadPlacesObjectsCombinations(void)
 	nObject8 = (normalObject*)malloc(sizeof(normalObject) + 1);
 	nObject9 = (normalObject*)malloc(sizeof(normalObject) + 1);
 
-	nObject0->name = "shower";
-	nObject0->description = wcShowerText;
-	nObject1->name = "sink";
-	nObject1->description = wcSinkText;
-	nObject2->name = "mirror";
-	nObject2->description = wcMirrorText;
-	nObject3->name = "toilet";
-	nObject3->description = wcToiletText;
-	nObject4->name = "furniture";
-	nObject4->description = wcFurnitureText;
-	nObject5->name = "drawer";
-	nObject5->description = wcDrawerText;
-	nObject6->name = "paper";
-	nObject6->description = wcPaperText;
-	nObject7->name = "aspirin";
-	nObject7->description = wcAspirinText;
-	nObject8->name = "bandage";
-	nObject8->description = wcBandageText;
-	nObject9->name = NULL;
-	nObject9->description = NULL;
+	nObject0->setMembers("shower", wcShowerText);
+	nObject1->setMembers("sink", wcSinkText);
+	nObject2->setMembers("mirror", wcMirrorText);
+	nObject3->setMembers("toilet", wcToiletText);
+	nObject4->setMembers("furniture", wcFurnitureText);
+	nObject5->setMembers("drawer", wcDrawerText);
+	nObject6->setMembers("paper", wcPaperText);
+	nObject7->setMembers("aspirin", wcAspirinText);
+	nObject8->setMembers("bandage", wcBandageText);
+	nObject9->setMembers(NULL, NULL);
 
 	objects[WC_SHOWER] = nObject0;
 	objects[WC_SINK] = nObject1;
@@ -576,26 +526,16 @@ void map::loadPlacesObjectsCombinations(void)
 	nObject8 = (normalObject*)malloc(sizeof(normalObject) + 1);
 	nObject9 = (normalObject*)malloc(sizeof(normalObject) + 1);
 
-	nObject0->name = "bookshelf";
-	nObject0->description = livingroomBookshelfText;
-	nObject1->name = "table";
-	nObject1->description = livingroomTableText;
-	nObject2->name = "piano";
-	nObject2->description = livingroomPianoText;
-	nObject3->name = "birdcage";
-	nObject3->description = livingroomBirdcageText;
-	nObject4->name = "TV";
-	nObject4->description = livingroomTVText;
-	nObject5->name = "sofas";
-	nObject5->description = livingroomSofasText;
-	nObject6->name = "window";
-	nObject6->description = livingroomWindowText;
-	nObject7->name = "figure";
-	nObject7->description = livingroomFigureText;
-	nObject8->name = "dish";
-	nObject8->description = livingroomDishText;
-	nObject9->name = "stick";
-	nObject9->description = livingroomStickText;
+	nObject0->setMembers("bookshelf", livingroomBookshelfText);
+	nObject1->setMembers("table", livingroomTableText);
+	nObject2->setMembers("piano", livingroomPianoText);
+	nObject3->setMembers("birdcage", livingroomBirdcageText);
+	nObject4->setMembers("TV", livingroomTVText);
+	nObject5->setMembers("sofas", livingroomSofasText);
+	nObject6->setMembers("window", livingroomWindowText);
+	nObject7->setMembers("figure", livingroomFigureText);
+	nObject8->setMembers("dish", livingroomDishText);
+	nObject9->setMembers("stick", livingroomStickText);
 
 	objects[LIVING_ROOM_BOOKSHELF] = nObject0;
 	objects[LIVING_ROOM_TABLE] = nObject1;
@@ -614,35 +554,18 @@ void map::loadPlacesObjectsCombinations(void)
 	//----------------------- OBJETOS ACTIVOS -----------------------//
 
 		// lobby
-	activeObject** activeObjects = (activeObject**)malloc((sizeof(activeObject*)*MAX_ACTIVE_ITEMS_PLACE) + 1);
+	activeObject **activeObjects = (activeObject**)malloc((sizeof(activeObject*)*MAX_ACTIVE_ITEMS_PLACE) + 1);
 
-	activeObject* actObject0 = (activeObject*)malloc(sizeof(activeObject) + 1);
-	activeObject* actObject1 = (activeObject*)malloc(sizeof(activeObject) + 1);
-	activeObject* actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
-	activeObject* actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
+	activeObject *actObject0 = (activeObject*)malloc(sizeof(activeObject) + 1);
+	activeObject *actObject1 = (activeObject*)malloc(sizeof(activeObject) + 1);
+	activeObject *actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
+	activeObject *actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
 
 
-	loadActiveObject(actObject0, "shoes", lobbyShoesText, "commode");
-	loadActiveObject(actObject1, "battery", lobbyBatteryText, "uniform");
-	loadActiveObject(actObject2, "leaflet", lobbyLeafletText, "carpet");
-	loadActiveObject(actObject3, "plant", lobbyPlantText, "flowerpot");
-
-	/*actObject0->name = "shoes";
-	actObject0->description = lobbyShoesText;
-	actObject0->holder = "commode";
-	actObject0->used = false;
-
-	actObject1->name = "battery";
-	actObject1->description = lobbyBatteryText;
-	actObject1->holder = "uniform";
-
-	actObject2->name = "leaflet";
-	actObject2->description = lobbyLeafletText;
-	actObject2->holder = "carpet";
-
-	actObject3->name = "plant";
-	actObject3->description = lobbyPlantText;
-	actObject3->holder = "flowerpot";*/
+	actObject0->setMembers("shoes", lobbyShoesText, "commode");
+	actObject1->setMembers("battery", lobbyBatteryText, "uniform");
+	actObject2->setMembers("leaflet", lobbyLeafletText, "carpet");
+	actObject3->setMembers("plant", lobbyPlantText, "flowerpot");
 
 	activeObjects[LOBBY_SHOES] = actObject0;
 	activeObjects[LOBBY_BATTERY] = actObject1;
@@ -660,26 +583,10 @@ void map::loadPlacesObjectsCombinations(void)
 	actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
 	actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
 
-	loadActiveObject(actObject0, "tape", garageTapeText, "bike");
-	loadActiveObject(actObject1, "sawdust", garageSawdustText, "workbench");
-	loadActiveObject(actObject2, "lighter", garageLighterText, "car");
-	loadActiveObject(actObject3, "fireworks", garageFireworksText, "shelf");
-
-	/*actObject0->name = "tape";
-	actObject0->description = garageTapeText;
-	actObject0->holder = "bike";
-
-	actObject1->name = "sawdust";
-	actObject1->description = garageSawdustText;
-	actObject1->holder = "workbench";
-
-	actObject2->name = "lighter";
-	actObject2->description = garageLighterText;
-	actObject2->holder = "car";
-
-	actObject3->name = "fireworks";
-	actObject3->description = garageFireworksText;
-	actObject3->holder = "shelf";*/
+	actObject0->setMembers("tape", garageTapeText, "bike");
+	actObject1->setMembers("sawdust", garageSawdustText, "workbench");
+	actObject2->setMembers("lighter", garageLighterText, "car");
+	actObject3->setMembers("fireworks", garageFireworksText, "shelf");
 
 	activeObjects[GARAGE_TAPE] = actObject0;
 	activeObjects[GARAGE_SAWDUST] = actObject1;
@@ -699,26 +606,10 @@ void map::loadPlacesObjectsCombinations(void)
 	actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
 	actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
 
-	loadActiveObject(actObject0, "knife", kitchenKnifeText, "tableboard");
-	loadActiveObject(actObject1, "beef", kitchenBeefText, "fridge");
-	loadActiveObject(actObject2, "coffee", kitchenCoffeeText, "worktop");
-	loadActiveObject(actObject3, "water", kitchenWaterText, "fitment");
-
-	/*actObject0->name = "knife";
-	actObject0->description = kitchenKnifeText;
-	actObject0->holder = "tableboard";
-
-	actObject1->name = "beef";
-	actObject1->description = kitchenBeefText;
-	actObject1->holder = "fridge";
-
-	actObject2->name = "coffee";
-	actObject2->description = kitchenCoffeeText;
-	actObject2->holder = "worktop";
-
-	actObject3->name = "water";
-	actObject3->description = kitchenWaterText;
-	actObject3->holder = "fitment";*/
+	actObject0->setMembers("knife", kitchenKnifeText, "tableboard");
+	actObject1->setMembers("beef", kitchenBeefText, "fridge");
+	actObject2->setMembers("coffee", kitchenCoffeeText, "worktop");
+	actObject3->setMembers("water", kitchenWaterText, "fitment");
 
 	activeObjects[KITCHEN_KNIFE] = actObject0;
 	activeObjects[KITCHEN_BEEF] = actObject1;
@@ -736,26 +627,10 @@ void map::loadPlacesObjectsCombinations(void)
 	actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
 	actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
 
-	loadActiveObject(actObject0, "soap", wcSoapText, "shower");
-	loadActiveObject(actObject1, "toothpaste", wcToothpasteText, "sink");
-	loadActiveObject(actObject2, "comb", wcCombText, "furniture");
-	loadActiveObject(actObject3, "perfume", wcPerfumeText, "drawer");
-
-	/*actObject0->name = "soap";
-	actObject0->description = wcSoapText;
-	actObject0->holder = "shower";
-
-	actObject1->name = "toothpaste";
-	actObject1->description = wcToothpasteText;
-	actObject1->holder = "sink";
-
-	actObject2->name = "comb";
-	actObject2->description = wcCombText;
-	actObject2->holder = "furniture";
-
-	actObject3->name = "perfume";
-	actObject3->description = wcPerfumeText;
-	actObject3->holder = "drawer";*/
+	actObject0->setMembers("soap", wcSoapText, "shower");
+	actObject1->setMembers("toothpaste", wcToothpasteText, "sink");
+	actObject2->setMembers("comb", wcCombText, "furniture");
+	actObject3->setMembers("perfume", wcPerfumeText, "drawer");
 
 	activeObjects[WC_SOAP] = actObject0;
 	activeObjects[WC_TOOTHPASTE] = actObject1;
@@ -773,26 +648,10 @@ void map::loadPlacesObjectsCombinations(void)
 	actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
 	actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
 
-	loadActiveObject(actObject0, "bible", livingroomBibleText, "bookshelf");
-	loadActiveObject(actObject1, "vase", livingroomVaseText, "table");
-	loadActiveObject(actObject2, "screwdriver", livingroomScrewdriverText, "piano");
-	loadActiveObject(actObject3, "cents", livingroomCentsText, "sofas");
-
-	/*actObject0->name = "bible";
-	actObject0->description = livingroomBibleText;
-	actObject0->holder = "bookshelf";
-
-	actObject1->name = "vase";
-	actObject1->description = livingroomVaseText;
-	actObject1->holder = "table";
-
-	actObject2->name = "screwdriver";
-	actObject2->description = livingroomScrewdriverText;
-	actObject2->holder = "piano";
-
-	actObject3->name = "cents";
-	actObject3->description = livingroomCentsText;
-	actObject3->holder = "sofas";*/
+	actObject0->setMembers("bible", livingroomBibleText, "bookshelf");
+	actObject1->setMembers("vase", livingroomVaseText, "table");
+	actObject2->setMembers("screwdriver", livingroomScrewdriverText, "piano");
+	actObject3->setMembers("cents", livingroomCentsText, "sofas");
 
 	activeObjects[LIVING_ROOM_BIBLE] = actObject0;
 	activeObjects[LIVING_ROOM_VASE] = actObject1;
@@ -810,23 +669,77 @@ void map::loadPlacesObjectsCombinations(void)
 	//combination->objectB = "arm";
 
 	//placesConfig[]
-	
 }
 
 
-bool map::callPlayerMovement(char* currentPosition, char* targetDirection)
+
+// con polimorfismo, esta función podría hacerse con un único for
+bool map::searchPlaceItem(char *element, player *player, int knownItems, char *typeObjects)
 {
-	bool isPossible = false;
+	bool found = false;
 
+	/*normalObject** objects;
 
+	if (0 == strcmp(typeObjects, "normal")) WHY NOT?
+	{
+		objects = placesConfig[player->getCurrentPlace()]->nObjects;
+	}
+	else {
+		objects = placesConfig[player->getCurrentPlace()]->aObjects;
+	}*/
 
-	return isPossible;
+	if (0 == strcmp(typeObjects, "normal"))
+	{
+		// busco el objeto entre los normales // esto podría ser una función de búsqueda
+		for (int item = 0; item < knownItems && !found; ++item)
+		{
+			// si hay algún objeto ahi, y si lo introducido 
+			if ((placesConfig[player->getCurrentPlace()]->nObjects[item] != NULL) &&
+				((0 == strcmp(element, placesConfig[player->getCurrentPlace()]->nObjects[item]->getName()))))
+			{
+				found = true;
+				printText(placesConfig[player->getCurrentPlace()]->nObjects[item]->getDescription()[VALID_TEXT]);
+			}
+		}
+	}
+	else {
+		// busco el objeto entre los normales // esto podría ser una función de búsqueda
+		for (int item = 0; item < knownItems && !found; ++item)
+		{
+			// si hay algún objeto ahi, y si lo introducido 
+			if ((placesConfig[player->getCurrentPlace()]->aObjects[item] != NULL) &&
+				((0 == strcmp(element, placesConfig[player->getCurrentPlace()]->aObjects[item]->getName()))))
+			{
+				found = true;
+				printText(placesConfig[player->getCurrentPlace()]->aObjects[item]->getDescription()[VALID_TEXT]);
+			}
+		}
+	}
+
+	return found;
 }
 
-bool map::callPlayerPickUp(char * currentPosition, char * targetObject)
+
+
+bool map::searchInventoryItem(char *element, player *player)
 {
-	return false;
+	bool found = false;
+
+	// busco el objeto entre los poseídos // esto podría ser una función de búsqueda
+	for (int itemPossessed = 0; itemPossessed < MAX_ITEMS_INVENTORY && !found; ++itemPossessed)
+	{
+		if (player->getInventory()[itemPossessed] != NULL &&
+			0 == strcmp(element, player->getInventory()[itemPossessed]->getName()))
+		{
+			found = true;
+			printText(player->getInventory()[itemPossessed]->getDescription()[VALID_TEXT]);
+		}
+	}
+
+	return found;
 }
+
+
 
 placeConfig** map::getPlacesConfig(void)
 {

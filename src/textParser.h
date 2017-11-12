@@ -24,14 +24,14 @@ class textParser
 {
 private:
 	// comprueba que el input recibido tiene formato y tamaño correctos
-	bool checkCorrect(char* receivedInput);
+	bool checkCorrect(char *receivedInput);
 public:
 	textParser();
 	~textParser();
 
 	// comprueba que el input cumpla con, al menos, los requisitos
 	// base para que pueda procesarse la orden
-	bool processText(char* commandElements);
+	bool processText(char *commandElements);
 };
 
 #endif
