@@ -15,6 +15,14 @@ gameManager::gameManager()
 {
 	targetCommand = -1;
 
+	textWords[0] = (char*)malloc((sizeof(char) * MAX_WORD_SIZE) + 1); // 21 bytes (+1 por el \0, la orden más larga tendrá siempre menos
+	textWords[1] = (char*)malloc((sizeof(char) * MAX_WORD_SIZE) + 1);
+	textWords[2] = (char*)malloc((sizeof(char) * MAX_WORD_SIZE) + 1);
+	textWords[3] = (char*)malloc((sizeof(char) * MAX_WORD_SIZE) + 1);
+	//memset(textWords[0], 0, 10);
+	//strcpy_s(textWords[0], 10, "mima");
+	//printf("%s\n", textWords[0]);
+
 	// inicializo la semilla del rand
 	srand(time(NULL));
 }
@@ -56,27 +64,17 @@ void gameManager::getInput(void)
 bool gameManager::parsing(void)
 {
 	//printf("Soy parsing\n");
-	return this->parser.processText(inputText);
+	if (this->parser.processText(inputText, textWords, &targetCommand))
+	{
+		return GOOD_INPUT;
+	}
+	else {
+		return BAD_INPUT;
+	}
 }
 
 // simplemente comprobar si la orden existe. Si la orden es correcta, ya se encargará act
 // de comprobar el resto de parámetros
-bool gameManager::checkCommand(void)
-{
-	char *command = textWords[0];
-
-	for (int commandPosition = 0; commandPosition < TOTAL_COMMANDS; ++commandPosition)
-	{
-		if (0 == strcmp(command, possibleCommands[commandPosition]))
-		{
-			targetCommand = commandPosition;
-			return GOOD_INPUT;
-		}
-	}
-
-	// si llego aquí, es que no se ha encontrado la orden
-	return BAD_INPUT;
-}
 
 
 // en función de las palabras, actuar
@@ -91,6 +89,9 @@ void gameManager::act(void)
 	char *element2 = textWords[3];
 
 	char *auxDir; // puntero que permite cambiar los textos de algún elemento ante una acción	
+
+	// hay que comprobar que element, prepos y element2 tengan los valores correctos
+	// en función de la orden a ejecutar (look at shoes kek; eso no debe funcionar)
 
 	switch (targetCommand) // en función de la orden, actúo
 	{
@@ -182,9 +183,9 @@ void gameManager::lookAround(char *element, char *prepos, char *element2)
 
 void gameManager::lookAt(char *element)
 {
-	if (!map.searchPlaceItem(element, &player, MAX_NORMAL_ITEMS_PLACE, "normal") &&
-		!map.searchPlaceItem(element, &player, MAX_ACTIVE_ITEMS_PLACE, "active") &&
-		!map.searchInventoryItem(element, &player))
+	if ((!map.searchPlaceItem(element, player.getCurrentPlace(), MAX_NORMAL_ITEMS_PLACE, "normal")) &&
+		(!map.searchPlaceItem(element, player.getCurrentPlace(), MAX_ACTIVE_ITEMS_PLACE, "active")) &&
+		(!player.searchInventoryItem(element)))
 	{
 		printText(lookAtErrorText[(rand() % 3)]);
 	}
@@ -198,38 +199,28 @@ void gameManager::pickUp(char *element)
 {
 	bool found = false;
 	char *auxDir;
+	normalObject *auxNormal;
+	activeObject **auxActive;
 
-	for (int item = 0; item < MAX_ACTIVE_ITEMS_PLACE; ++item)
+	if (NULL != (auxActive = map.getActiveObject(element, player.getCurrentPlace())))
 	{
-		if ((map.getPlacesConfig()[player.getCurrentPlace()]->aObjects[item] != NULL) &&
-			(0 == strcmp(element, map.getPlacesConfig()[player.getCurrentPlace()]->aObjects[item]->getName())))
+		printText("Got it.");
+
+		// añadir objeto al inventario
+		player.addToInventory(*auxActive);
+
+		// cambiar el texto del objeto normal para adaptarlo a que ya no posee el objeto
+		if (NULL != (auxNormal = map.getNormalObject((*auxActive)->getHolder(), player.getCurrentPlace())))
 		{
-			found = true;
-			printText("Done.");
-
-			// añadir objeto al inventario
-			player.addToInventory(map.getPlacesConfig()[player.getCurrentPlace()]->aObjects[item]);
-
-			// cambiar el texto del objeto normal para adaptarlo a que ya no posee el objeto
-			for (int i = 0; i < MAX_NORMAL_ITEMS_PLACE; ++i)
-			{
-				if ((map.getPlacesConfig()[player.getCurrentPlace()]->nObjects[i] != NULL) &&
-					(0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->aObjects[item]->getHolder(), map.getPlacesConfig()[player.getCurrentPlace()]->nObjects[i]->getName())))
-				{
-					auxDir = map.getPlacesConfig()[player.getCurrentPlace()]->nObjects[i]->getDescription()[VALID_TEXT];
-					map.getPlacesConfig()[player.getCurrentPlace()]->nObjects[i]->getDescription()[VALID_TEXT] = map.getPlacesConfig()[player.getCurrentPlace()]->nObjects[i]->getDescription()[AUX_TEXT];
-					map.getPlacesConfig()[player.getCurrentPlace()]->nObjects[i]->getDescription()[AUX_TEXT] = auxDir;
-					break;
-				}
-			}
-
-			// eliminarlo de los del sitio
-			map.getPlacesConfig()[player.getCurrentPlace()]->aObjects[item] = NULL;
+			auxDir = auxNormal->getDescription()[VALID_TEXT];
+			auxNormal->getDescription()[VALID_TEXT] = auxNormal->getDescription()[AUX_TEXT];
+			auxNormal->getDescription()[AUX_TEXT] = auxDir;
 		}
-	}
 
-	if (!found)
-	{
+		// eliminarlo de los del sitio (y ya funcionará) FALTA ESTO!!!!!!!!!!!!
+		*auxActive = NULL;
+	}
+	else {
 		printText(pickUpErrorText[(rand() % 3)]);
 	}
 }
@@ -240,35 +231,16 @@ void gameManager::go(char *element)
 {
 	bool found = false;
 
+	int auxPR;
 	// podria haber un loop para comprobar si la dirección es correcta antes de hacer la búsqueda
 
-	//printf("test\n\n");
-	for (int searchDirection = 0; searchDirection < MAX_NEXT_PLACES && !found; ++searchDirection) // para cada posible dirección
-	{
-		if ((!found) &&
-			(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection] != NULL) && // si en esa dirección hay algo
-			(0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->direction, element)))
-		{
-			for (int searchPlace = 0; searchPlace < TOTAL_PLACES && !found; ++searchPlace) // busco el nuevo lugar entre todos
-			{
-				// cojo el numero del nuevo lugar del player y se lo asigno
-				if (0 == strcmp(map.getPlacesConfig()[player.getCurrentPlace()]->nextPlaces[searchDirection]->nextPlace, map.getPlacesConfig()[searchPlace]->name))
-				{
-					found = true;
-					player.setCurrentPlace(searchPlace);
-				}
-			}
-			//printf("%s\n", map.getPlacesConfig()[player.getCurrentPlace()]->name);
-			//printf("Estoy en: %s\n\nDescripcion del lugar: %s\n\n", map.getPlacesConfig()[player.getCurrentPlace()]->name, map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_DESCRIPTION_TEXT]);
-			printText(map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_INITIAL_TEXT]);
 
-			//break; // porque si voy izquierda, y en ese lugar hay otro izquierda y el numero del lugar es superior, pasa a ese lugar tambien
-			// arreglado con el found
-		}
+	if (PLACE_NOT_FOUND != (auxPR = map.getNextPlace(player.getCurrentPlace(), element)))
+	{
+		player.setCurrentPlace(auxPR);
+		printText(map.getPlacesConfig()[auxPR]->description[PLACE_INITIAL_TEXT]);
 	}
-
-	if (!found)
-	{
+	else {
 		if (0 == strcmp(element, "down"))
 		{
 			printText(goErrorText[1]);

@@ -169,6 +169,9 @@
 
 #define BAD_INPUT				false
 #define GOOD_INPUT				true
+#define FOUND					true
+#define NOT_FOUND				false
+#define PLACE_NOT_FOUND			-1
 
 #define VALID_TEXT				0
 #define AUX_TEXT				1
@@ -320,9 +323,6 @@ extern char						*livingroomCentsText[];
 	// objetos activos de los lugares
 //extern activeObject			*lobbyActiveObjects[];
 //extern activeObject			*garageActiveObjects[];
-
-// lista que usa el parser para guardar el input
-extern char						*textWords[];
 
 // órdenes que existen en el juego
 extern char						*possibleCommands[];

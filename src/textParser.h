@@ -25,13 +25,16 @@ class textParser
 private:
 	// comprueba que el input recibido tiene formato y tamaño correctos
 	bool checkCorrect(char *receivedInput);
+	void processWords(char *commandElements, char **textWords);
+	bool checkCommand(char **textWords, unsigned int *targetCommand);
 public:
 	textParser();
 	~textParser();
 
 	// comprueba que el input cumpla con, al menos, los requisitos
 	// base para que pueda procesarse la orden
-	bool processText(char *commandElements);
+	bool processText(char *commandElements, char **textWords, unsigned int *targetCommand);
+	
 };
 
 #endif

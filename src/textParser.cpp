@@ -59,29 +59,8 @@ bool textParser::checkCorrect(char *receivedInput)
 	return GOOD_INPUT;
 }
 
-textParser::textParser()
+void textParser::processWords(char *commandElements, char **textWords)
 {
-}
-
-
-textParser::~textParser()
-{
-}
-
-// función que procesa la línea de input para guardar las palabras
-// en sus posiciones globales;
-// si se ha parseado una orden de manera correcta, entonces
-// se compara con las posibles opciones y se procede a actuar
-bool textParser::processText(char *commandElements)
-{
-	// compruebo que el input cumpla con los requisitos mínimos
-	// de un input (longitud, elementos)
-	if (!checkCorrect(commandElements))
-	{
-		//printf("Input incorrecto\n\n");
-		return BAD_INPUT;
-	}
-		
 	// reseteo de las posiciones globales, mejor hacerlo en otro
 	// sitio; eso hara que si hay dos palabras, 2 y 3 estén a null
 	// para poder procesarse
@@ -94,7 +73,7 @@ bool textParser::processText(char *commandElements)
 
 	char text[MAX_WORD_SIZE]; // array auxiliar para guardar cada palabra, por ahora máximo tendrá 20 chars la más larga
 
-	// recorro todo el input buscando las palabras y aisándolas
+							  // recorro todo el input buscando las palabras y aisándolas
 	for (unsigned int index = 0, indexWord = 0, globalWord = 0; index < strlen(commandElements); ++index, ++indexWord)
 	{
 		if ((commandElements[index] > LETRA_A) && (commandElements[index] < LETRA_z)) {
@@ -107,8 +86,8 @@ bool textParser::processText(char *commandElements)
 
 			text[indexWord] = '\0'; // para poder comparar
 
-			//printf("%s\n", text);
-			//printf("%d, %d, %d, %d\n", !strcmp(text, "look"), !strcmp(text, "pick"), !strcmp(text, "go"), !strcmp(text, "talk"));
+									//printf("%s\n", text);
+									//printf("%d, %d, %d, %d\n", !strcmp(text, "look"), !strcmp(text, "pick"), !strcmp(text, "go"), !strcmp(text, "talk"));
 
 			if (strcmp(text, "look") && strcmp(text, "pick") && strcmp(text, "talk"))
 			{
@@ -132,12 +111,141 @@ bool textParser::processText(char *commandElements)
 			{
 				++index;
 			}
-			
+
 		}
+	}
+}
+
+
+
+bool textParser::checkCommand(char **textWords, unsigned int *targetCommand)
+{
+	*targetCommand = -1; // en principio asumo que la orden no existe a no ser que la encuentre
+	bool found = false;
+	bool correct = false;
+
+	char *command = textWords[0];
+	char *element = textWords[1];
+	char *prepos = textWords[2];
+	char *element2 = textWords[3];
+
+	// busco la orden
+	for (int word = 0; word < TOTAL_COMMANDS && !found; ++word)
+	{
+		if (0 == strcmp(command, possibleCommands[word]))
+		{
+			found = true;
+			*targetCommand = word;
+
+			switch (*targetCommand) // a ver qué orden es
+			{
+			case LOOK_AROUND:
+				if ((0 == strlen(element)) && (0 == strlen(prepos)) && (0 == strlen(element2)))
+				{
+					correct = true;
+				}
+				break;
+
+			case LOOK_AT:
+				if ((0 != strlen(element)) && (0 == strlen(prepos)) && (0 == strlen(element2)))
+				{
+					correct = true;
+				}
+				break;
+
+			case PICK_UP:
+				if ((0 != strlen(element)) && (0 == strlen(prepos)) && (0 == strlen(element2)))
+				{
+					correct = true;
+				}
+				break;
+
+			case GO:
+				if ((0 != strlen(element)) && (0 == strlen(prepos)) && (0 == strlen(element2)))
+				{
+					correct = true;
+				}
+				break;
+
+			case TALK_TO:
+				// no implementado aún
+				break;
+
+			case USE:
+				if (((0 != strlen(element)) && (0 == strlen(prepos)) && (0 == strlen(element2))) || // si es usar algo
+					((0 != strlen(element)) && (0 != strlen(prepos)) && (0 != strlen(element2)))) // o usar algo con algo
+				{
+					correct = true;
+				}
+				break;
+
+			case GIVE:
+				// no implementado aún
+				break;
+
+			case HELP:
+				if ((0 == strlen(element)) && (0 == strlen(prepos)) && (0 == strlen(element2)))
+				{
+					correct = true;
+				}
+				break;
+
+			case INVENTORY:
+				if ((0 == strlen(element)) && (0 == strlen(prepos)) && (0 == strlen(element2)))
+				{
+					correct = true;
+				}
+				break;
+
+			default:
+				break;
+			}
+		}
+	}
+
+	return correct;
+}
+
+
+textParser::textParser()
+{
+}
+
+
+textParser::~textParser()
+{
+}
+
+// función que procesa la línea de input para guardar las palabras
+// en sus posiciones globales;
+// si se ha parseado una orden de manera correcta, entonces
+// se compara con las posibles opciones y se procede a actuar
+bool textParser::processText(char *commandElements, char **textWords, unsigned int *targetCommand)
+{
+	// compruebo que el input cumpla con los requisitos mínimos
+	// de un input (longitud, elementos)
+	if (!checkCorrect(commandElements))
+	{
+		//printf("Input incorrecto\n\n");
+		return BAD_INPUT;
+	}
+
+	// lo proceso
+	processWords(commandElements, textWords);
+
+	// compruebo que, en función de la orden, el resto de words sean correctas
+	if (!checkCommand(textWords, targetCommand))
+	{
+		return BAD_INPUT;
 	}
 
 	return GOOD_INPUT;
 }
+
+
+
+
+
 
 //-----------------------------------------------------------------------------
 //

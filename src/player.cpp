@@ -71,6 +71,22 @@ void player::setCurrentPlace(int newPlace)
 	this->currentPlace = newPlace;
 }
 
+bool player::searchInventoryItem(char *element)
+{
+	// busco el objeto entre los poseídos // esto podría ser una función de búsqueda
+	for (int itemPossessed = 0; itemPossessed < MAX_ITEMS_INVENTORY; ++itemPossessed)
+	{
+		if ((inventory[itemPossessed] != NULL) &&
+			(0 == strcmp(element, inventory[itemPossessed]->getName())))
+		{
+			printText(inventory[itemPossessed]->getDescription()[VALID_TEXT]);
+			return FOUND;
+		}
+	}
+
+	return NOT_FOUND;
+}
+
 int player::getObjectsPossessed(void)
 {
 	return this->objectsPosessed;

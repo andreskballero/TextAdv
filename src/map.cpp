@@ -674,11 +674,9 @@ void map::loadPlacesObjectsCombinations(void)
 
 
 // con polimorfismo, esta función podría hacerse con un único for
-bool map::searchPlaceItem(char *element, player *player, int knownItems, char *typeObjects)
+bool map::searchPlaceItem(char *element, int currentPlace, int knownItems, char *typeObjects)
 {
-	bool found = false;
-
-	/*normalObject** objects;
+	/*normalObject **objects;
 
 	if (0 == strcmp(typeObjects, "normal")) WHY NOT?
 	{
@@ -691,52 +689,86 @@ bool map::searchPlaceItem(char *element, player *player, int knownItems, char *t
 	if (0 == strcmp(typeObjects, "normal"))
 	{
 		// busco el objeto entre los normales // esto podría ser una función de búsqueda
-		for (int item = 0; item < knownItems && !found; ++item)
+		for (int item = 0; item < knownItems; ++item)
 		{
 			// si hay algún objeto ahi, y si lo introducido 
-			if ((placesConfig[player->getCurrentPlace()]->nObjects[item] != NULL) &&
-				((0 == strcmp(element, placesConfig[player->getCurrentPlace()]->nObjects[item]->getName()))))
+			if ((placesConfig[currentPlace]->nObjects[item] != NULL) &&
+				((0 == strcmp(element, placesConfig[currentPlace]->nObjects[item]->getName()))))
 			{
-				found = true;
-				printText(placesConfig[player->getCurrentPlace()]->nObjects[item]->getDescription()[VALID_TEXT]);
+				printText(placesConfig[currentPlace]->nObjects[item]->getDescription()[VALID_TEXT]);
+				return FOUND;
 			}
 		}
 	}
-	else {
+	else if (0 == strcmp(typeObjects, "active")) {
 		// busco el objeto entre los normales // esto podría ser una función de búsqueda
-		for (int item = 0; item < knownItems && !found; ++item)
+		for (int item = 0; item < knownItems; ++item)
 		{
 			// si hay algún objeto ahi, y si lo introducido 
-			if ((placesConfig[player->getCurrentPlace()]->aObjects[item] != NULL) &&
-				((0 == strcmp(element, placesConfig[player->getCurrentPlace()]->aObjects[item]->getName()))))
+			if ((placesConfig[currentPlace]->aObjects[item] != NULL) &&
+				((0 == strcmp(element, placesConfig[currentPlace]->aObjects[item]->getName()))))
 			{
-				found = true;
-				printText(placesConfig[player->getCurrentPlace()]->aObjects[item]->getDescription()[VALID_TEXT]);
+				printText(placesConfig[currentPlace]->aObjects[item]->getDescription()[VALID_TEXT]);
+				return FOUND;
 			}
 		}
 	}
 
-	return found;
+	return NOT_FOUND; // esto no puede ir en un else porque si no lo encuentra debe devolver algo igualmente
+}
+
+
+int map::getNextPlace(int currentPlace, char *direction)
+{
+	for (int nextDirection = 0; nextDirection < MAX_NEXT_PLACES; ++nextDirection) // busco la dirección en el lugar actual
+	{
+		if ((NULL != placesConfig[currentPlace]->nextPlaces[nextDirection]) &&
+			(0 == strcmp(direction, placesConfig[currentPlace]->nextPlaces[nextDirection]->direction))) // si existe
+		{
+			for (int nextPlace = 0; nextPlace < TOTAL_PLACES; ++nextPlace) // miro a qué sitio lleva
+			{
+				if (0 == strcmp(placesConfig[currentPlace]->nextPlaces[nextDirection]->nextPlace, placesConfig[nextPlace]->name))
+				{
+					//printf("%s, %s, %s, %s\n", direction, placesConfig[currentPlace]->nextPlaces[nextDirection]->direction, placesConfig[currentPlace]->nextPlaces[nextDirection]->nextPlace, placesConfig[nextPlace]->name);
+					return nextPlace; // devuelvo la habitación objetivo
+				}
+			}
+		}
+	}
+
+	return PLACE_NOT_FOUND;
 }
 
 
 
-bool map::searchInventoryItem(char *element, player *player)
+normalObject* map::getNormalObject(char *element, int currentPlace)
 {
-	bool found = false;
-
-	// busco el objeto entre los poseídos // esto podría ser una función de búsqueda
-	for (int itemPossessed = 0; itemPossessed < MAX_ITEMS_INVENTORY && !found; ++itemPossessed)
+	for (int item = 0; item < MAX_NORMAL_ITEMS_PLACE; ++item)
 	{
-		if (player->getInventory()[itemPossessed] != NULL &&
-			0 == strcmp(element, player->getInventory()[itemPossessed]->getName()))
+		if ((NULL != placesConfig[currentPlace]->nObjects[item]) &&
+			(0 == strcmp(element, placesConfig[currentPlace]->nObjects[item]->getName())))
 		{
-			found = true;
-			printText(player->getInventory()[itemPossessed]->getDescription()[VALID_TEXT]);
+			return placesConfig[currentPlace]->nObjects[item];
 		}
 	}
 
-	return found;
+	return NULL;
+}
+
+
+
+activeObject** map::getActiveObject(char *element, int currentPlace)
+{
+	for (int item = 0; item < MAX_ACTIVE_ITEMS_PLACE; ++item)
+	{
+		if ((NULL != placesConfig[currentPlace]->aObjects[item]) &&
+			(0 == strcmp(element, placesConfig[currentPlace]->aObjects[item]->getName())))
+		{
+			return &placesConfig[currentPlace]->aObjects[item];
+		}
+	}
+
+	return NULL;
 }
 
 

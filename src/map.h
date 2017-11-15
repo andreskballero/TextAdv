@@ -67,9 +67,12 @@ public:
 	// y las añade al array de places
 	void loadPlacesObjectsCombinations(void);
 
-	bool searchPlaceItem(char *element, player *player, int knownItems, char *typeObjects);
-	bool searchInventoryItem(char *element, player *player);
+	bool searchPlaceItem(char *element, int currentPlace, int knownItems, char *typeObjects);
 
+	int getNextPlace(int currentPlace, char *direction);
+
+	normalObject* getNormalObject(char *element, int currentPlace);
+	activeObject** getActiveObject(char *element, int currentPlace); // doble puntero para poder ponerlo a null
 	placeConfig** getPlacesConfig(void);
 };
 

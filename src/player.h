@@ -40,6 +40,8 @@ public:
 	void setObjectsPossessed(int oPossessed);
 	void setCurrentPlace(int newPlace);
 
+	bool searchInventoryItem(char *element);
+
 	int getObjectsPossessed(void);
 	int getCurrentPlace(void);
 	activeObject** getInventory(void);

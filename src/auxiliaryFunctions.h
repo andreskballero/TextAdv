@@ -16,10 +16,6 @@
 
 #include "descriptions.h"
 
-// función que hace las reservas de memoria necesarias
-// antes de empezar a cargar los elementos de juego
-void allocateSpace(void);
-
 // función que hace un print justificado y con ms entre
 // letras
 void printText(char *text);

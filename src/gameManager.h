@@ -63,6 +63,9 @@ private:
 	unsigned int			targetCommand;
 	char					inputText[MAX_INPUT_SIZE];
 
+	// lista que usa el parser para guardar el input
+	char					*textWords[MAX_WORDS_INPUT];
+
 public:
 	gameManager();
 	~gameManager();
@@ -72,7 +75,6 @@ public:
 
 	void getInput(void);
 	bool parsing(void);
-	bool checkCommand(void);
 	void act(void);
 
 	void lookAround(char *element, char *prepos, char *element2);

@@ -362,7 +362,7 @@ char					*wcPerfumeText[] = { {"Smells like teen spirit."},
 											{ NULL } };
 
 	//living room
-char					*livingroomBibleText[] = { { "This bible seems to be hollow. Wow, a booze flask. Someone's hitting it hard and it's not me. I hope." },
+char					*livingroomBibleText[] = { { "This bible seems to be hollow. Wow, there's a booze flask inside. Someone's hitting it hard and it's not me. I hope." },
 												{NULL} };
 char					*livingroomVaseText[] = { { "So transparent. So broken. This vase has a tiny crack on its side." },
 												{ NULL } };

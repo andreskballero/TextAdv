@@ -20,9 +20,6 @@ int main(int argc, char **argv)
 {
 	//printf("Bienvenido al juego.\n\n");
 
-	// Reservar todo el espacio necesariop para memoria dinámica
-	allocateSpace();
-
 	// Bucle del juego
 	play();
 
