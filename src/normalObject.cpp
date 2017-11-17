@@ -24,7 +24,7 @@ void normalObject::setMembers(char *newName, char ** newDescription)
 
 
 
-char * normalObject::getName(void)
+char* normalObject::getName(void)
 {
 	return name;
 }

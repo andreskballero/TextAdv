@@ -17,6 +17,7 @@
 #include <string.h>
 
 #include "descriptions.h"
+#include "activeObject.h"
 
 typedef struct
 {
@@ -27,8 +28,9 @@ typedef struct
 typedef struct {
 	char *objectA;
 	char *objectB;
+	char *notice;
 
-	char *result; // nombre del objeto resultante de la combinación de los anteriores
+	activeObject *result; // nombre del objeto resultante de la combinación de los anteriores
 	// si tengo ambos, añado uno nuevo y estos los elimino del inventario
 } objectCombined;
 
@@ -39,15 +41,13 @@ private:
 
 	objectCombined			*craftedEvents[TOTAL_CRAFTED_OBJECTS]; // guardo el nombre de parejas de objetos combinables + su resultado
 
-	//activeObject			*craftedObjects[TOTAL_CRAFTED_OBJECTS]; // aqui guardo todos los objetos que pueden ser fruto de combinaciones de objetos
-
-
 	void initEvents(void);
 public:
 	events();
 	~events();
 
 	char* getNotice(char *target);
+	objectCombined* getObjectResult(char *element, char *element2);
 
 	bool checkPlayerUsage(char *objectUsed);
 };

@@ -77,10 +77,11 @@ public:
 	bool parsing(void);
 	void act(void);
 
-	void lookAround(char *element, char *prepos, char *element2);
+	void lookAround();
 	void lookAt(char *element);
 	void pickUp(char *element);
 	void go(char *element);
+	void use(char *element, char *prepos, char *element2);
 };
 
 #endif

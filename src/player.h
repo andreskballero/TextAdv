@@ -15,6 +15,7 @@
 
 #include <string.h>
 
+#include "descriptions.h"
 #include "auxiliaryFunctions.h"
 #include "activeObject.h"
 
@@ -35,12 +36,12 @@ public:
 
 	// añadir un objeto al inventario
 	void addToInventory(activeObject *newObject);
-	void deleteFromInventory(activeObject *deleteObject);
+	void deleteFromInventory(char *deleteObject);
 
 	void setObjectsPossessed(int oPossessed);
 	void setCurrentPlace(int newPlace);
 
-	bool searchInventoryItem(char *element);
+	bool searchInventoryObject(char *element);
 
 	int getObjectsPossessed(void);
 	int getCurrentPlace(void);

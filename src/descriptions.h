@@ -20,7 +20,7 @@
 #define MAX_WORDS_INPUT			4
 #define MAX_WORD_SIZE			20
 #define MAX_INPUT_SIZE			80
-#define MAX_ITEMS_INVENTORY		30
+#define MAX_ITEMS_INVENTORY		10
 #define MAX_ACTIVE_ITEMS_PLACE	4
 #define MAX_NORMAL_ITEMS_PLACE	10
 #define MAX_NEXT_PLACES			6
@@ -160,7 +160,11 @@
 
 
 // identificadores de combinación
+	// player
 #define PUT_SHOES				0
+
+	// mix objects
+#define FIX_VASE				0
 
 // otros
 #define LETRA_A					64
@@ -316,7 +320,9 @@ extern char						*livingroomScrewdriverText[];
 extern char						*livingroomCentsText[];
 
 
+// descripciones de objeto creado
 
+extern char						*fixedVase[];
 
 
 // variables globales

@@ -97,7 +97,7 @@ void gameManager::act(void)
 	{
 	case LOOK_AROUND:
 		// si sólo se ha escrito "mirar"
-		lookAround(element, prepos, element2);		
+		lookAround();		
 
 		break;
 
@@ -125,30 +125,7 @@ void gameManager::act(void)
 	case USE:
 		printf("Use\n\n");
 
-		if (prepos[0] == '\0' && element2[0] == '\0') // si no hay un with significa que es un uso en el player
-		{
-			//printf("%d, %d\n", (player.getObjectInventory(element) != NULL), (events.checkPlayerUsage(element)));
-			if ((player.getObjectInventory(element) != NULL) && (events.checkPlayerUsage(element))) // si se debe activar el objeto
-			{
-				if (player.getObjectInventory(element)->getUsed() == false)
-				{
-					player.getObjectInventory(element)->setUsed(true);
-					printText(events.getNotice(element));
-				}
-				else {
-					printText("I've already used that.");
-				}
-
-			}
-			else {
-				printText(useErrorText[(rand() % 3)]);
-			}
-		}
-		else { // si no es en player, es uso entre objetos o con el entorno, comprobar
-
-		}
-
-		// si se han desbloqueado todos los elementos de un desbloqueo total, desbloquear
+		use(element, prepos, element2);
 
 		break;
 	case GIVE:
@@ -167,16 +144,9 @@ void gameManager::act(void)
 
 
 
-void gameManager::lookAround(char *element, char *prepos, char *element2)
+void gameManager::lookAround()
 {
-	if ((0 == strlen(element)) && (0 == strlen(prepos)) && (0 == strlen(element2)))
-	{
-		printText(map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_DESCRIPTION_TEXT]);
-
-	}
-	else {
-		printText(lookAroundErrorText);
-	}
+	printText(map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_DESCRIPTION_TEXT]);
 }
 
 
@@ -185,7 +155,7 @@ void gameManager::lookAt(char *element)
 {
 	if ((!map.searchPlaceItem(element, player.getCurrentPlace(), MAX_NORMAL_ITEMS_PLACE, "normal")) &&
 		(!map.searchPlaceItem(element, player.getCurrentPlace(), MAX_ACTIVE_ITEMS_PLACE, "active")) &&
-		(!player.searchInventoryItem(element)))
+		(!player.searchInventoryObject(element)))
 	{
 		printText(lookAtErrorText[(rand() % 3)]);
 	}
@@ -253,4 +223,47 @@ void gameManager::go(char *element)
 			printText(goErrorText[0]);
 		}
 	}
+}
+
+
+
+void gameManager::use(char *element, char *prepos, char *element2)
+{
+	if (prepos[0] == '\0' && element2[0] == '\0') // si no hay un with significa que es un uso en el player
+	{
+		//printf("%d, %d\n", (player.getObjectInventory(element) != NULL), (events.checkPlayerUsage(element)));
+		if ((NULL != player.getObjectInventory(element)) && (events.checkPlayerUsage(element))) // si se puede activar el objeto
+		{
+			if (player.getObjectInventory(element)->getUsed() == false)
+			{
+				player.getObjectInventory(element)->setUsed(true);
+				printText(events.getNotice(element));
+			}
+			else {
+				printText("I've already used that.");
+			}
+
+		}
+		else {
+			printText(useErrorText[(rand() % 3)]);
+		}
+	}
+	else { // si no es en player, es uso entre objetos o con el entorno, comprobar
+		if ((NULL != player.getObjectInventory(element)) && (NULL != player.getObjectInventory(element2))) { // objetos que poseo
+			printf("Objetos!\n");
+			objectCombined* auxObject;
+			if (NULL != (auxObject = events.getObjectResult(element, element2))) // existe un objeto asociado a esos
+			{
+				player.deleteFromInventory(element);
+				player.deleteFromInventory(element2);
+				player.addToInventory(auxObject->result);
+				printText(auxObject->notice); // AQUÍ ME QUEDÉ
+			}
+		}
+		else { // objeto que poseo con objeto que no poseo
+
+		}
+	}
+
+	// si se han desbloqueado todos los elementos de un desbloqueo total, desbloquear
 }

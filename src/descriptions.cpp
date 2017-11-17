@@ -373,6 +373,12 @@ char					*livingroomCentsText[] = { { "I'm rich!" },
 
 
 
+// objetos crafteados
+
+char					*fixedVase[] = { {"Now this vase can hoard up water."}, 
+										{NULL} };
+
+
 //activeObject		*lobbyActiveObjects[MAX_ACTIVE_ITEMS_PLACE];
 //activeObject		*garageActiveObjects[MAX_ACTIVE_ITEMS_PLACE];
 

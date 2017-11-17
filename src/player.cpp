@@ -14,7 +14,7 @@ player::player()
 	// búsquedas
 	for (int item = 0; item < MAX_ITEMS_INVENTORY; ++item)
 	{
-		this->inventory[item] = NULL;
+		inventory[item] = NULL;
 	}
 }
 
@@ -23,42 +23,43 @@ player::~player()
 {
 }
 
-// no hace falta reordenar, se reordena en quitar
+// al final siempre tiene que haber un puntero a NULL para delimitar el final en caso de llenarse
 void player::addToInventory(activeObject *newObject)
 {
-	this->inventory[this->objectsPosessed++] = newObject;
+	if ((objectsPosessed + 1) != MAX_ITEMS_INVENTORY)
+	{
+		inventory[objectsPosessed++] = newObject;
+	}
+	else {
+		printText("The inventory is full!");
+	}
 }
 
 // eliminar un objeto del inventario y reordenar
-void player::deleteFromInventory(activeObject *deleteObject)
+// los objetos están en orden, sin nulls por en medio y con nulls al final si sobra espacio
+void player::deleteFromInventory(char *deleteObject)
 {
-	bool sort = false;
-	--objectsPosessed;
+	bool found = false;
 
-	// reordenar
-	for (int item = 0, positionSort = 0; item < MAX_ITEMS_INVENTORY; ++item)
+	for (int item = 0; item < objectsPosessed; ++item)
 	{
-		if (!sort) // si estoy buscando el item
+		if (!found)
 		{
-			if (0 == strcmp(deleteObject->getName(), inventory[item]->getName()))
+			//printf("%s\n", inventory[item]->getName());
+			if (0 == strcmp(deleteObject, inventory[item]->getName()))
 			{
-				inventory[item] = NULL;
-				positionSort = item;
-				sort = true;
+				--item;
+				found = true;
 			}
 		}
-		else { // si ya lo he encontrado, reordeno hasta llegar al final
-			if (inventory[item] != NULL) // para que el último objeto no pase a NULL
-			{
-				inventory[positionSort++] = inventory[item];
-				inventory[item] = NULL;
-			}
-			else {
-				break; // si se ha llegado al final
-			}
+		else {
+			inventory[item] = inventory[item + 1];
+			inventory[item + 1] = NULL;
 		}
 
 	}
+
+	--objectsPosessed;
 }
 
 void player::setObjectsPossessed(int oPossessed)
@@ -71,10 +72,10 @@ void player::setCurrentPlace(int newPlace)
 	this->currentPlace = newPlace;
 }
 
-bool player::searchInventoryItem(char *element)
+bool player::searchInventoryObject(char *element)
 {
 	// busco el objeto entre los poseídos // esto podría ser una función de búsqueda
-	for (int itemPossessed = 0; itemPossessed < MAX_ITEMS_INVENTORY; ++itemPossessed)
+	for (int itemPossessed = 0; itemPossessed < (MAX_ITEMS_INVENTORY - 1); ++itemPossessed)
 	{
 		if ((inventory[itemPossessed] != NULL) &&
 			(0 == strcmp(element, inventory[itemPossessed]->getName())))
@@ -104,7 +105,7 @@ activeObject** player::getInventory(void)
 
 activeObject* player::getObjectInventory(char *objectTarget)
 {
-	for (int i = 0; i < MAX_ITEMS_INVENTORY; ++i)
+	for (int i = 0; i < (MAX_ITEMS_INVENTORY - 1); ++i)
 	{
 		if ((inventory[i] != NULL) &&
 			(0 == strcmp(objectTarget, inventory[i]->getName())))
@@ -121,15 +122,18 @@ void player::showInventory(void)
 {
 	if (inventory[0] != NULL)
 	{
-		for (int item = 0; item < MAX_ITEMS_INVENTORY; ++item)
+		for (int item = 0; item < (MAX_ITEMS_INVENTORY - 1); ++item)
 		{
-			if (this->inventory[item] != NULL)
+			if (inventory[item] != NULL)
 			{
 				if (0 == (item % 3)) // filas de 3 items
 				{
 					printf("\n");
 				}
-				printf("%s    ", this->inventory[item]->getName());
+				printf("%s    ", inventory[item]->getName());
+			}
+			else {
+				break; // ya no hay más
 			}
 		}
 	}
