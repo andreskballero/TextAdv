@@ -29,14 +29,16 @@ void map::loadPlacesObjectsCombinations(void)
 
 	//----------------------- PLACES -----------------------//
 		// array auxiliar de carga
-	placeRelations **placesLoad = (placeRelations**) malloc((sizeof(placeRelations*) * MAX_NEXT_PLACES) + 1); 
-		// punteros auxiliares de carga de relaciones
-	placeRelations *leftRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	placeRelations *rightRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	placeRelations *backRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	placeRelations *forwardRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	placeRelations *upRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	placeRelations *downRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
+	placeRelations **placesLoad; // se hace nuevo malloc en para cada lugar
+
+		// punteros auxiliares de carga de relaciones; se hacen mallocs si se necesita reservar espacio
+		// para cada uno de ellos en cada sitio
+	placeRelations *leftRelations;
+	placeRelations *rightRelations;
+	placeRelations *forwardRelations;
+	placeRelations *backRelations;
+	placeRelations *upRelations;
+	placeRelations *downRelations;
 
 		// carga de los lugares
 	placesConfig[LOBBY] = initPlace("lobby", lobbyText);
@@ -49,20 +51,19 @@ void map::loadPlacesObjectsCombinations(void)
 
 
 	//------------ LOBBY ------------//
+	placesLoad = (placeRelations**)malloc((sizeof(placeRelations*) * MAX_NEXT_PLACES) + 1);
+
+	leftRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
+	rightRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
+	upRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 
 		// carga relaciones LOBBY
 	leftRelations->direction = "left";
 	leftRelations->nextPlace = "downstairs corridor";
 	rightRelations->direction = "right";
 	rightRelations->nextPlace = "garage";
-	forwardRelations->direction = NULL;
-	forwardRelations->nextPlace = NULL;
-	backRelations->direction = NULL;
-	backRelations->nextPlace = NULL;
 	upRelations->direction = "up";
 	upRelations->nextPlace = "hall"; // hall es el descansillo de arriba
-	downRelations->direction = NULL;
-	downRelations->nextPlace = NULL;
 
 		// cargo las direcciones
 	placesLoad[LEFT] = leftRelations;
@@ -81,24 +82,12 @@ void map::loadPlacesObjectsCombinations(void)
 	placesLoad = (placeRelations**)malloc((sizeof(placeRelations*) * MAX_NEXT_PLACES) + 1);
 
 	// reinicio de los punteros de dirección, reservar otros
-	leftRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	rightRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 	backRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	forwardRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	upRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 	downRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 
 	// carga relaciones
-	leftRelations->direction = NULL;
-	leftRelations->nextPlace = NULL;
-	rightRelations->direction = NULL;
-	rightRelations->nextPlace = NULL;
-	forwardRelations->direction = NULL;
-	forwardRelations->nextPlace = NULL;
 	backRelations->direction = "backward";
 	backRelations->nextPlace = "lobby";
-	upRelations->direction = NULL;
-	upRelations->nextPlace = NULL;
 	downRelations->direction = "down";
 	downRelations->nextPlace = "basement";
 
@@ -121,10 +110,8 @@ void map::loadPlacesObjectsCombinations(void)
 	// reinicio de los punteros de dirección, reservar otros
 	leftRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 	rightRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	backRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 	forwardRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	upRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	downRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
+	backRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 
 	// carga relaciones
 	leftRelations->direction = "left";
@@ -135,10 +122,6 @@ void map::loadPlacesObjectsCombinations(void)
 	forwardRelations->nextPlace = "living room";
 	backRelations->direction = "backward";
 	backRelations->nextPlace = "lobby";
-	upRelations->direction = NULL;
-	upRelations->nextPlace = NULL;
-	downRelations->direction = NULL;
-	downRelations->nextPlace = NULL;
 
 	// cargo las direcciones
 	placesLoad[LEFT] = leftRelations;
@@ -157,26 +140,11 @@ void map::loadPlacesObjectsCombinations(void)
 	placesLoad = (placeRelations**)malloc((sizeof(placeRelations*) * MAX_NEXT_PLACES) + 1);
 
 	// reinicio de los punteros de dirección, reservar otros
-	leftRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	rightRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 	backRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	forwardRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	upRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	downRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 
 	// carga relaciones
-	leftRelations->direction = NULL;
-	leftRelations->nextPlace = NULL;
-	rightRelations->direction = NULL;
-	rightRelations->nextPlace = NULL;
-	forwardRelations->direction = NULL;
-	forwardRelations->nextPlace = NULL;
 	backRelations->direction = "backward";
 	backRelations->nextPlace = "downstairs corridor";
-	upRelations->direction = NULL;
-	upRelations->nextPlace = NULL;
-	downRelations->direction = NULL;
-	downRelations->nextPlace = NULL;
 
 	// cargo las direcciones
 	placesLoad[LEFT] = NULL;
@@ -195,26 +163,11 @@ void map::loadPlacesObjectsCombinations(void)
 	placesLoad = (placeRelations**)malloc((sizeof(placeRelations*) * MAX_NEXT_PLACES) + 1);
 
 	// reinicio de los punteros de dirección, reservar otros
-	leftRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	rightRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 	backRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	forwardRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	upRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	downRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 
 	// carga relaciones
-	leftRelations->direction = NULL;
-	leftRelations->nextPlace = NULL;
-	rightRelations->direction = NULL;
-	rightRelations->nextPlace = NULL;
-	forwardRelations->direction = NULL;
-	forwardRelations->nextPlace = NULL;
 	backRelations->direction = "backward";
 	backRelations->nextPlace = "downstairs corridor";
-	upRelations->direction = NULL;
-	upRelations->nextPlace = NULL;
-	downRelations->direction = NULL;
-	downRelations->nextPlace = NULL;
 
 	// cargo las direcciones
 	placesLoad[LEFT] = NULL;
@@ -233,26 +186,11 @@ void map::loadPlacesObjectsCombinations(void)
 	placesLoad = (placeRelations**)malloc((sizeof(placeRelations*) * MAX_NEXT_PLACES) + 1);
 
 	// reinicio de los punteros de dirección, reservar otros
-	leftRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	rightRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 	backRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	forwardRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	upRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	downRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 
 	// carga relaciones
-	leftRelations->direction = NULL;
-	leftRelations->nextPlace = NULL;
-	rightRelations->direction = NULL;
-	rightRelations->nextPlace = NULL;
-	forwardRelations->direction = NULL;
-	forwardRelations->nextPlace = NULL;
 	backRelations->direction = "backward";
 	backRelations->nextPlace = "downstairs corridor";
-	upRelations->direction = NULL;
-	upRelations->nextPlace = NULL;
-	downRelations->direction = NULL;
-	downRelations->nextPlace = NULL;
 
 	// cargo las direcciones
 	placesLoad[LEFT] = NULL;
@@ -271,26 +209,11 @@ void map::loadPlacesObjectsCombinations(void)
 	placesLoad = (placeRelations**)malloc((sizeof(placeRelations*) * MAX_NEXT_PLACES) + 1);
 
 	// reinicio de los punteros de dirección, reservar otros
-	leftRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	rightRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	backRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	forwardRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 	upRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
-	downRelations = (placeRelations*)malloc(sizeof(placeRelations) + 1);
 
 	// carga relaciones
-	leftRelations->direction = NULL;
-	leftRelations->nextPlace = NULL;
-	rightRelations->direction = NULL;
-	rightRelations->nextPlace = NULL;
-	forwardRelations->direction = NULL;
-	forwardRelations->nextPlace = NULL;
-	backRelations->direction = NULL;
-	backRelations->nextPlace = NULL;
 	upRelations->direction = "up";
 	upRelations->nextPlace = "garage";
-	downRelations->direction = NULL;
-	downRelations->nextPlace = NULL;
 
 	// cargo las direcciones
 	placesLoad[LEFT] = NULL;
@@ -319,18 +242,29 @@ void map::loadPlacesObjectsCombinations(void)
 
 	normalObject **objects = (normalObject**)malloc((sizeof(normalObject*) * MAX_NORMAL_ITEMS_PLACE) + 1);
 
-	normalObject *nObject0 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject *nObject1 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject *nObject2 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject *nObject3 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject *nObject4 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject *nObject5 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject *nObject6 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject *nObject7 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject *nObject8 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	normalObject *nObject9 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	normalObject *nObject0;
+	normalObject *nObject1;
+	normalObject *nObject2;
+	normalObject *nObject3;
+	normalObject *nObject4;
+	normalObject *nObject5;
+	normalObject *nObject6;
+	normalObject *nObject7;
+	normalObject *nObject8;
+	normalObject *nObject9;
 
 	//------------ OBJETOS LOBBY ------------//
+	nObject0 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject1 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject2 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject3 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject4 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject5 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject6 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject7 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject8 = (normalObject*)malloc(sizeof(normalObject) + 1);
+	nObject9 = (normalObject*)malloc(sizeof(normalObject) + 1);
+
 	nObject0->setMembers("picture", lobbyPictureText);
 	nObject1->setMembers("plate", lobbyPlateText);
 	nObject2->setMembers("peg", lobbyPegText);
@@ -399,37 +333,19 @@ void map::loadPlacesObjectsCombinations(void)
 	objects = (normalObject**)malloc((sizeof(normalObject*) * MAX_NORMAL_ITEMS_PLACE) + 1);
 
 	nObject0 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	nObject1 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	nObject2 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	nObject3 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	nObject4 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	nObject5 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	nObject6 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	nObject7 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	nObject8 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	nObject9 = (normalObject*)malloc(sizeof(normalObject) + 1);
 
 	nObject0->setMembers("letters", corridorLettersText);
-	nObject1->setMembers(NULL, NULL);
-	nObject2->setMembers(NULL, NULL);
-	nObject3->setMembers(NULL, NULL);
-	nObject4->setMembers(NULL, NULL);
-	nObject5->setMembers(NULL, NULL);
-	nObject6->setMembers(NULL, NULL);
-	nObject7->setMembers(NULL, NULL);
-	nObject8->setMembers(NULL, NULL);
-	nObject9->setMembers(NULL, NULL);
 
 	objects[DOWNSTAIRS_CORRIDOR_LETTERS] = nObject0;
-	objects[1] = nObject1;
-	objects[2] = nObject2;
-	objects[3] = nObject3;
-	objects[4] = nObject4;
-	objects[5] = nObject5;
-	objects[6] = nObject6;
-	objects[7] = nObject7;
-	objects[8] = nObject8;
-	objects[9] = nObject9;
+	objects[1] = NULL;
+	objects[2] = NULL;
+	objects[3] = NULL;
+	objects[4] = NULL;
+	objects[5] = NULL;
+	objects[6] = NULL;
+	objects[7] = NULL;
+	objects[8] = NULL;
+	objects[9] = NULL;
 
 	placesConfig[DOWNSTAIRS_CORRIDOR]->nObjects = objects;
 
@@ -485,7 +401,6 @@ void map::loadPlacesObjectsCombinations(void)
 	nObject6 = (normalObject*)malloc(sizeof(normalObject) + 1);
 	nObject7 = (normalObject*)malloc(sizeof(normalObject) + 1);
 	nObject8 = (normalObject*)malloc(sizeof(normalObject) + 1);
-	nObject9 = (normalObject*)malloc(sizeof(normalObject) + 1);
 
 	nObject0->setMembers("shower", wcShowerText);
 	nObject1->setMembers("sink", wcSinkText);
@@ -496,7 +411,6 @@ void map::loadPlacesObjectsCombinations(void)
 	nObject6->setMembers("paper", wcPaperText);
 	nObject7->setMembers("aspirin", wcAspirinText);
 	nObject8->setMembers("bandage", wcBandageText);
-	nObject9->setMembers(NULL, NULL);
 
 	objects[WC_SHOWER] = nObject0;
 	objects[WC_SINK] = nObject1;
@@ -507,7 +421,7 @@ void map::loadPlacesObjectsCombinations(void)
 	objects[WC_PAPER] = nObject6;
 	objects[WC_ASPIRIN] = nObject7;
 	objects[WC_BANDAGE] = nObject8;
-	objects[9] = nObject9;
+	objects[9] = NULL;
 
 	placesConfig[WC]->nObjects = objects;
 
@@ -553,14 +467,20 @@ void map::loadPlacesObjectsCombinations(void)
 
 	//----------------------- OBJETOS ACTIVOS -----------------------//
 
-		// lobby
-	activeObject **activeObjects = (activeObject**)malloc((sizeof(activeObject*)*MAX_ACTIVE_ITEMS_PLACE) + 1);
+	activeObject **activeObjects;
 
 	activeObject *actObject0 = (activeObject*)malloc(sizeof(activeObject) + 1);
 	activeObject *actObject1 = (activeObject*)malloc(sizeof(activeObject) + 1);
 	activeObject *actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
 	activeObject *actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
 
+		// lobby
+	activeObjects = (activeObject**)malloc((sizeof(activeObject*)*MAX_ACTIVE_ITEMS_PLACE) + 1);
+
+	actObject0 = (activeObject*)malloc(sizeof(activeObject) + 1);
+	actObject1 = (activeObject*)malloc(sizeof(activeObject) + 1);
+	actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
+	actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
 
 	actObject0->setMembers("shoes", lobbyShoesText, "commode");
 	actObject1->setMembers("battery", lobbyBatteryText, "uniform");
@@ -595,8 +515,15 @@ void map::loadPlacesObjectsCombinations(void)
 
 	placesConfig[GARAGE]->aObjects = activeObjects;
 
-		// downstairs corridor (nothing)
+		// downstairs corridor (nothing, pero debe inicializarse a null igualmente para la búsqueda)
+	activeObjects = (activeObject**)malloc((sizeof(activeObject*)*MAX_ACTIVE_ITEMS_PLACE) + 1);
 
+	activeObjects[0] = NULL;
+	activeObjects[1] = NULL;
+	activeObjects[2] = NULL;
+	activeObjects[3] = NULL;
+
+	placesConfig[DOWNSTAIRS_CORRIDOR]->aObjects = activeObjects;
 
 		// kitchen
 	activeObjects = (activeObject**)malloc((sizeof(activeObject*)*MAX_ACTIVE_ITEMS_PLACE) + 1);
@@ -692,7 +619,7 @@ bool map::searchPlaceItem(char *element, int currentPlace, int knownItems, char 
 		for (int item = 0; item < knownItems; ++item)
 		{
 			// si hay algún objeto ahi, y si lo introducido 
-			if ((placesConfig[currentPlace]->nObjects[item] != NULL) &&
+			if ((NULL != placesConfig[currentPlace]->nObjects[item]) &&
 				((0 == strcmp(element, placesConfig[currentPlace]->nObjects[item]->getName()))))
 			{
 				printText(placesConfig[currentPlace]->nObjects[item]->getDescription()[VALID_TEXT]);
@@ -705,7 +632,7 @@ bool map::searchPlaceItem(char *element, int currentPlace, int knownItems, char 
 		for (int item = 0; item < knownItems; ++item)
 		{
 			// si hay algún objeto ahi, y si lo introducido 
-			if ((placesConfig[currentPlace]->aObjects[item] != NULL) &&
+			if ((NULL != placesConfig[currentPlace]->aObjects[item]) &&
 				((0 == strcmp(element, placesConfig[currentPlace]->aObjects[item]->getName()))))
 			{
 				printText(placesConfig[currentPlace]->aObjects[item]->getDescription()[VALID_TEXT]);
@@ -757,14 +684,14 @@ normalObject* map::getNormalObject(char *element, int currentPlace)
 
 
 
-activeObject** map::getActiveObject(char *element, int currentPlace)
+activeObject* map::getActiveObject(char *element, int currentPlace)
 {
 	for (int item = 0; item < MAX_ACTIVE_ITEMS_PLACE; ++item)
 	{
 		if ((NULL != placesConfig[currentPlace]->aObjects[item]) &&
 			(0 == strcmp(element, placesConfig[currentPlace]->aObjects[item]->getName())))
 		{
-			return &placesConfig[currentPlace]->aObjects[item];
+			return placesConfig[currentPlace]->aObjects[item];
 		}
 	}
 

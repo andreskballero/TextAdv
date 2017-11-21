@@ -72,7 +72,7 @@ public:
 	int getNextPlace(int currentPlace, char *direction);
 
 	normalObject* getNormalObject(char *element, int currentPlace);
-	activeObject** getActiveObject(char *element, int currentPlace); // doble puntero para poder ponerlo a null
+	activeObject* getActiveObject(char *element, int currentPlace); // doble puntero para poder ponerlo a null
 	placeConfig** getPlacesConfig(void);
 };
 

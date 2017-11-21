@@ -170,25 +170,27 @@ void gameManager::pickUp(char *element)
 	bool found = false;
 	char *auxDir;
 	normalObject *auxNormal;
-	activeObject **auxActive;
+	activeObject *auxActive;
 
-	if (NULL != (auxActive = map.getActiveObject(element, player.getCurrentPlace())))
+	// si existe y no se ha cogido ya...
+	if ((NULL != (auxActive = map.getActiveObject(element, player.getCurrentPlace()))) &&
+		(!auxActive->getPickedUp()))
 	{
 		printText("Got it.");
 
 		// añadir objeto al inventario
-		player.addToInventory(*auxActive);
+		player.addToInventory(auxActive);
 
 		// cambiar el texto del objeto normal para adaptarlo a que ya no posee el objeto
-		if (NULL != (auxNormal = map.getNormalObject((*auxActive)->getHolder(), player.getCurrentPlace())))
+		if (NULL != (auxNormal = map.getNormalObject(auxActive->getHolder(), player.getCurrentPlace())))
 		{
 			auxDir = auxNormal->getDescription()[VALID_TEXT];
 			auxNormal->getDescription()[VALID_TEXT] = auxNormal->getDescription()[AUX_TEXT];
 			auxNormal->getDescription()[AUX_TEXT] = auxDir;
 		}
 
-		// eliminarlo de los del sitio (y ya funcionará) FALTA ESTO!!!!!!!!!!!!
-		*auxActive = NULL;
+		// poner que ya se ha cogido
+		auxActive->setPickedUp(true);
 	}
 	else {
 		printText(pickUpErrorText[(rand() % 3)]);
@@ -196,14 +198,11 @@ void gameManager::pickUp(char *element)
 }
 
 
-
 void gameManager::go(char *element)
 {
 	bool found = false;
 
 	int auxPR;
-	// podria haber un loop para comprobar si la dirección es correcta antes de hacer la búsqueda
-
 
 	if (PLACE_NOT_FOUND != (auxPR = map.getNextPlace(player.getCurrentPlace(), element)))
 	{

@@ -15,14 +15,20 @@ activeObject::~activeObject()
 {
 }
 
-void activeObject::setMembers(char * newName, char ** newDescription, char * newHolder, bool newUsed)
+void activeObject::setMembers(char *newName, char **newDescription, char *newHolder, bool newPickedUp, bool newUsed)
 {
 	name = newName;
 	description = newDescription;
 	holder = newHolder;
+	pickedUp = newPickedUp;
 	used = newUsed;
 }
 
+
+void activeObject::setPickedUp(bool state)
+{
+	pickedUp = state;
+}
 
 
 void activeObject::setUsed(bool newUsed)
@@ -37,6 +43,11 @@ char* activeObject::getHolder(void)
 	return holder;
 }
 
+
+bool activeObject::getPickedUp(void)
+{
+	return pickedUp;
+}
 
 
 bool activeObject::getUsed(void)
