@@ -47,7 +47,7 @@ void map::loadPlacesObjectsCombinations(void)
 	placesConfig[KITCHEN] = initPlace("kitchen", kitchenText);
 	placesConfig[WC] = initPlace("WC", bathroomText);
 	placesConfig[LIVING_ROOM] = initPlace("living room", livingRoomText);
-	placesConfig[BASEMENT] = initPlace("basement", basementText);
+	placesConfig[BASEMENT] = initPlace("basement", basementText, false);
 
 
 	//------------ LOBBY ------------//
@@ -642,6 +642,18 @@ bool map::searchPlaceItem(char *element, int currentPlace, int knownItems, char 
 	}
 
 	return NOT_FOUND; // esto no puede ir en un else porque si no lo encuentra debe devolver algo igualmente
+}
+
+
+placeConfig* map::getPlace(char *placeName)
+{
+	for (int place = 0; 0 < TOTAL_PLACES; ++place)
+	{
+		if (0 == strcmp(placeName, placesConfig[place]->name))
+		{
+			return placesConfig[place];
+		}
+	}
 }
 
 

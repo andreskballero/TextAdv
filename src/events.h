@@ -34,12 +34,21 @@ typedef struct {
 	// si tengo ambos, añado uno nuevo y estos los elimino del inventario
 } objectCombined;
 
+typedef struct {
+	char *objectA;
+	char *objectN;
+	char *place;
+	char *notice;
+} placeReaction;
+
 class events
 {
 private:
 	playerObject			*playerEvents[MAX_PLAYER_EVENTS]; // guardo el nombre de los objetos que puede usar el player
 
-	objectCombined			*craftedEvents[TOTAL_CRAFTED_OBJECTS]; // guardo el nombre de parejas de objetos combinables + su resultado
+	objectCombined			*craftedEvents[MAX_CRAFTED_OBJECTS]; // guardo el nombre de parejas de objetos combinables + su resultado
+
+	placeReaction			*reactionEvents[MAX_REACTIONS]; // total reactions on the map
 
 	void initEvents(void);
 public:
@@ -48,6 +57,8 @@ public:
 
 	char* getNotice(char *target);
 	objectCombined* getObjectResult(char *element, char *element2);
+	placeReaction* getReactionResult(char *element, char *element2);
+
 
 	bool checkPlayerUsage(char *objectUsed);
 };

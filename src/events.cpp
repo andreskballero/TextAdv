@@ -29,6 +29,13 @@ events::events()
 	craftedEvents[4] = NULL; // (objectCombined*)malloc(sizeof(objectCombined) + 1);
 
 
+	reactionEvents[0] = (placeReaction*)malloc(sizeof(placeReaction) + 1);
+	reactionEvents[1] = NULL;
+	reactionEvents[2] = NULL;
+	reactionEvents[3] = NULL;
+	reactionEvents[4] = NULL;
+
+
 	initEvents();
 }
 
@@ -48,6 +55,11 @@ void events::initEvents(void)
 	craftedEvents[FIX_VASE]->notice = "Now I have a fixed vase.";
 	craftedEvents[FIX_VASE]->result = (activeObject*)malloc(sizeof(activeObject) + 1);
 	craftedEvents[FIX_VASE]->result->setMembers("vase", fixedVase, NULL);
+
+	reactionEvents[UNLOCK_BASEMENT]->objectA = "water";
+	reactionEvents[UNLOCK_BASEMENT]->objectN = "lock";
+	reactionEvents[UNLOCK_BASEMENT]->place = "basement";
+	reactionEvents[UNLOCK_BASEMENT]->notice = "The basement is now unlocked.";
 }
 
 
@@ -67,13 +79,27 @@ char* events::getNotice(char *target)
 
 objectCombined* events::getObjectResult(char *element, char *element2)
 {
-	for (int combination = 0; combination < TOTAL_CRAFTED_OBJECTS; ++combination)
+	for (int combination = 0; combination < MAX_CRAFTED_OBJECTS; ++combination)
 	{
 		if ((NULL != craftedEvents[combination]) && // si no es null y element & element2 (en cualquier orden) existen en una combinación...
 			(((0 == strcmp(element, craftedEvents[combination]->objectA)) || (0 == strcmp(element2, craftedEvents[combination]->objectA))) &&
 			(0 == strcmp(element, craftedEvents[combination]->objectB) || (0 == strcmp(element2, craftedEvents[combination]->objectB)))))
 		{
 			return craftedEvents[combination];
+		}
+	}
+
+	return NULL;
+}
+
+placeReaction* events::getReactionResult(char *element, char *element2)
+{
+	for (int item = 0; item < MAX_REACTIONS; ++item)
+	{
+		if ((NULL != reactionEvents[item]) &&
+			((0 == strcmp(element, reactionEvents[item]->objectA)) && (0 == strcmp(element2, reactionEvents[item]->objectN))))
+		{
+			return reactionEvents[item];
 		}
 	}
 

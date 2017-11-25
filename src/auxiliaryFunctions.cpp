@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "descriptions.h"
 #include "gameManager.h"
-#include "auxiliaryFunctions.h"
+//#include "auxiliaryFunctions.h" // no es necesario, las funciones son visibles en todo el programa
 
 
 // hay un problema, al partir desarrollador, se printa el char y luego el -

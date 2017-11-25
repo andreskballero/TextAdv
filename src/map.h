@@ -69,6 +69,7 @@ public:
 
 	bool searchPlaceItem(char *element, int currentPlace, int knownItems, char *typeObjects);
 
+	placeConfig* getPlace(char *placeName);
 	int getNextPlace(int currentPlace, char *direction);
 
 	normalObject* getNormalObject(char *element, int currentPlace);

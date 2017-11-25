@@ -173,7 +173,7 @@ bool textParser::checkCommand(char **textWords, unsigned int *targetCommand)
 
 			case USE:
 				if (((0 != strlen(element)) && (0 == strlen(prepos)) && (0 == strlen(element2))) || // si es usar algo
-					((0 != strlen(element)) && (0 == strcmp(prepos, "with")) && (0 != strlen(element2)))) // o usar algo con algo
+					((0 != strlen(element)) && ((0 == strcmp(prepos, "with")) || (0 == strcmp(prepos, "on"))) && (0 != strlen(element2)))) // o usar algo con algo
 				{
 					correct = true;
 				}

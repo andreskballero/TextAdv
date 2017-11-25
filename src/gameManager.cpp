@@ -157,7 +157,7 @@ void gameManager::lookAt(char *element)
 		(!map.searchPlaceItem(element, player.getCurrentPlace(), MAX_ACTIVE_ITEMS_PLACE, "active")) &&
 		(!player.searchInventoryObject(element)))
 	{
-		printText(lookAtErrorText[(rand() % 3)]);
+		printText(lookAtErrorText[(rand() % 2)]);
 	}
 }
 
@@ -193,7 +193,7 @@ void gameManager::pickUp(char *element)
 		auxActive->setPickedUp(true);
 	}
 	else {
-		printText(pickUpErrorText[(rand() % 3)]);
+		printText(pickUpErrorText[(rand() % 2)]);
 	}
 }
 
@@ -206,8 +206,22 @@ void gameManager::go(char *element)
 
 	if (PLACE_NOT_FOUND != (auxPR = map.getNextPlace(player.getCurrentPlace(), element)))
 	{
-		player.setCurrentPlace(auxPR);
-		printText(map.getPlacesConfig()[auxPR]->description[PLACE_INITIAL_TEXT]);
+		if (map.getPlacesConfig()[auxPR]->accessible)
+		{
+			player.setCurrentPlace(auxPR);
+			printText(map.getPlacesConfig()[auxPR]->description[PLACE_INITIAL_TEXT]);
+		}
+		else {
+			if (0 == strcmp("basement", map.getPlacesConfig()[auxPR]->name))
+			{
+				printText(lockedPlaces[0]);
+			}
+			else {
+				printText(lockedPlaces[1]);
+			}
+			
+		}
+		
 	}
 	else {
 		if (0 == strcmp(element, "down"))
@@ -239,30 +253,61 @@ void gameManager::use(char *element, char *prepos, char *element2)
 				printText(events.getNotice(element));
 			}
 			else {
-				printText("I've already used that.");
+				printText(useErrorText[2]);
 			}
 
 		}
 		else {
-			printText(useErrorText[(rand() % 3)]);
+			if (NULL == player.getObjectInventory(element))
+			{
+				printText(useErrorText[0]);
+			}
+			else {
+				printText(useErrorText[3]);
+			}
+			
 		}
 	}
-	else { // si no es en player, es uso entre objetos o con el entorno, comprobar
-		if ((NULL != player.getObjectInventory(element)) && (NULL != player.getObjectInventory(element2))) { // objetos que poseo
-			printf("Objetos!\n");
-			objectCombined* auxObject;
-			if (NULL != (auxObject = events.getObjectResult(element, element2))) // existe un objeto asociado a esos
+	else { // si no es en player, es uso entre objetos o con el entorno, comprobar si existen ambos
+		if ((NULL != player.getObjectInventory(element)) &&
+			((NULL != player.getObjectInventory(element2)) || (NULL != map.getNormalObject(element2, player.getCurrentPlace()))))
+		{
+			if (0 == strcmp(prepos, "with"))
 			{
-				player.deleteFromInventory(element);
-				player.deleteFromInventory(element2);
-				player.addToInventory(auxObject->result);
-				printText(auxObject->notice); // AQUÍ ME QUEDÉ
+				objectCombined* auxObject;
+
+				if (NULL != (auxObject = events.getObjectResult(element, element2))) // existe un objeto asociado a esos
+				{
+					player.deleteFromInventory(element);
+					player.deleteFromInventory(element2);
+					player.addToInventory(auxObject->result);
+					printText(auxObject->notice);
+				}
+				else {
+					printText(useActivesErrorText[(rand() % 2)]);
+				}
+			}
+			else { // la única alternativa es "on"
+				placeReaction *auxReaction;
+				if (NULL != (auxReaction = events.getReactionResult(element, element2)))
+				{
+					player.deleteFromInventory(element);
+					map.getPlace(auxReaction->place)->accessible = true;
+					printText(auxReaction->notice);
+				}
+				else {
+					printText(useReactionErrorText[(rand() % 2)]);
+				}
 			}
 		}
-		else { // objeto que poseo con objeto que no poseo
-
+		else {
+			if (NULL == player.getObjectInventory(element))
+			{
+				printText(useErrorText[0]);
+			}
+			else {
+				printText(useErrorText[1]);
+			}
 		}
 	}
-
-	// si se han desbloqueado todos los elementos de un desbloqueo total, desbloquear
 }

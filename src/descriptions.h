@@ -26,9 +26,9 @@
 #define MAX_NEXT_PLACES			6
 #define MAX_PLACE_EVENTS		10
 #define MAX_PLAYER_EVENTS		5
+#define MAX_CRAFTED_OBJECTS		5
+#define MAX_REACTIONS			5
 
-#define TOTAL_OBJECTS			100
-#define TOTAL_CRAFTED_OBJECTS	5
 #define TOTAL_COMMANDS			9
 #define TOTAL_PLACES			7 // piso de abajo 7, finales son 14
 
@@ -166,6 +166,9 @@
 	// mix objects
 #define FIX_VASE				0
 
+	// reactions
+#define	UNLOCK_BASEMENT			0
+
 // otros
 #define LETRA_A					64
 #define LETRA_z					123
@@ -193,6 +196,9 @@ extern char						*lookAtErrorText[];
 extern char						*pickUpErrorText[];
 extern char						*goErrorText[];
 extern char						*useErrorText[];
+extern char						*useActivesErrorText[];
+extern char						*useReactionErrorText[];
+extern char						*lockedPlaces[];
 
 // descripciones de lugar
 	// planta baja

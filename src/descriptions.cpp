@@ -56,10 +56,15 @@ char					*contextText = "You are Murray McMurray, a young scrawny skeleton who l
 
 
 char					*lookAroundErrorText = "Look around what ? Just look around!";
-char					*lookAtErrorText[] = { {"I can't see that."}, {"I don't think that exists here."}, {"We don't have anything like that."} };
-char					*pickUpErrorText[] = { {"I can't pick that up."}, {"No way."}, {"Did you type that right?"} };
-char					*goErrorText[] = { { "I'm not going through a wall, sorry." }, { "Floors are to walk on, not to go through." } , { "Can't jump through the ceiling... Yet." } };
-char					*useErrorText[] = { { "I can't use that." },{ "Do I have that?" },{ "Did you type that right?" } };
+char					*lookAtErrorText[] = { {"That's not interesting."}, {"We don't have anything like that."} };
+char					*pickUpErrorText[] = { {"Nah."}, {"No way."} };
+char					*goErrorText[] = { {"I'm not going through a wall, sorry."}, {"Floors are to walk on, not to go through."} , {"Can't jump through the ceiling... Yet."} ,
+											{"I can't enter yet."} };
+char					*useErrorText[] = { { "I don't have that." },{ "Either I don't have the object or there is no such thing in the room." },
+											{ "I've already used that." }, {"I have no use for that."} };
+char					*useActivesErrorText[] = { { "I'm not sure about that." },{ "That won't result in anything useful." } };
+char					*useReactionErrorText[] = { { "That won't work." },{ "Nope." } };
+char					*lockedPlaces[] = { {"The basement is locked. I have to find some way to open or disable this electrical lock."}, {"Garreeeettttt!"} };
 
 
 
