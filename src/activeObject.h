@@ -1,4 +1,5 @@
-#pragma once
+#ifndef AOBJECT
+#define AOBJECT
 
 #include "normalObject.h"
 
@@ -10,9 +11,10 @@ private:
 	bool used;
 public:
 	activeObject();
+	activeObject(char *newName, char **newDescription, char *newHolder, bool newPickedUp = false, bool newUsed = false);
 	~activeObject();
 
-	void setMembers(char *newName, char **newDescription, char *newHolder, bool newPickedUp = false, bool newUsed = false);
+	//void setMembers(char *newName, char **newDescription, char *newHolder, bool newPickedUp = false, bool newUsed = false);
 
 	void setPickedUp(bool state);
 	void setUsed(bool newUsed);
@@ -21,4 +23,6 @@ public:
 	bool getPickedUp(void);
 	bool getUsed(void);
 };
+
+#endif
 

@@ -55,15 +55,16 @@ char					*contextText = "You are Murray McMurray, a young scrawny skeleton who l
 
 
 
-char					*lookAroundErrorText = "Look around what ? Just look around!";
-char					*lookAtErrorText[] = { {"That's not interesting."}, {"We don't have anything like that."} };
-char					*pickUpErrorText[] = { {"Nah."}, {"No way."} };
+char					*lookAroundErrorText = "Look around what?";
+char					*lookAtErrorText[] = { {"There's no such thing here."}, {"We don't have anything like that."} };
+char					*pickUpErrorText[] = { {"There is no such thing in the room."}, {"I can't pick that up."} };
 char					*goErrorText[] = { {"I'm not going through a wall, sorry."}, {"Floors are to walk on, not to go through."} , {"Can't jump through the ceiling... Yet."} ,
 											{"I can't enter yet."} };
 char					*useErrorText[] = { { "I don't have that." },{ "Either I don't have the object or there is no such thing in the room." },
 											{ "I've already used that." }, {"I have no use for that."} };
 char					*useActivesErrorText[] = { { "I'm not sure about that." },{ "That won't result in anything useful." } };
 char					*useReactionErrorText[] = { { "That won't work." },{ "Nope." } };
+char					*talkToErrorText[] = { {"There's no one here."}, {"That person isn't here."} };
 char					*lockedPlaces[] = { {"The basement is locked. I have to find some way to open or disable this electrical lock."}, {"Garreeeettttt!"} };
 
 
@@ -304,8 +305,9 @@ char					*livingroomTVText[] = { { "The good ol' Grampa's WWII TV. It's always o
 												{NULL} };
 
 char					*livingroomSofasText[] = { {"A comfy pair of sofas for 3-hour naps. From the fourth hour on, the back starts hurting. Look! Two cents. They probably "\
-													"slipped out of my pocket while sleeping." }, { "A comfy pair of sofas for 3-hour naps. From the fourth hour on, the "\
-													"back starts hurting." } };
+													"slipped out of my pocket while sleeping. There's grampa, taking full advantage of the sofas' potential." }, 
+													{ "A comfy pair of sofas for 3-hour naps. From the fourth hour on, the "\
+													"back starts hurting. There's grampa, taking full advantage of the sofas' potential." } };
 
 char					*livingroomWindowText[] = { { "The garden can be seen through the window. In fact, nothing can be seen through the window. We should mow the lawn "\
 													"from time to time." }, 
@@ -384,6 +386,25 @@ char					*fixedVase[] = { {"Now this vase can hoard up water."},
 										{NULL} };
 
 
+// dialogs
+
+char					*grampaDialog[] = { {"Hey, grampa."}, 
+											{"Grampa!"},
+											{"*SCREAMING* GRAMPA!"}, 
+											// comienzo de testos que aparecen al decir algo
+											{ NULL },
+											{ NULL },
+											{ "Are you dead?" } };
+
+char					*grampaResponse[] = { {"Zzzzzzzz..."},
+												{"ZzZzzZzZZzzZz..."},
+												{ "ZzZz...*cough*...*hawk*...zZzZzZzzzZZZzzZ..." },
+												{ NULL },
+												{ NULL },
+												{ "I've been dead for 77 years, you know that. Now, let me sleep." } };
+
+
+
 //activeObject		*lobbyActiveObjects[MAX_ACTIVE_ITEMS_PLACE];
 //activeObject		*garageActiveObjects[MAX_ACTIVE_ITEMS_PLACE];
 
@@ -403,7 +424,8 @@ char				*possibleCommands[] = {"look around", "look at", "pick up", "go", "talk 
 
 //char				*possibleDirections[] = {"left", "right", "forward", "backward", "up", "down"};
 
-//char				*possiblePlaces[] = { "lobby", "garage", "downstairs corridor", "kitchen", "WC", "living room", "basement" };
+char				*possiblePlaces[] = { "lobby", "garage", "downstairs_corridor", "kitchen", "WC", "living room", "basement", "upstairs_hall", "upstairs_corridor",
+											"main_bedroom", "twins_bedroom", "own_bedroom", "office", "garret" };
 
 //-----------------------------------------------------------------------------
 //

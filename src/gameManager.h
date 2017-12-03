@@ -31,6 +31,8 @@
 #define ACTIVE_ITEM				1
 #define INVENTORY_ITEM			2
 
+#define VALID_LINE				2
+
 // struct para chequear existencia; almacena
 // si el input es correcto y la posición de la
 // orden en el array de órdenes
@@ -82,6 +84,7 @@ public:
 	void pickUp(char *element);
 	void go(char *element);
 	void use(char *element, char *prepos, char *element2);
+	void talkTo(char *element);
 };
 
 #endif

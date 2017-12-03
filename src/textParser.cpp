@@ -168,7 +168,10 @@ bool textParser::checkCommand(char **textWords, unsigned int *targetCommand)
 				break;
 
 			case TALK_TO:
-				// no implementado aún
+				if ((strlen(element)) && (!strlen(prepos)) && (!strlen(element2)))
+				{
+					correct = true;
+				}
 				break;
 
 			case USE:

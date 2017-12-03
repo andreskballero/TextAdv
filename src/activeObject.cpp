@@ -10,19 +10,26 @@ activeObject::activeObject()
 	used = false;
 }
 
+activeObject::activeObject(char * newName, char ** newDescription, char * newHolder, bool newPickedUp, bool newUsed) : normalObject(newName, newDescription)
+{
+	holder = newHolder;
+	pickedUp = newPickedUp;
+	used = newUsed;
+}
+
 
 activeObject::~activeObject()
 {
 }
 
-void activeObject::setMembers(char *newName, char **newDescription, char *newHolder, bool newPickedUp, bool newUsed)
+/*void activeObject::setMembers(char *newName, char **newDescription, char *newHolder, bool newPickedUp, bool newUsed)
 {
 	name = newName;
 	description = newDescription;
 	holder = newHolder;
 	pickedUp = newPickedUp;
 	used = newUsed;
-}
+}*/
 
 
 void activeObject::setPickedUp(bool state)

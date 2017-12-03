@@ -8,6 +8,12 @@ normalObject::normalObject()
 	description = NULL;
 }
 
+normalObject::normalObject(char * newName, char ** newDescription)
+{
+	name = newName;
+	description = newDescription;
+}
+
 
 normalObject::~normalObject()
 {
@@ -15,12 +21,12 @@ normalObject::~normalObject()
 
 
 
-void normalObject::setMembers(char *newName, char ** newDescription)
+/*void normalObject::setMembers(char *newName, char ** newDescription)
 {
 	name = newName; // como es que newName se puede asignar sin perderse
 					// si se llama como setMembers("tal", dir); ??
 	description = newDescription;
-}
+}*/
 
 
 

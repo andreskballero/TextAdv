@@ -66,7 +66,7 @@
 #define WC						4
 #define LIVING_ROOM				5
 #define BASEMENT				6
-#define UPSTARIS_HALL			7 // rellano piso de arriba
+#define UPSTAIRS_HALL			7 // rellano piso de arriba
 #define UPSTAIRS_CORRIDOR		8 // pasillo piso de arriba
 #define MAIN_BEDROOM			9
 #define TWINS_BEDROOM			10
@@ -159,6 +159,14 @@
 #define WC_PERFUME				3
 
 
+// elementos de conversación
+
+#define MAX_GRAMPA_ACTIVE_DIALOGS	3
+#define MAX_GRAMPA_DIALOGS			6
+
+#define KOKORO			5
+#define KEKERE			10
+
 // identificadores de combinación
 	// player
 #define PUT_SHOES				0
@@ -183,6 +191,34 @@
 #define VALID_TEXT				0
 #define AUX_TEXT				1
 
+	// posiciones de array
+#define FIRST					0
+#define SECOND					1
+#define THIRD					2
+#define FOURTH					3
+#define FIFTH					4
+#define SIXTH					5
+
+	// número de places
+#define ONE_PLACE				1
+#define TWO_PLACES				2
+#define THREE_PLACES			3
+#define FOUR_PLACES				4
+#define FIVE_PLACES				5
+#define SIX_PLACES				6
+
+	// número de items normales
+#define ONE_ITEMS				1
+#define TWO_ITEMS				2
+#define THREE_ITEMS				3
+#define FOUR_ITEMS				4
+#define FIVE_ITEMS				5
+#define SIX_ITEMS				6
+#define SEVEN_ITEMS				7
+#define EIGHT_ITEMS				8
+#define NINE_ITEMS				9
+#define TEN_ITEMS				10
+
 // texto de ayuda
 extern char						*helpText;
 
@@ -198,6 +234,7 @@ extern char						*goErrorText[];
 extern char						*useErrorText[];
 extern char						*useActivesErrorText[];
 extern char						*useReactionErrorText[];
+extern char						*talkToErrorText[];
 extern char						*lockedPlaces[];
 
 // descripciones de lugar
@@ -331,6 +368,11 @@ extern char						*livingroomCentsText[];
 extern char						*fixedVase[];
 
 
+// conversaciones
+
+extern char						*grampaDialog[];
+extern char						*grampaResponse[];
+
 // variables globales
 	// objetos activos de los lugares
 //extern activeObject			*lobbyActiveObjects[];
@@ -344,7 +386,7 @@ extern char						*possibleCommands[];
 //extern char					*possibleDirections[];
 
 // posibles lugares del juego
-//extern char					*possiblePlaces[];
+extern char					*possiblePlaces[];
 
 #endif
 

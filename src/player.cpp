@@ -1,14 +1,10 @@
 #include "player.h"
 
-void player::sortInventory(void)
-{
-
-}
 
 player::player()
 {
-	this->objectsPosessed = 0;
-	this->currentPlace = LOBBY;
+	objectsPosessed = 0;
+	currentPlace = LOBBY;
 
 	// inicializar todas las direcciones a NULL para poder realizar
 	// búsquedas

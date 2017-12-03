@@ -53,8 +53,7 @@ void events::initEvents(void)
 	craftedEvents[FIX_VASE]->objectA = "vase";
 	craftedEvents[FIX_VASE]->objectB = "tape";
 	craftedEvents[FIX_VASE]->notice = "Now I have a fixed vase.";
-	craftedEvents[FIX_VASE]->result = (activeObject*)malloc(sizeof(activeObject) + 1);
-	craftedEvents[FIX_VASE]->result->setMembers("vase", fixedVase, NULL);
+	craftedEvents[FIX_VASE]->result = new activeObject("vase", fixedVase, NULL);
 
 	reactionEvents[UNLOCK_BASEMENT]->objectA = "water";
 	reactionEvents[UNLOCK_BASEMENT]->objectN = "lock";

@@ -121,6 +121,9 @@ void gameManager::act(void)
 			
 	case TALK_TO:
 		printf("Talk to\n");
+
+		talkTo(element);
+
 		break;
 	case USE:
 		printf("Use\n\n");
@@ -146,15 +149,17 @@ void gameManager::act(void)
 
 void gameManager::lookAround()
 {
-	printText(map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_DESCRIPTION_TEXT]);
+	//printText(map.getPlacesConfig()[player.getCurrentPlace()]->description[PLACE_DESCRIPTION_TEXT]);
+
+	printText(map.getActivePlace()->description[PLACE_DESCRIPTION_TEXT]);
 }
 
 
 
 void gameManager::lookAt(char *element)
 {
-	if ((!map.searchPlaceItem(element, player.getCurrentPlace(), MAX_NORMAL_ITEMS_PLACE, "normal")) &&
-		(!map.searchPlaceItem(element, player.getCurrentPlace(), MAX_ACTIVE_ITEMS_PLACE, "active")) &&
+	if ((!map.searchPlaceNormalItem(element)) &&
+		(!map.searchPlaceActiveItem(element)) &&
 		(!player.searchInventoryObject(element)))
 	{
 		printText(lookAtErrorText[(rand() % 2)]);
@@ -173,7 +178,7 @@ void gameManager::pickUp(char *element)
 	activeObject *auxActive;
 
 	// si existe y no se ha cogido ya...
-	if ((NULL != (auxActive = map.getActiveObject(element, player.getCurrentPlace()))) &&
+	if ((NULL != (auxActive = map.getActiveObject(element))) &&
 		(!auxActive->getPickedUp()))
 	{
 		printText("Got it.");
@@ -182,7 +187,7 @@ void gameManager::pickUp(char *element)
 		player.addToInventory(auxActive);
 
 		// cambiar el texto del objeto normal para adaptarlo a que ya no posee el objeto
-		if (NULL != (auxNormal = map.getNormalObject(auxActive->getHolder(), player.getCurrentPlace())))
+		if (NULL != (auxNormal = map.getNormalObject(auxActive->getHolder())))
 		{
 			auxDir = auxNormal->getDescription()[VALID_TEXT];
 			auxNormal->getDescription()[VALID_TEXT] = auxNormal->getDescription()[AUX_TEXT];
@@ -193,7 +198,14 @@ void gameManager::pickUp(char *element)
 		auxActive->setPickedUp(true);
 	}
 	else {
-		printText(pickUpErrorText[(rand() % 2)]);
+		if ((NULL != (map.getNormalObject(element))) &&
+			(0 == strcmp(element, map.getNormalObject(element)->getName())))
+		{
+			printText(pickUpErrorText[1]);
+		}
+		else {
+			printText(pickUpErrorText[0]);
+		}
 	}
 }
 
@@ -204,15 +216,16 @@ void gameManager::go(char *element)
 
 	int auxPR;
 
-	if (PLACE_NOT_FOUND != (auxPR = map.getNextPlace(player.getCurrentPlace(), element)))
+	if (PLACE_NOT_FOUND != (auxPR = map.getNextPlace(element)))
 	{
 		if (map.getPlacesConfig()[auxPR]->accessible)
 		{
 			player.setCurrentPlace(auxPR);
-			printText(map.getPlacesConfig()[auxPR]->description[PLACE_INITIAL_TEXT]);
+			map.setActivePlace(auxPR);
+			printText(map.getActivePlace()->description[PLACE_INITIAL_TEXT]);
 		}
 		else {
-			if (0 == strcmp("basement", map.getPlacesConfig()[auxPR]->name))
+			if (0 == strcmp("basement", map.getPlacesConfig()[auxPR]->name)) // específico de basement
 			{
 				printText(lockedPlaces[0]);
 			}
@@ -247,7 +260,7 @@ void gameManager::use(char *element, char *prepos, char *element2)
 		//printf("%d, %d\n", (player.getObjectInventory(element) != NULL), (events.checkPlayerUsage(element)));
 		if ((NULL != player.getObjectInventory(element)) && (events.checkPlayerUsage(element))) // si se puede activar el objeto
 		{
-			if (player.getObjectInventory(element)->getUsed() == false)
+			if (false == player.getObjectInventory(element)->getUsed())
 			{
 				player.getObjectInventory(element)->setUsed(true);
 				printText(events.getNotice(element));
@@ -270,7 +283,7 @@ void gameManager::use(char *element, char *prepos, char *element2)
 	}
 	else { // si no es en player, es uso entre objetos o con el entorno, comprobar si existen ambos
 		if ((NULL != player.getObjectInventory(element)) &&
-			((NULL != player.getObjectInventory(element2)) || (NULL != map.getNormalObject(element2, player.getCurrentPlace()))))
+			((NULL != player.getObjectInventory(element2)) || (NULL != map.getNormalObject(element2))))
 		{
 			if (0 == strcmp(prepos, "with"))
 			{
@@ -309,5 +322,88 @@ void gameManager::use(char *element, char *prepos, char *element2)
 				printText(useErrorText[1]);
 			}
 		}
+	}
+}
+
+
+void gameManager::talkTo(char *element)
+{
+	NPC* auxNpc;
+	char option[3]; // un numero y el newline; si hay 3 es que se han introducido caraceteres de más
+	int bye = 0;
+	bool end = false;
+
+	if (NULL != (auxNpc = map.getNpc(element)))
+	{
+		while (!end)
+		{
+			int line = 0;
+			int list = 1;
+			int linesToConsider = auxNpc->getDiagLines();
+			int linesToPrint = (auxNpc->getDiagLines() * 0.5);
+
+			while ((line < linesToConsider) && (list <= linesToPrint))
+			{
+				if (NULL != auxNpc->getDialog()[line])
+				{
+					if (!auxNpc->getDialog()[line]->said)
+					{
+						printf("%d - %s\n", list, auxNpc->getDialog()[line]->textLine);
+						++list;
+					}
+				}
+				++line;
+			}
+			printf("%d - %s\n\n", list, "Bye.");
+			bye = list;
+
+			// interacción
+			printf("Select line: ");
+			fgets(option, 3, stdin); // get de la opción; no lo hago con un único char y getChar por controlar el input
+			printText("");
+
+			if (VALID_LINE == strlen(option))
+			{
+				int response = atoi(option);
+
+				if (bye == response)
+				{
+					end = true;
+					printText("Okay. Back to my mission.");
+				}
+				else if (response > 0 && response < bye) {
+					int current = 0, actual = 0;
+					while (actual < response)
+					{
+						if ((NULL != auxNpc->getDialog()[current]) && 
+							(!auxNpc->getDialog()[current]->said))
+						{
+							++actual;
+						}
+						++current;
+					}
+					--current; // neutralizar la última suma
+					printText(auxNpc->getDialog()[current]->textResponse);
+					auxNpc->getDialog()[current]->said = true;
+
+					// en vez de haber inicializado said a true, podría haber tenido una variable
+					// bool que dijera si era respuesta o algo así
+					if ((NULL != auxNpc->getDialog()[current + linesToPrint]) &&
+						(current < linesToPrint))
+					{
+						auxNpc->getDialog()[current + linesToPrint]->said = false;
+					}
+				}
+				else {
+					printText("Say what?");
+				}
+			}
+			else {
+				printText("I do not consider saying that.");
+			}
+		}
+	}
+	else {
+		printText(talkToErrorText[rand() % 2]);
 	}
 }

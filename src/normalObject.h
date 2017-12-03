@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef NOBJECT
+#define NOBJECT
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -10,6 +13,7 @@ protected:
 	char **description;
 public:
 	normalObject();
+	normalObject(char *newName, char **newDescription);
 	~normalObject();
 
 	//The member function area has been declared as virtual in the base class because it is
@@ -18,9 +22,11 @@ public:
 	//through a reference of the base class : i.e., if virtual is removed from the declaration of area 
 	//in the example above, all three calls to area would return zero, because in all cases, the 
 	//version of the base class would have been called instead.
-	void setMembers(char *newName, char **newDescription);
+	//void setMembers(char *newName, char **newDescription);
 
 	char* getName(void);
 	char** getDescription(void);
 };
+
+#endif
 

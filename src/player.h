@@ -28,8 +28,6 @@ private:
 
 	// posición actual del jugador
 	int						currentPlace;
-
-	void sortInventory(void);
 public:
 	player();
 	~player();
