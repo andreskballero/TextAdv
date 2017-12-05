@@ -10,7 +10,7 @@ activeObject::activeObject()
 	used = false;
 }
 
-activeObject::activeObject(char * newName, char ** newDescription, char * newHolder, bool newPickedUp, bool newUsed) : normalObject(newName, newDescription)
+activeObject::activeObject(char *newName, char **newDescription, char *newHolder, bool newPickedUp, bool newUsed) : normalObject(newName, newDescription)
 {
 	holder = newHolder;
 	pickedUp = newPickedUp;

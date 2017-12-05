@@ -413,10 +413,10 @@ void map::loadPlacesObjectsCombinations(void)
 
 	activeObject **activeObjects;
 
-	activeObject *actObject0 = (activeObject*)malloc(sizeof(activeObject) + 1);
-	activeObject *actObject1 = (activeObject*)malloc(sizeof(activeObject) + 1);
-	activeObject *actObject2 = (activeObject*)malloc(sizeof(activeObject) + 1);
-	activeObject *actObject3 = (activeObject*)malloc(sizeof(activeObject) + 1);
+	activeObject *actObject0;
+	activeObject *actObject1;
+	activeObject *actObject2;
+	activeObject *actObject3;
 
 		// lobby
 	//activeObjects = (activeObject**)malloc((sizeof(activeObject*)*MAX_ACTIVE_ITEMS_PLACE) + 1);

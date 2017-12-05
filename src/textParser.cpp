@@ -17,18 +17,19 @@
 bool textParser::checkCorrect(char *receivedInput)
 {
 	int checkWords = 0;
+	int len = strlen(receivedInput);
 
 	// longitud del input
-	if (strlen(receivedInput) == (MAX_INPUT_SIZE - 1))
+	if (len == (MAX_INPUT_SIZE - 1))
 	{
 		printf("No input can be that long.\n");
 		return BAD_INPUT;
 	}
 		
 	// cantidad de palabras (si hay más de 3 espacios (4 palabras), mal
-	for (unsigned int numChars = 0, wordLength = 0; numChars < strlen(receivedInput); ++numChars)
+	for (unsigned int numChars = 0, wordLength = 0; numChars < len; ++numChars)
 	{
-		if (receivedInput[numChars] == ' ' || receivedInput[numChars] == '\n') // strlen devuelve tamaño sin contar null, y antes de null hay \n
+		if ((receivedInput[numChars] == ' ') || (receivedInput[numChars] == '\n')) // strlen devuelve tamaño sin contar null, y antes de null hay \n
 		{
 			if ((wordLength + 1) >= MAX_WORD_SIZE)
 			{
@@ -49,6 +50,11 @@ bool textParser::checkCorrect(char *receivedInput)
 			{
 				++numChars;
 			}
+		}
+		else if ((receivedInput[numChars] < LETRA_A) || (receivedInput[numChars] > LETRA_z)) 
+		{
+			printf("Characters not allowed.\n"); //revisar
+			return BAD_INPUT;
 		}
 		else {
 			++wordLength;

@@ -164,15 +164,14 @@
 #define MAX_GRAMPA_ACTIVE_DIALOGS	3
 #define MAX_GRAMPA_DIALOGS			6
 
-#define KOKORO			5
-#define KEKERE			10
-
 // identificadores de combinación
 	// player
 #define PUT_SHOES				0
+#define PUT_PERFUME				1
 
 	// mix objects
 #define FIX_VASE				0
+#define MAKE_BOMB				1
 
 	// reactions
 #define	UNLOCK_BASEMENT			0
@@ -366,6 +365,8 @@ extern char						*livingroomCentsText[];
 // descripciones de objeto creado
 
 extern char						*fixedVase[];
+extern char						*bombMade[];
+extern char						*plantGotten[];
 
 
 // conversaciones

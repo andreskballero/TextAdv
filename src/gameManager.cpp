@@ -292,7 +292,7 @@ void gameManager::use(char *element, char *prepos, char *element2)
 				if (NULL != (auxObject = events.getObjectResult(element, element2))) // existe un objeto asociado a esos
 				{
 					player.deleteFromInventory(element);
-					player.deleteFromInventory(element2);
+					player.deleteFromInventory(element2); // no sucede nada aunque le pase un normal
 					player.addToInventory(auxObject->result);
 					printText(auxObject->notice);
 				}

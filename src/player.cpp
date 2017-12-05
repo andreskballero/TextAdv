@@ -22,7 +22,7 @@ player::~player()
 // al final siempre tiene que haber un puntero a NULL para delimitar el final en caso de llenarse
 void player::addToInventory(activeObject *newObject)
 {
-	if ((objectsPosessed + 1) != MAX_ITEMS_INVENTORY)
+	if ((objectsPosessed + 1) < MAX_ITEMS_INVENTORY)
 	{
 		inventory[objectsPosessed++] = newObject;
 	}

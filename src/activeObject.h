@@ -6,6 +6,7 @@
 class activeObject : public normalObject
 {
 private:
+	char *description;
 	char *holder;
 	bool pickedUp;
 	bool used;

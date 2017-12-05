@@ -382,8 +382,9 @@ char					*livingroomCentsText[] = { { "I'm rich!" },
 
 // objetos crafteados
 
-char					*fixedVase[] = { {"Now this vase can hoard up water."}, 
-										{NULL} };
+char					*fixedVase[] = { {"Now this vase can hoard up water."} };
+
+char					*bombMade[] = { {"I have to be careful with this. Seems unstable."} };
 
 
 // dialogs
