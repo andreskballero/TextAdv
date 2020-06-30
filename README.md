@@ -2,6 +2,8 @@
 
 Text-based Adventure Game
 
+Developed on Windows using Visual Studio.
+
 Murray must attend the biggest party ever but he cannot leave his house because the door is locked and he has no keys. He must find a way out. Help him!
 
 The development of this game in currently in a halt due to other projects. The main code is already done and it's playable until a point. The only thing remaining is filling the rest of the descriptions, accessible places and objects. 
